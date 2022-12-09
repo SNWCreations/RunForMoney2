@@ -1,0 +1,4 @@
+name: RunForMoney2
+version: '${project.version}'
+main: snw.rfm.RunForMoney
+api-version: 1.16
