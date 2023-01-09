@@ -3,6 +3,7 @@ package snw.rfm;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import snw.rfm.entity.GameManager;
+import snw.rfm.entity.TeamRegistry;
 
 public final class Main extends JavaPlugin {
     private static Main INSTANCE;
@@ -13,6 +14,7 @@ public final class Main extends JavaPlugin {
         // Plugin startup logic
         INSTANCE = this;
         gameManager = new GameManager();
+        TeamRegistry.init();
     }
 
     @Override
