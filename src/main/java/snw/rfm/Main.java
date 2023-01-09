@@ -12,10 +12,16 @@ public final class Main extends JavaPlugin {
     private Game game;
 
     @Override
+    public void onLoad() {
+        saveDefaultConfig();
+    }
+
+    @Override
     public void onEnable() {
         // Plugin startup logic
         INSTANCE = this;
         TeamRegistry.init();
+        ConfigConstant.init();
     }
 
     @Override
