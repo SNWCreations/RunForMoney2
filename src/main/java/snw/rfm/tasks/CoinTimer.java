@@ -15,6 +15,10 @@ public class CoinTimer extends BukkitRunnable {
 
     @Override
     public void run() {
+        if (!game.isRunning()) {
+            cancel();
+            return;
+        }
         if (remainingSeconds-- > 0) {
             game.getCoinMap().increaseAll();
         } else {

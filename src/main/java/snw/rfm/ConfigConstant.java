@@ -8,6 +8,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.logging.Logger;
 
 public class ConfigConstant {
+    public static int GAME_TIME;
     public static double COIN_DELETION_MULTIPLIER;
     public static int COIN_PER_SECOND;
     public static @Nullable Location END_ROOM_LOCATION = null;
@@ -20,6 +21,7 @@ public class ConfigConstant {
 
         COIN_DELETION_MULTIPLIER = config.getDouble("coin_multiplier_on_be_caught", 0.1);
         COIN_PER_SECOND = config.getInt("coin_per_second", 100);
+        GAME_TIME = config.getInt("game_time", 30);
 
         // region end room
         String rawERL = config.getString("end_room", "");

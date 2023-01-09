@@ -5,7 +5,9 @@ import java.util.Collection;
 import org.apache.commons.lang.Validate;
 
 import org.bukkit.event.Listener;
+import snw.rfm.ConfigConstant;
 import snw.rfm.listeners.AttackListener;
+import snw.rfm.tasks.CoinTimer;
 import snw.rfm.util.ListenerList;
 
 public class Game {
@@ -26,7 +28,7 @@ public class Game {
         running = true;
         // TODO game initialization
         listeners.add(new AttackListener(this));
-        // TODO add CoinTimer
+        new CoinTimer(this, ConfigConstant.GAME_TIME * 60).start();
     }
 
     public void stop() {
