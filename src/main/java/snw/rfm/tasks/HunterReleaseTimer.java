@@ -37,7 +37,8 @@ public final class HunterReleaseTimer extends BukkitRunnable {
                 new TextComponent(ChatColor.DARK_RED + "" + ChatColor.BOLD + "猎人已放出")
         ).start();
         Main.getInstance().getServer().broadcastMessage(ChatColor.RED + "" + ChatColor.BOLD + "游戏开始");
-        new CoinTimer(game, ConfigConstant.GAME_TIME * 60).start();
+        game.coinTimer = new CoinTimer(game, ConfigConstant.GAME_TIME * 60);
+        game.coinTimer.start();
     }
 
     private void onNewSecond() {
