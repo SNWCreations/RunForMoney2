@@ -10,6 +10,7 @@ public class GameStopEvent extends Event {
     private final Game game;
 
     public GameStopEvent(Game game) {
+        super(true);
         this.game = game;
     }
 

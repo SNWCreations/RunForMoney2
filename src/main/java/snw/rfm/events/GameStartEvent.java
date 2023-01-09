@@ -10,6 +10,7 @@ public class GameStartEvent extends Event {
     private final Game game;
 
     public GameStartEvent(Game game) {
+        super(true);
         this.game = game;
     }
 

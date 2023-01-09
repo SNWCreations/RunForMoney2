@@ -10,7 +10,7 @@ public class CoinTimer extends BukkitRunnable {
 
     public CoinTimer(Game game, int remainingSeconds) {
         this.game = game;
-        this.remainingSeconds = remainingSeconds - 1;
+        this.remainingSeconds = remainingSeconds;
     }
 
     @Override
