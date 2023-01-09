@@ -2,10 +2,14 @@ package snw.rfm;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import snw.rfm.entity.Game;
 import snw.rfm.entity.TeamRegistry;
+
+import java.util.Optional;
 
 public final class Main extends JavaPlugin {
     private static Main INSTANCE;
+    private Game game;
 
     @Override
     public void onEnable() {
@@ -17,6 +21,15 @@ public final class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        Optional.ofNullable(game).ifPresent(Game::stop);
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 
     public static Main getInstance() {
