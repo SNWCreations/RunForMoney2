@@ -8,15 +8,15 @@ public class Team {
     }
 
     public void add(IngamePlayer player) {
-        team.addEntry(player.getPlayer().getName());
+        team.addEntry(player.getBukkitPlayer().getName());
     }
 
     public boolean contains(IngamePlayer player) {
-        return team.hasEntry(player.getPlayer().getName());
+        return team.hasEntry(player.getBukkitPlayer().getName());
     }
 
     public boolean remove(IngamePlayer player) {
-        return team.removeEntry(player.getPlayer().getName());
+        return team.removeEntry(player.getBukkitPlayer().getName());
     }
 
     public org.bukkit.scoreboard.Team getTeam() {
