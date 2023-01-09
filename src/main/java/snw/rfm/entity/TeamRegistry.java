@@ -9,6 +9,7 @@ import java.util.Optional;
 public class TeamRegistry {
     public static Team HUNTER;
     public static Team RUNNER;
+    public static Team OUT;
     private static final Map<String, Team> external = new HashMap<>();
 
     public static void init() {
@@ -19,6 +20,10 @@ public class TeamRegistry {
         org.bukkit.scoreboard.Team runnerTeam = refreshTeam("rfm_runner");
         runnerTeam.setAllowFriendlyFire(false);
         RUNNER = new Team(runnerTeam);
+
+        org.bukkit.scoreboard.Team outTeam = refreshTeam("rfm_runner");
+        runnerTeam.setAllowFriendlyFire(false);
+        OUT = new Team(outTeam);
     }
 
     public static Team getExternalTeam(String name) {
