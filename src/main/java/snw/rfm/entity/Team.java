@@ -19,7 +19,11 @@ public class Team {
         return team.removeEntry(player.getBukkitPlayer().getName());
     }
 
-    public org.bukkit.scoreboard.Team getTeam() {
+    public int size() {
+        return team.getSize();
+    }
+
+    public org.bukkit.scoreboard.Team getBukkitTeam() {
         return team;
     }
 }
