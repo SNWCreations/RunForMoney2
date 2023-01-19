@@ -28,6 +28,7 @@ public final class Main extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
         Optional.ofNullable(game).ifPresent(Game::stop);
+        TeamRegistry.cleanup();
     }
 
     public Game getGame() {

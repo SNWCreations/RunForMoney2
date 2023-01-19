@@ -44,4 +44,9 @@ public class TeamRegistry {
         ).ifPresent(org.bukkit.scoreboard.Team::unregister);
         return Main.getInstance().getServer().getScoreboardManager().getMainScoreboard().registerNewTeam(name);
     }
+
+    public static void cleanup() {
+        TeamRegistry.HUNTER.getBukkitTeam().unregister();
+        TeamRegistry.RUNNER.getBukkitTeam().unregister();
+    }
 }
