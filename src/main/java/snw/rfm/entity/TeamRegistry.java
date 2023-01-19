@@ -1,6 +1,6 @@
 package snw.rfm.entity;
 
-import snw.rfm.Main;
+import snw.rfm.BukkitHandle;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,9 +40,9 @@ public class TeamRegistry {
 
     private static org.bukkit.scoreboard.Team refreshTeam(String name) {
         Optional.ofNullable(
-                Main.getInstance().getServer().getScoreboardManager().getMainScoreboard().getTeam(name)
+                BukkitHandle.getScoreboardManager().getMainScoreboard().getTeam(name)
         ).ifPresent(org.bukkit.scoreboard.Team::unregister);
-        return Main.getInstance().getServer().getScoreboardManager().getMainScoreboard().registerNewTeam(name);
+        return BukkitHandle.getScoreboardManager().getMainScoreboard().registerNewTeam(name);
     }
 
     public static void cleanup() {

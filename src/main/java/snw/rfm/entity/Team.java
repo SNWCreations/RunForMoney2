@@ -2,9 +2,12 @@ package snw.rfm.entity;
 
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
-import snw.rfm.Main;
+import snw.rfm.BukkitHandle;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class Team {
@@ -40,7 +43,7 @@ public class Team {
     public Set<OfflinePlayer> toBukkitOfflinePlayerSet() {
         return Collections.unmodifiableSet(
                 playerUuids.stream()
-                        .map(i -> Main.getInstance().getServer().getOfflinePlayer(i))
+                        .map(i -> BukkitHandle.getOfflinePlayer(i))
                         .collect(Collectors.toSet())
         );
     }

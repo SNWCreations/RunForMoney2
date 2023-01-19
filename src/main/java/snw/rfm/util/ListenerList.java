@@ -2,6 +2,7 @@ package snw.rfm.util;
 
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
+import snw.rfm.BukkitHandle;
 import snw.rfm.Main;
 
 import java.util.Iterator;
@@ -10,7 +11,7 @@ import java.util.LinkedList;
 public class ListenerList extends LinkedList<Listener> {
     @Override
     public boolean add(Listener listener) {
-        Main.getInstance().getServer().getPluginManager().registerEvents(listener, Main.getInstance());
+        BukkitHandle.getPluginManager().registerEvents(listener, Main.getInstance());
         return super.add(listener);
     }
 
