@@ -2,15 +2,13 @@ package snw.rfm.entity;
 
 import snw.rfm.BukkitHandle;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class TeamRegistry {
     public static Team HUNTER;
     public static Team RUNNER;
     public static Team OUT;
-    private static final Map<String, Team> external = new HashMap<>();
+    private static final Map<String, Team> allTeams = new HashMap<>();
 
     public static void init() {
         org.bukkit.scoreboard.Team hunterTeam = refreshTeam("rfm_hunter");
@@ -24,18 +22,26 @@ public class TeamRegistry {
         org.bukkit.scoreboard.Team outTeam = refreshTeam("rfm_out");
         runnerTeam.setAllowFriendlyFire(false);
         OUT = new Team(outTeam);
+
+        registerTeam("hunter", HUNTER);
+        registerTeam("runner", RUNNER);
+        registerTeam("out", OUT);
     }
 
-    public static Team getExternalTeam(String name) {
-        return external.get(name);
+    public static Map<String, Team> getAllTeams() {
+        return Collections.unmodifiableMap(allTeams);
     }
 
-    public static void registerExternalTeam(String name, Team teamObj) {
-        external.put(name, teamObj);
+    public static Team getTeamByName(String name) {
+        return allTeams.get(name);
     }
 
-    public static void unregisterExternalTeam(String name) {
-        external.remove(name);
+    public static void registerTeam(String name, Team teamObj) {
+        allTeams.put(name, teamObj);
+    }
+
+    public static void unregisterTeam(String name) {
+        Optional.ofNullable(allTeams.remove(name)).ifPresent(i -> i.getBukkitTeam().unregister());
     }
 
     private static org.bukkit.scoreboard.Team refreshTeam(String name) {
@@ -46,7 +52,6 @@ public class TeamRegistry {
     }
 
     public static void cleanup() {
-        TeamRegistry.HUNTER.getBukkitTeam().unregister();
-        TeamRegistry.RUNNER.getBukkitTeam().unregister();
+        new HashSet<>(allTeams.keySet()).forEach(TeamRegistry::unregisterTeam);
     }
 }
