@@ -14,7 +14,6 @@ import snw.rfm.tasks.CoinTimer;
 import snw.rfm.tasks.HunterReleaseTimer;
 import snw.rfm.util.ListenerList;
 
-import java.util.Collection;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -24,7 +23,7 @@ import static snw.rfm.util.Util.tempListener;
 public class Game {
     protected final CoinMap coinMap;
     protected final AtomicInteger timeRemaining;
-    protected final Collection<Listener> listeners;
+    protected final ListenerList listeners;
     protected final AtomicBoolean pauseStatus;
     protected CoinTimer coinTimer;
 
