@@ -34,6 +34,10 @@ public final class Main extends JavaPlugin {
         return game;
     }
 
+    public boolean isGamePresent() {
+        return game != null;
+    }
+
     public void setGame(Game game) {
         this.game = game;
     }
