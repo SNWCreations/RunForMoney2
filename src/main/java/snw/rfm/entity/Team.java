@@ -30,7 +30,7 @@ public class Team {
     }
 
     public int size() {
-        return team.getSize();
+        return toBukkitPlayerSet().size();
     }
 
     public org.bukkit.scoreboard.Team getBukkitTeam() {
