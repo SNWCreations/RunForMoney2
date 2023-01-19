@@ -43,7 +43,7 @@ public class Team {
     public Set<OfflinePlayer> toBukkitOfflinePlayerSet() {
         return Collections.unmodifiableSet(
                 playerUuids.stream()
-                        .map(i -> BukkitHandle.getOfflinePlayer(i))
+                        .map(BukkitHandle::getOfflinePlayer)
                         .collect(Collectors.toSet())
         );
     }
