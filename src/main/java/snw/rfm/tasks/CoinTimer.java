@@ -17,6 +17,7 @@ public class CoinTimer extends BukkitRunnable {
 
     @Override
     public void run() {
+        if (game.isPaused()) return; // do nothing if paused
         if (time.getAndDecrement() > 0) {
             game.getCoinMap().increaseAll();
         } else {

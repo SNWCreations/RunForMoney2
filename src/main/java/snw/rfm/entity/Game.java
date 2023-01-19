@@ -15,6 +15,7 @@ import snw.rfm.tasks.HunterReleaseTimer;
 import snw.rfm.util.ListenerList;
 
 import java.util.Collection;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static snw.rfm.util.Util.fireEvent;
@@ -24,6 +25,7 @@ public class Game {
     protected final CoinMap coinMap;
     protected final AtomicInteger timeRemaining = new AtomicInteger();
     protected final Collection<Listener> listeners = new ListenerList();
+    protected final AtomicBoolean pauseStatus = new AtomicBoolean(false);
     protected CoinTimer coinTimer;
 
     public Game() {
@@ -63,6 +65,24 @@ public class Game {
         TeamRegistry.HUNTER.clear();
         TeamRegistry.RUNNER.clear();
         IngamePlayer.getAllKnownWrappers().clear();
+    }
+
+    public boolean isPaused() {
+        return pauseStatus.get();
+    }
+
+    public void pause() {
+        if (isPaused()) {
+            throw new IllegalStateException("Already paused");
+        }
+        pauseStatus.set(true);
+    }
+
+    public void resume() {
+        if (!isPaused()) {
+            throw new IllegalStateException("Not paused");
+        }
+        pauseStatus.set(false);
     }
 
     public CoinMap getCoinMap() {
