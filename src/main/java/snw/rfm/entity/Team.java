@@ -1,15 +1,15 @@
 package snw.rfm.entity;
 
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import snw.rfm.Main;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Team {
     protected final org.bukkit.scoreboard.Team team;
+    protected final Set<UUID> playerUuids = new HashSet<>();
 
     public Team(org.bukkit.scoreboard.Team team) {
         this.team = team;
@@ -17,6 +17,7 @@ public class Team {
 
     public void add(IngamePlayer player) {
         team.addEntry(player.getBukkitPlayer().getName());
+        playerUuids.add(player.getBukkitPlayer().getUniqueId());
     }
 
     public boolean contains(IngamePlayer player) {
@@ -24,6 +25,7 @@ public class Team {
     }
 
     public boolean remove(IngamePlayer player) {
+        playerUuids.remove(player.getBukkitPlayer().getUniqueId());
         return team.removeEntry(player.getBukkitPlayer().getName());
     }
 
@@ -35,15 +37,25 @@ public class Team {
         return team;
     }
 
-    public Collection<Player> toBukkitPlayerList() {
-        return Collections.unmodifiableCollection(
-                team.getEntries().stream().map(
-                        i -> Main.getInstance().getServer().getPlayer(UUID.fromString(i))
-                ).collect(Collectors.toSet())
+    public Set<OfflinePlayer> toBukkitOfflinePlayerSet() {
+        return Collections.unmodifiableSet(
+                playerUuids.stream()
+                        .map(i -> Main.getInstance().getServer().getOfflinePlayer(i))
+                        .collect(Collectors.toSet())
+        );
+    }
+
+    public Set<Player> toBukkitPlayerSet() {
+        return Collections.unmodifiableSet(
+                toBukkitOfflinePlayerSet().stream()
+                        .filter(OfflinePlayer::isOnline)
+                        .map(OfflinePlayer::getPlayer)
+                        .collect(Collectors.toSet())
         );
     }
 
     public void clear() {
         team.getEntries().forEach(team::removeEntry);
+        playerUuids.clear();
     }
 }

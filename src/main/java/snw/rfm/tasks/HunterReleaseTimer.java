@@ -55,7 +55,7 @@ public final class HunterReleaseTimer extends BukkitRunnable {
                     new TextComponent(
                             String.format("%s%s猎人将在 %s%s %s%s%s秒后放出", ChatColor.RED, ChatColor.BOLD, color, secs, ChatColor.RESET, ChatColor.RED, ChatColor.BOLD)
                     ),
-                    TeamRegistry.RUNNER.toBukkitPlayerList()
+                    TeamRegistry.RUNNER.toBukkitPlayerSet()
             ).start();
         }
     }

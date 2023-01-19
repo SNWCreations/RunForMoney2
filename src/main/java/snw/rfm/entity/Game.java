@@ -1,10 +1,6 @@
 package snw.rfm.entity;
 
 import java.util.Collection;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import org.apache.commons.lang.Validate;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -43,7 +39,7 @@ public class Game {
     }
 
     public void stop() {
-        for (Player player : TeamRegistry.RUNNER.toBukkitPlayerList()) {
+        for (Player player : TeamRegistry.RUNNER.toBukkitPlayerSet()) {
             player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "游戏结束");
         }
         coinTimer.cancel();

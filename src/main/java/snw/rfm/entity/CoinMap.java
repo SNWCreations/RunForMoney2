@@ -11,7 +11,7 @@ public class CoinMap {
     private final Map<String, Double> map = new ConcurrentHashMap<>(); // key: player uuid, value: coin count
 
     public void increaseAll() {
-        TeamRegistry.RUNNER.toBukkitPlayerList()
+        TeamRegistry.RUNNER.toBukkitPlayerSet()
                 .stream()
                 .map(Player::getUniqueId)
                 .map(UUID::toString)
