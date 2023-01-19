@@ -1,6 +1,7 @@
 package snw.rfm.util;
 
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
@@ -27,6 +28,10 @@ public class Util {
 
     public static String pluginMsg(String msg) {
         return ChatColor.GRAY + "[" + ChatColor.GOLD + "RunForMoney" + ChatColor.GRAY + "] " + ChatColor.RESET + msg;
+    }
+    
+    public static void sendSuccess(CommandSender sender) {
+        sender.sendMessage(pluginMsg(ChatColor.GREEN + "操作成功。"));
     }
     
     public static <T extends Event> void tempListener(Class<T> type, Function<T, Boolean> function) {
