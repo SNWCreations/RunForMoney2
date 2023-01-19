@@ -1,24 +1,34 @@
 package snw.rfm.entity;
 
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import snw.rfm.BukkitHandle;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
+import static snw.rfm.util.Util.pluginMsg;
+
 public class Team {
+    protected final String displayName;
     protected final org.bukkit.scoreboard.Team team;
     protected final Set<UUID> playerUuids = new HashSet<>();
 
-    public Team(org.bukkit.scoreboard.Team team) {
+    public Team(String displayName, org.bukkit.scoreboard.Team team) {
+        this.displayName = displayName;
         this.team = team;
     }
 
     public void add(IngamePlayer player) {
+        Optional.ofNullable(player.getTeam()).ifPresent(i -> {
+            player.getBukkitPlayer().sendMessage(
+                    pluginMsg(
+                            ChatColor.YELLOW + String.format("你正在加入 %s 队伍，但你已经在 %s 队伍了，你将被从 %s 队伍移出，然后再加入 %s 队伍。", getDisplayName(), i.getDisplayName(), i.getDisplayName(), getDisplayName())
+                    )
+            );
+            i.remove(player);
+        });
         team.addEntry(player.getBukkitPlayer().getName());
         playerUuids.add(player.getBukkitPlayer().getUniqueId());
     }
@@ -34,6 +44,10 @@ public class Team {
 
     public int size() {
         return toBukkitPlayerSet().size();
+    }
+
+    public String getDisplayName() {
+        return displayName;
     }
 
     public org.bukkit.scoreboard.Team getBukkitTeam() {

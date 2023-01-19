@@ -13,15 +13,15 @@ public class TeamRegistry {
     public static void init() {
         org.bukkit.scoreboard.Team hunterTeam = refreshTeam("rfm_hunter");
         hunterTeam.setAllowFriendlyFire(false);
-        HUNTER = new Team(hunterTeam);
+        HUNTER = new Team("猎人队伍", hunterTeam);
 
         org.bukkit.scoreboard.Team runnerTeam = refreshTeam("rfm_runner");
         runnerTeam.setAllowFriendlyFire(false);
-        RUNNER = new Team(runnerTeam);
+        RUNNER = new Team("逃走队员", runnerTeam);
 
         org.bukkit.scoreboard.Team outTeam = refreshTeam("rfm_out");
         runnerTeam.setAllowFriendlyFire(false);
-        OUT = new Team(outTeam);
+        OUT = new Team("已淘汰", outTeam);
 
         registerTeam("hunter", HUNTER);
         registerTeam("runner", RUNNER);
