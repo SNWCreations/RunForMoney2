@@ -15,10 +15,12 @@ public class CoinMap {
                 .stream()
                 .map(Player::getUniqueId)
                 .map(UUID::toString)
-                .forEach(i -> map.computeIfAbsent(i, k -> 0.0));
-        for (Map.Entry<String, Double> entry : map.entrySet()) {
-            entry.setValue(entry.getValue() + ConfigConstant.COIN_PER_SECOND);
-        }
+                .forEach(i ->
+                        {
+                            map.computeIfAbsent(i, k -> 0.0);
+                            map.computeIfPresent(i, (k, v) -> v + ConfigConstant.COIN_PER_SECOND);
+                        }
+                );
     }
 
     public void reset() {
