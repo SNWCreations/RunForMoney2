@@ -13,6 +13,7 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onLoad() {
+        BukkitHandle.setServer(getServer());
         saveDefaultConfig();
     }
 
