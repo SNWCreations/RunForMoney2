@@ -22,7 +22,7 @@ import static snw.rfm.util.Util.tempListener;
 public class Game {
     protected final CoinMap coinMap;
     protected final Collection<Listener> listeners = new ListenerList();
-    public CoinTimer coinTimer;
+    protected CoinTimer coinTimer;
 
     public Game() {
         coinMap = new CoinMap();
