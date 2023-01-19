@@ -28,7 +28,7 @@ public class Game {
             Main.getInstance(),
             () -> Main.getInstance().getServer().getPluginManager().callEvent(new GameStartEvent(this))
         );
-        listeners.add(new AttackListener(this));
+        registerListener(new AttackListener(this));
         if (ConfigConstant.HUNTER_RELEASE_TIME > 0) {
             new HunterReleaseTimer(this, ConfigConstant.HUNTER_RELEASE_TIME).start();
         } else {
@@ -55,5 +55,9 @@ public class Game {
 
     public CoinMap getCoinMap() {
         return coinMap;
+    }
+
+    public void registerListener(Listener listener) {
+        listeners.add(listener);
     }
 }
