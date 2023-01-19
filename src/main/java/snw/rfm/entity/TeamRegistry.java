@@ -21,7 +21,7 @@ public class TeamRegistry {
         runnerTeam.setAllowFriendlyFire(false);
         RUNNER = new Team(runnerTeam);
 
-        org.bukkit.scoreboard.Team outTeam = refreshTeam("rfm_runner");
+        org.bukkit.scoreboard.Team outTeam = refreshTeam("rfm_out");
         runnerTeam.setAllowFriendlyFire(false);
         OUT = new Team(outTeam);
     }
