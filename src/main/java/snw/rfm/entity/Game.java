@@ -23,13 +23,16 @@ import static snw.rfm.util.Util.tempListener;
 
 public class Game {
     protected final CoinMap coinMap;
-    protected final AtomicInteger timeRemaining = new AtomicInteger();
-    protected final Collection<Listener> listeners = new ListenerList();
-    protected final AtomicBoolean pauseStatus = new AtomicBoolean(false);
+    protected final AtomicInteger timeRemaining;
+    protected final Collection<Listener> listeners;
+    protected final AtomicBoolean pauseStatus;
     protected CoinTimer coinTimer;
 
     public Game() {
         coinMap = new CoinMap();
+        timeRemaining = new AtomicInteger();
+        listeners = new ListenerList();
+        pauseStatus = new AtomicBoolean(false);
     }
 
     public void start() {
