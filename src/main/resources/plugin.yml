@@ -2,3 +2,13 @@ name: RunForMoney2
 version: '${project.version}'
 main: snw.rfm.RunForMoney
 api-version: 1.16
+
+commands:
+  rfmgame:
+    description: "与逃走中游戏流程相关的命令。"
+    usage: "/rfmgame <start|stop|pause>"
+    permission: op
+  rfmteam:
+    description: "与逃走中队伍系统相关的命令。"
+    usage: "/rfmteam <join|leave>"
+    permission: op

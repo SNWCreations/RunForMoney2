@@ -50,4 +50,12 @@ public class Util {
     public static void fireEvent(Event event) {
         BukkitHandle.getPluginManager().callEvent(event);
     }
+
+    public static boolean isInternalTeamName(String name) {
+        return "runner".equals(name) || "hunter".equals(name) || "out".equals(name);
+    }
+
+    public static boolean isInvisibleTeamName(String name) {
+        return "out".equals(name);
+    }
 }
