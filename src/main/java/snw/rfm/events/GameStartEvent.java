@@ -10,7 +10,7 @@ public class GameStartEvent extends RFMEvent {
     private final Game game;
 
     public GameStartEvent(Game game) {
-        super(true);
+        super();
         this.game = game;
     }
 
