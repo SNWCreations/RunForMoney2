@@ -15,12 +15,14 @@ import snw.rfm.tasks.HunterReleaseTimer;
 import snw.rfm.util.ListenerList;
 
 import java.util.Collection;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static snw.rfm.util.Util.fireEvent;
 import static snw.rfm.util.Util.tempListener;
 
 public class Game {
     protected final CoinMap coinMap;
+    protected final AtomicInteger timeRemaining = new AtomicInteger();
     protected final Collection<Listener> listeners = new ListenerList();
     protected CoinTimer coinTimer;
 
@@ -29,13 +31,14 @@ public class Game {
     }
 
     public void start() {
+        timeRemaining.set(ConfigConstant.GAME_TIME * 60);
         fireEvent(new GameStartEvent(this));
         registerListener(new AttackListener(this));
         tempListener(HunterReleasedEvent.class, i -> {
             if (i.getGame() != this) {
                 return false;
             }
-            coinTimer = new CoinTimer(this, ConfigConstant.GAME_TIME * 60);
+            coinTimer = new CoinTimer(this, timeRemaining);
             coinTimer.start();
             BukkitHandle.broadcastMessage(ChatColor.RED + "" + ChatColor.BOLD + "游戏开始");
             return true;
