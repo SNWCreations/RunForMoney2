@@ -9,9 +9,12 @@ import snw.rfm.Main;
 import snw.rfm.entity.Game;
 import snw.rfm.entity.IngamePlayer;
 import snw.rfm.entity.TeamRegistry;
+import snw.rfm.events.HunterReleasedEvent;
 
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static snw.rfm.util.Util.fireEvent;
 
 public final class HunterReleaseTimer extends BukkitRunnable {
     private final Game game;
@@ -36,9 +39,7 @@ public final class HunterReleaseTimer extends BukkitRunnable {
         new SendingActionBarMessage(
                 new TextComponent(ChatColor.DARK_RED + "" + ChatColor.BOLD + "猎人已放出")
         ).start();
-        Main.getInstance().getServer().broadcastMessage(ChatColor.RED + "" + ChatColor.BOLD + "游戏开始");
-        game.coinTimer = new CoinTimer(game, ConfigConstant.GAME_TIME * 60);
-        game.coinTimer.start();
+        fireEvent(new HunterReleasedEvent(game));
     }
 
     private void onNewSecond() {

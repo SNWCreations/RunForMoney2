@@ -5,7 +5,7 @@ import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import snw.rfm.entity.Game;
 
-public class GameStartEvent extends Event {
+public class GameStartEvent extends RFMEvent {
     private static final HandlerList handlers = new HandlerList();
     private final Game game;
 

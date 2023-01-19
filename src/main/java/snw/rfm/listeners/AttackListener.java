@@ -13,6 +13,8 @@ import snw.rfm.entity.IngamePlayer;
 import snw.rfm.entity.TeamRegistry;
 import snw.rfm.events.HunterCatchPlayerEvent;
 
+import static snw.rfm.util.Util.fireEvent;
+
 public class AttackListener implements Listener {
     protected final Game game;
 
@@ -29,7 +31,7 @@ public class AttackListener implements Listener {
                 if (TeamRegistry.RUNNER.contains(attacked)) {
                     event.setDamage(0);
                     HunterCatchPlayerEvent hcp = new HunterCatchPlayerEvent(attacker, attacked);
-                    Main.getInstance().getServer().getPluginManager().callEvent(hcp);
+                    fireEvent(hcp);
                     if (hcp.isCancelled()) {
                         return;
                     }

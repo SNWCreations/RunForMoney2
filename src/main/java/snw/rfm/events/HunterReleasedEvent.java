@@ -1,16 +1,14 @@
 package snw.rfm.events;
 
-import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import snw.rfm.entity.Game;
 
-public class GameStopEvent extends RFMEvent {
+public class HunterReleasedEvent extends RFMEvent {
     private static final HandlerList handlers = new HandlerList();
     private final Game game;
 
-    public GameStopEvent(Game game) {
-        super(true);
+    public HunterReleasedEvent(Game game) {
         this.game = game;
     }
 

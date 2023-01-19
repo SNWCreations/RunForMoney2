@@ -9,10 +9,14 @@ import snw.rfm.ConfigConstant;
 import snw.rfm.Main;
 import snw.rfm.events.GameStartEvent;
 import snw.rfm.events.GameStopEvent;
+import snw.rfm.events.HunterReleasedEvent;
 import snw.rfm.listeners.AttackListener;
 import snw.rfm.tasks.CoinTimer;
 import snw.rfm.tasks.HunterReleaseTimer;
 import snw.rfm.util.ListenerList;
+
+import static snw.rfm.util.Util.fireEvent;
+import static snw.rfm.util.Util.tempListener;
 
 public class Game {
     protected final CoinMap coinMap;
@@ -24,21 +28,28 @@ public class Game {
     }
 
     public void start() {
-        Main.getInstance().getServer().getPluginManager().callEvent(new GameStartEvent(this));
+        fireEvent(new GameStartEvent(this));
         registerListener(new AttackListener(this));
-        if (ConfigConstant.HUNTER_RELEASE_TIME > 0) {
-            new HunterReleaseTimer(this, ConfigConstant.HUNTER_RELEASE_TIME).start();
-        } else {
+        tempListener(HunterReleasedEvent.class, i -> {
+            if (i.getGame() != this) {
+                return false;
+            }
             coinTimer = new CoinTimer(this, ConfigConstant.GAME_TIME * 60);
             coinTimer.start();
             Main.getInstance().getServer().broadcastMessage(ChatColor.RED + "" + ChatColor.BOLD + "游戏开始");
+            return true;
+        });
+        if (ConfigConstant.HUNTER_RELEASE_TIME > 0) {
+            new HunterReleaseTimer(this, ConfigConstant.HUNTER_RELEASE_TIME).start();
+        } else {
+            fireEvent(new HunterReleasedEvent(this));
         }
     }
 
     public void stop() {
         Main.getInstance().getServer().getScheduler().runTaskAsynchronously(
                 Main.getInstance(),
-                () -> Main.getInstance().getServer().getPluginManager().callEvent(new GameStopEvent(this))
+                () -> fireEvent(new GameStopEvent(this))
         );
         for (Player player : TeamRegistry.RUNNER.toBukkitPlayerSet()) {
             player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "游戏结束");
