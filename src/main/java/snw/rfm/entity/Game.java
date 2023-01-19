@@ -24,10 +24,7 @@ public class Game {
     }
 
     public void start() {
-        Main.getInstance().getServer().getScheduler().runTaskAsynchronously(
-            Main.getInstance(),
-            () -> Main.getInstance().getServer().getPluginManager().callEvent(new GameStartEvent(this))
-        );
+        Main.getInstance().getServer().getPluginManager().callEvent(new GameStartEvent(this));
         registerListener(new AttackListener(this));
         if (ConfigConstant.HUNTER_RELEASE_TIME > 0) {
             new HunterReleaseTimer(this, ConfigConstant.HUNTER_RELEASE_TIME).start();
@@ -39,14 +36,14 @@ public class Game {
     }
 
     public void stop() {
-        for (Player player : TeamRegistry.RUNNER.toBukkitPlayerSet()) {
-            player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "游戏结束");
-        }
-        coinTimer.cancel();
         Main.getInstance().getServer().getScheduler().runTaskAsynchronously(
                 Main.getInstance(),
                 () -> Main.getInstance().getServer().getPluginManager().callEvent(new GameStopEvent(this))
         );
+        for (Player player : TeamRegistry.RUNNER.toBukkitPlayerSet()) {
+            player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "游戏结束");
+        }
+        coinTimer.cancel();
         listeners.clear();
         TeamRegistry.HUNTER.clear();
         TeamRegistry.RUNNER.clear();
