@@ -7,6 +7,7 @@ import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import snw.rfm.Main;
 import snw.rfm.entity.IngamePlayer;
 import snw.rfm.entity.Team;
 import snw.rfm.entity.TeamRegistry;
@@ -43,12 +44,16 @@ public class RFMTeamCommand implements TabExecutor {
                 break;
             case "leave":
                 if (isPlayer(sender)) {
-                    Team team = IngamePlayer.getWrappedPlayer(((Player) sender)).getTeam();
-                    if (team != null) {
-                        team.remove(IngamePlayer.getWrappedPlayer(((Player) sender)));
-                        sendSuccess(sender);
+                    if (Main.getInstance().isGamePresent()) {
+                        sender.sendMessage(pluginMsg(ChatColor.RED + "你不可以在游戏过程中退出队伍。"));
                     } else {
-                        sender.sendMessage(pluginMsg(ChatColor.RED + "你并不在某个队伍中。"));
+                        Team team = IngamePlayer.getWrappedPlayer(((Player) sender)).getTeam();
+                        if (team != null) {
+                            team.remove(IngamePlayer.getWrappedPlayer(((Player) sender)));
+                            sendSuccess(sender);
+                        } else {
+                            sender.sendMessage(pluginMsg(ChatColor.RED + "你并不在某个队伍中。"));
+                        }
                     }
                 }
                 break;
