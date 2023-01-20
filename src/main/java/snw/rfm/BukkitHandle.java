@@ -68,6 +68,7 @@ public final class BukkitHandle {
      * @param server Server instance
      */
     public static void setServer(@NotNull Server server) {
+        // I removed check, because the plugin can be enabled for many times
         BukkitHandle.server = server;
     }
 
