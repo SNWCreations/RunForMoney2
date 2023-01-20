@@ -33,7 +33,7 @@ public class RFMTeamCommand implements TabExecutor {
                     }
                     String teamName = args[1];
                     Team team = TeamRegistry.getTeamByName(teamName);
-                    if (team == null) {
+                    if (isInvisibleTeamName(teamName) || team == null) { // you can't join invisible team
                         sender.sendMessage(pluginMsg(ChatColor.RED + "队伍不存在。"));
                     } else {
                         team.add(IngamePlayer.getWrappedPlayer(((Player) sender)));
