@@ -1,5 +1,6 @@
 package snw.rfm;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -29,7 +30,7 @@ public class ConfigConstant {
         String rawERL = config.getString("end_room", "");
         String[] arr = rawERL.split(" ");
         if (arr.length == 3) {
-            World gameWorld = BukkitHandle.getWorld(config.getString("game_world", "world"));
+            World gameWorld = Bukkit.getWorld(config.getString("game_world", "world"));
             try {
                 END_ROOM_LOCATION = new Location(gameWorld, Integer.parseInt(arr[0]), Integer.parseInt(arr[1]), Integer.parseInt(arr[2]));
             } catch (NumberFormatException e) {

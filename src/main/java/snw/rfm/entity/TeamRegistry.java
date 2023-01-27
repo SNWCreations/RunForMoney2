@@ -1,6 +1,6 @@
 package snw.rfm.entity;
 
-import snw.rfm.BukkitHandle;
+import org.bukkit.Bukkit;
 
 import java.util.*;
 
@@ -46,9 +46,9 @@ public class TeamRegistry {
 
     private static org.bukkit.scoreboard.Team refreshTeam(String name) {
         Optional.ofNullable(
-                BukkitHandle.getScoreboardManager().getMainScoreboard().getTeam(name)
+                Bukkit.getScoreboardManager().getMainScoreboard().getTeam(name)
         ).ifPresent(org.bukkit.scoreboard.Team::unregister);
-        return BukkitHandle.getScoreboardManager().getMainScoreboard().registerNewTeam(name);
+        return Bukkit.getScoreboardManager().getMainScoreboard().registerNewTeam(name);
     }
 
     public static void cleanup() {

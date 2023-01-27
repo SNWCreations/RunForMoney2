@@ -1,12 +1,12 @@
 package snw.rfm.util;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
-import snw.rfm.BukkitHandle;
 import snw.rfm.ExitReason;
 import snw.rfm.Main;
 import snw.rfm.entity.IngamePlayer;
@@ -16,10 +16,10 @@ import java.util.function.Function;
 
 public class Util {
     public static void broadcast(IngamePlayer player, ExitReason reason) {
-        BukkitHandle.broadcastMessage(
+        Bukkit.broadcastMessage(
                 String.format("%s%s%s %s", ChatColor.RED, ChatColor.BOLD, buildPlayerName(player), reason.MESSAGE)
         );
-        BukkitHandle.broadcastMessage(String.format("%s%s剩余 %s 人。", ChatColor.RED, ChatColor.BOLD, TeamRegistry.RUNNER.size()));
+        Bukkit.broadcastMessage(String.format("%s%s剩余 %s 人。", ChatColor.RED, ChatColor.BOLD, TeamRegistry.RUNNER.size()));
     }
 
     public static String buildPlayerName(IngamePlayer player) {
@@ -44,11 +44,11 @@ public class Util {
                 }
             }
         };
-        BukkitHandle.getPluginManager().registerEvents(listener, Main.getInstance());
+        Bukkit.getPluginManager().registerEvents(listener, Main.getInstance());
     }
     
     public static void fireEvent(Event event) {
-        BukkitHandle.getPluginManager().callEvent(event);
+        Bukkit.getPluginManager().callEvent(event);
     }
 
     public static boolean isInternalTeamName(String name) {

@@ -1,9 +1,9 @@
 package snw.rfm.entity;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
-import snw.rfm.BukkitHandle;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -57,7 +57,7 @@ public class Team {
     public Set<OfflinePlayer> toBukkitOfflinePlayerSet() {
         return Collections.unmodifiableSet(
                 playerUuids.stream()
-                        .map(BukkitHandle::getOfflinePlayer)
+                        .map(Bukkit::getOfflinePlayer)
                         .collect(Collectors.toSet())
         );
     }

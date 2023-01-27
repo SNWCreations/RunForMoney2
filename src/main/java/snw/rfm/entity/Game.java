@@ -1,9 +1,9 @@
 package snw.rfm.entity;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import snw.rfm.BukkitHandle;
 import snw.rfm.ConfigConstant;
 import snw.rfm.Main;
 import snw.rfm.events.GameStartEvent;
@@ -44,7 +44,7 @@ public class Game {
             }
             coinTimer = new CoinTimer(this, timeRemaining);
             coinTimer.start();
-            BukkitHandle.broadcastMessage(ChatColor.RED + "" + ChatColor.BOLD + "游戏开始");
+            Bukkit.broadcastMessage(ChatColor.RED + "" + ChatColor.BOLD + "游戏开始");
             return true;
         });
         if (ConfigConstant.HUNTER_RELEASE_TIME > 0) {
@@ -55,7 +55,7 @@ public class Game {
     }
 
     public void stop() {
-        BukkitHandle.getScheduler().runTaskAsynchronously(
+        Bukkit.getScheduler().runTaskAsynchronously(
                 Main.getInstance(),
                 () -> fireEvent(new GameStopEvent(this))
         );
