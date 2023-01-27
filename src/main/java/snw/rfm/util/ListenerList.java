@@ -5,7 +5,6 @@ import org.bukkit.event.Listener;
 import snw.rfm.BukkitHandle;
 import snw.rfm.Main;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 
 public class ListenerList extends LinkedList<Listener> {
@@ -26,10 +25,7 @@ public class ListenerList extends LinkedList<Listener> {
 
     @Override
     public void clear() {
-        Iterator<Listener> iterator = this.iterator();
-        while (iterator.hasNext()) {
-            HandlerList.unregisterAll(iterator.next());
-            iterator.remove();
-        }
+        forEach(HandlerList::unregisterAll);
+        super.clear();
     }
 }
