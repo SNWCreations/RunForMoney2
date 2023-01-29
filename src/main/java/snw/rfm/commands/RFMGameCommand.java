@@ -85,22 +85,6 @@ public class RFMGameCommand implements TabExecutor {
                 if (main.isGamePresent()) {
                     if (args.length >= 2) {
                         switch (args[1]) {
-                            case "pause":
-                                if (main.getGame().isPaused()) {
-                                    sender.sendMessage(pluginMsg(ChatColor.RED + "游戏已暂停。"));
-                                } else {
-                                    main.getGame().pause();
-                                    sendSuccess(sender);
-                                }
-                                break;
-                            case "resume":
-                                if (!main.getGame().isPaused()) {
-                                    sender.sendMessage(pluginMsg(ChatColor.RED + "游戏未暂停。"));
-                                } else {
-                                    main.getGame().resume();
-                                    sendSuccess(sender);
-                                }
-                                break;
                             case "money":
                                 switch (args[2]) {
                                     case "reset":
@@ -204,7 +188,7 @@ public class RFMGameCommand implements TabExecutor {
                     case "start":
                         return filterTab(args[1], Arrays.asList("true", "false"));
                     case "control":
-                        return filterTab(args[1], Arrays.asList("pause", "resume", "money", "reverse", "forceout", "respawn"));
+                        return filterTab(args[1], Arrays.asList("money", "reverse", "forceout", "respawn"));
                 }
                 break;
             case 3:
