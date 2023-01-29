@@ -14,6 +14,7 @@ import java.util.function.BiFunction;
 public class CoinMap {
     private final Map<String, Double> map = new ConcurrentHashMap<>(); // key: player uuid, value: coin count
     private BiFunction<String, Double, Double> calcLogic;
+    private boolean reverse;
 
     public CoinMap() {
         calcLogic = (k, v) -> v + ConfigConstant.COIN_PER_SECOND;
@@ -41,6 +42,15 @@ public class CoinMap {
                 player.getBukkitPlayer().getUniqueId().toString(),
                 (k, v) -> v * ConfigConstant.COIN_DELETION_MULTIPLIER
         );
+    }
+
+    public void reverse() {
+        reverse = !reverse;
+        setComputeLogic(reverse ? (k, v) -> v - ConfigConstant.COIN_PER_SECOND : (k, v) -> v + ConfigConstant.COIN_PER_SECOND);
+    }
+
+    public boolean isReversed() {
+        return reverse;
     }
 
     public void setComputeLogic(BiFunction<String, Double, Double> logic) {
