@@ -18,6 +18,8 @@ public class ConfigConstant {
     // Item Configuration Constants
     public static int HUNTER_PAUSE_TIME;
     public static int IGNORE_TIME;
+    public static int FREEZE_TIME;
+    public static int FREEZE_RADIUS;
 
     public static void init(Main main, boolean log) {
         Logger logger = main.getLogger();
@@ -34,6 +36,8 @@ public class ConfigConstant {
 
         HUNTER_PAUSE_TIME = config.getInt("hpc_time", 3);
         IGNORE_TIME = config.getInt("ignore_time", 5);
+        FREEZE_TIME = config.getInt("freeze_time", 15);
+        FREEZE_RADIUS = config.getInt("freeze_radius", 10);
 
         // region end room
         String rawERL = config.getString("end_room", "");
@@ -55,6 +59,8 @@ public class ConfigConstant {
 
             logger.info("猎人暂停卡有效时长(单位: 秒): " + HUNTER_PAUSE_TIME);
             logger.info("抗性卡有效时长(单位: 秒): " + IGNORE_TIME);
+            logger.info("抗性卡有效时长(单位: 秒): " + FREEZE_TIME);
+            logger.info("抗性卡有效半径(单位: 格): " + FREEZE_RADIUS);
         }
     }
 }

@@ -3,6 +3,7 @@ package snw.rfm;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
+import snw.rfm.api.item.internal.items.FreezeCard;
 import snw.rfm.api.item.internal.items.IgnoreCard;
 import snw.rfm.api.item.internal.items.PauseCard;
 import snw.rfm.api.item.internal.items.RespawnCard;
@@ -69,5 +70,6 @@ public final class Main extends JavaPlugin {
         new PauseCard(this);
         new RespawnCard(this);
         new IgnoreCard(this);
+        new FreezeCard(this);
     }
 }

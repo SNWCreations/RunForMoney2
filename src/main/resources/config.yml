@@ -34,3 +34,9 @@ exiting_pickaxe_target_block: "minecraft:diamond_block"
 
 # 抗性卡的有效时间，单位: 秒，默认值: 5 秒
 ignore_time: 5
+
+# 冰冻卡的有效时间，单位: 秒，默认值: 15 秒
+freeze_time: 15
+
+# 冰冻卡的有效半径，单位: 格方块，默认值: 10 格
+freeze_radius: 10
