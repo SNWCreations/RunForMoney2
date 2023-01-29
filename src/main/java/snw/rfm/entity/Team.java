@@ -71,6 +71,10 @@ public class Team {
         );
     }
 
+    public Set<String> toNameSet() {
+        return Collections.unmodifiableSet(toBukkitOfflinePlayerSet().stream().map(OfflinePlayer::getName).collect(Collectors.toSet()));
+    }
+
     public void clear() {
         team.getEntries().forEach(team::removeEntry);
         playerUuids.clear();
