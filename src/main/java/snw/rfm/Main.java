@@ -47,7 +47,7 @@ public final class Main extends JavaPlugin {
 
     private void initData() {
         TeamRegistry.init();
-        ConfigConstant.init(this);
+        ConfigConstant.init(this, true);
     }
 
     private void registerCommands() {

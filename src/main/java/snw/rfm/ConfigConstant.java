@@ -15,11 +15,13 @@ public class ConfigConstant {
     public static int HUNTER_RELEASE_TIME;
     public static @Nullable Location END_ROOM_LOCATION = null;
 
-    public static void init(Main main) {
+    public static void init(Main main, boolean log) {
         Logger logger = main.getLogger();
         FileConfiguration config = main.getConfig();
 
-        logger.info("加载配置...");
+        if (log) {
+            logger.info("加载配置...");
+        }
 
         COIN_DELETION_MULTIPLIER = config.getDouble("coin_multiplier_on_be_caught", 0.1);
         COIN_PER_SECOND = config.getInt("coin_per_second", 100);
@@ -34,11 +36,15 @@ public class ConfigConstant {
             try {
                 END_ROOM_LOCATION = new Location(gameWorld, Integer.parseInt(arr[0]), Integer.parseInt(arr[1]), Integer.parseInt(arr[2]));
             } catch (NumberFormatException e) {
-                logger.warning("无法加载终止间位置: 参数无效。");
+                if (log) {
+                    logger.warning("无法加载终止间位置: 参数无效。");
+                }
             }
         }
 
-        logger.info("当逃走队员被捕时，当时拥有的硬币将乘以: " + COIN_DELETION_MULTIPLIER);
-        logger.info("每秒增加的硬币量: " + COIN_PER_SECOND);
+        if (log) {
+            logger.info("当逃走队员被捕时，当时拥有的硬币将乘以: " + COIN_DELETION_MULTIPLIER);
+            logger.info("每秒增加的硬币量: " + COIN_PER_SECOND);
+        }
     }
 }

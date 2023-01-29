@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import snw.rfm.ConfigConstant;
 import snw.rfm.Main;
+import snw.rfm.api.GameController;
 import snw.rfm.api.item.internal.ItemClickDispatcher;
 import snw.rfm.events.GameStartEvent;
 import snw.rfm.events.GameStopEvent;
@@ -27,6 +28,7 @@ public class Game {
     protected final AtomicInteger timeRemaining;
     protected final ListenerList listeners;
     protected final AtomicBoolean pauseStatus;
+    protected final GameController controller;
     protected CoinTimer coinTimer;
 
     public Game(Main main) {
@@ -35,9 +37,11 @@ public class Game {
         timeRemaining = new AtomicInteger();
         listeners = new ListenerList(main);
         pauseStatus = new AtomicBoolean(false);
+        controller = new GameControllerImpl(main, this);
     }
 
     public void start() {
+        ConfigConstant.init(main, false);
         timeRemaining.set(ConfigConstant.GAME_TIME * 60);
         fireEvent(new GameStartEvent(this));
         registerListener(new AttackListener(this));
@@ -97,5 +101,9 @@ public class Game {
 
     public void registerListener(Listener listener) {
         listeners.add(listener);
+    }
+
+    public GameController getController() {
+        return controller;
     }
 }

@@ -33,6 +33,21 @@ public class CoinMap {
                 );
     }
 
+    public void addAll(int times) {
+        TeamRegistry.RUNNER.toBukkitOfflinePlayerSet()
+                .stream()
+                .map(OfflinePlayer::getUniqueId)
+                .map(UUID::toString)
+                .forEach(i ->
+                        {
+                            int a = times * ConfigConstant.COIN_PER_SECOND;
+                            for (Map.Entry<String, Double> e : map.entrySet()) {
+                                e.setValue(e.getValue() + a);
+                            }
+                        }
+                );
+    }
+
     public void reset() {
         map.clear();
     }
@@ -65,5 +80,13 @@ public class CoinMap {
             result.put(key, value);
         }
         return Collections.unmodifiableMap(result);
+    }
+
+    public void set(OfflinePlayer player, double amount) {
+        map.put(player.getUniqueId().toString(), amount);
+    }
+
+    public void add(OfflinePlayer player, double amount) {
+        set(player, map.get(player.getUniqueId().toString()) + amount);
     }
 }
