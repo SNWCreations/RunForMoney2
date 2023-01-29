@@ -1,4 +1,4 @@
-package snw.rfm.api.item.internal;
+package snw.rfm.item.internal;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

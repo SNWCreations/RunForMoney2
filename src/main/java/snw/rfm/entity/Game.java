@@ -7,7 +7,7 @@ import org.bukkit.event.Listener;
 import snw.rfm.ConfigConstant;
 import snw.rfm.Main;
 import snw.rfm.api.GameController;
-import snw.rfm.api.item.internal.ItemClickDispatcher;
+import snw.rfm.item.internal.ItemClickDispatcher;
 import snw.rfm.events.GameStartEvent;
 import snw.rfm.events.GameStopEvent;
 import snw.rfm.events.HunterReleasedEvent;

@@ -1,4 +1,4 @@
-package snw.rfm.api.item.internal.items;
+package snw.rfm.item;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
