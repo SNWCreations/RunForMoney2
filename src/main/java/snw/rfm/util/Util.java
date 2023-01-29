@@ -27,7 +27,7 @@ public class Util {
     }
 
     public static String buildPlayerName(IngamePlayer player) {
-        return player.getBukkitPlayer().getName(); // TODO add nickname support here
+        return NickSupport.getNickName(player.getBukkitPlayer().getName());
     }
 
     public static String pluginMsg(String msg) {

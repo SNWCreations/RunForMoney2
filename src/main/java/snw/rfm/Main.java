@@ -12,6 +12,7 @@ import snw.rfm.commands.RFMGameCommand;
 import snw.rfm.commands.RFMTeamCommand;
 import snw.rfm.entity.Game;
 import snw.rfm.entity.TeamRegistry;
+import snw.rfm.util.NickSupport;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -22,6 +23,7 @@ public final class Main extends JavaPlugin {
     @Override
     public void onLoad() {
         saveDefaultConfig();
+        saveResource("nickname.yml", false);
     }
 
     @Override
@@ -54,6 +56,7 @@ public final class Main extends JavaPlugin {
     private void initData() {
         TeamRegistry.init();
         ConfigConstant.init(this, true);
+        NickSupport.init(this);
     }
 
     private void registerCommands() {
