@@ -36,7 +36,7 @@ public class RFMGameCommand implements TabExecutor {
                 if (!main.isGamePresent()) {
                     if (args.length == 1 || !Boolean.parseBoolean(args[1])) { // if we need to check players
                         if (TeamRegistry.RUNNER.size() == 0 && TeamRegistry.HUNTER.size() == 0) {
-                            sender.sendMessage(pluginMsg("玩家不足。"));
+                            sender.sendMessage(pluginMsg(ChatColor.RED + "玩家不足。"));
                             return true;
                         }
                     }
