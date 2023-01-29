@@ -4,9 +4,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import snw.rfm.ConfigConstant;
 import snw.rfm.ExitReason;
-import snw.rfm.Main;
 import snw.rfm.util.Util;
 import snw.rfm.entity.Game;
 import snw.rfm.entity.IngamePlayer;
@@ -15,10 +15,10 @@ import snw.rfm.events.HunterCatchPlayerEvent;
 
 import static snw.rfm.util.Util.fireEvent;
 
-public class AttackListener implements Listener {
+public class DamageListener implements Listener {
     protected final Game game;
 
-    public AttackListener(Game game) {
+    public DamageListener(Game game) {
         this.game = game;
     }
 
@@ -42,6 +42,15 @@ public class AttackListener implements Listener {
                     game.getCoinMap().calc(attacked);
                     Util.broadcast(attacked, ExitReason.BE_CAUGHT);
                 }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onGeneralDamage(EntityDamageEvent e) {
+        if (e.getEntity() instanceof Player) {
+            if (e.getCause() != EntityDamageEvent.DamageCause.VOID) {
+                e.setCancelled(true);
             }
         }
     }

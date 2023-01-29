@@ -11,7 +11,7 @@ import snw.rfm.item.internal.ItemClickDispatcher;
 import snw.rfm.events.GameStartEvent;
 import snw.rfm.events.GameStopEvent;
 import snw.rfm.events.HunterReleasedEvent;
-import snw.rfm.listeners.AttackListener;
+import snw.rfm.listeners.DamageListener;
 import snw.rfm.tasks.CoinTimer;
 import snw.rfm.tasks.HunterReleaseTimer;
 import snw.rfm.util.ListenerList;
@@ -44,7 +44,7 @@ public class Game {
         ConfigConstant.init(main, false);
         timeRemaining.set(ConfigConstant.GAME_TIME * 60);
         fireEvent(new GameStartEvent(this));
-        registerListener(new AttackListener(this));
+        registerListener(new DamageListener(this));
         registerListener(new ItemClickDispatcher(main));
         tempListener(main, HunterReleasedEvent.class, i -> {
             if (i.getGame() != this) {
