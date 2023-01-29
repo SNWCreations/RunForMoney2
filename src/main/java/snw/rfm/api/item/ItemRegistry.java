@@ -13,8 +13,13 @@ public final class ItemRegistry {
 
     private ItemRegistry() {} // can't call constructor
 
-    public static void add(String key, ItemStack value, RightClickCallback callback) {
+
+    public static void add(String key, ItemStack value) {
         map.put(key, value.clone());
+    }
+
+    public static void add(String key, ItemStack value, RightClickCallback callback) {
+        add(key, value);
         callbackMap.put(value.clone(), callback);
     }
 
