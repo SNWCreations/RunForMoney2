@@ -13,6 +13,7 @@ import snw.rfm.entity.Team;
 import snw.rfm.entity.TeamRegistry;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -79,7 +80,7 @@ public class RFMTeamCommand implements TabExecutor {
                             .collect(Collectors.toList());
                 }
         }
-        return null;
+        return Collections.emptyList();
     }
 
     private static boolean isPlayer(CommandSender sender) {

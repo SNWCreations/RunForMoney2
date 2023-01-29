@@ -11,6 +11,7 @@ import snw.rfm.entity.Game;
 import snw.rfm.entity.TeamRegistry;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static snw.rfm.util.Util.pluginMsg;
@@ -99,6 +100,6 @@ public class RFMGameCommand implements TabExecutor {
                 }
                 break;
         }
-        return null;
+        return Collections.emptyList();
     }
 }
