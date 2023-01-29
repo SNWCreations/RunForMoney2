@@ -10,9 +10,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.BiFunction;
 
 public class CoinMap {
     private final Map<String, Double> map = new ConcurrentHashMap<>(); // key: player uuid, value: coin count
+    private BiFunction<String, Double, Double> calcLogic;
+
+    public CoinMap() {
+        calcLogic = (k, v) -> v + ConfigConstant.COIN_PER_SECOND;
+    }
 
     public void increaseAll() {
         TeamRegistry.RUNNER.toBukkitPlayerSet()
@@ -22,7 +28,7 @@ public class CoinMap {
                 .forEach(i ->
                         {
                             map.computeIfAbsent(i, k -> 0.0);
-                            map.computeIfPresent(i, (k, v) -> v + ConfigConstant.COIN_PER_SECOND);
+                            map.computeIfPresent(i, calcLogic);
                         }
                 );
     }
@@ -36,6 +42,10 @@ public class CoinMap {
                 player.getBukkitPlayer().getUniqueId().toString(),
                 (k, v) -> v * ConfigConstant.COIN_DELETION_MULTIPLIER
         );
+    }
+
+    public void setComputeLogic(BiFunction<String, Double, Double> logic) {
+        calcLogic = logic;
     }
 
     public Map<OfflinePlayer, Double> toView() {
