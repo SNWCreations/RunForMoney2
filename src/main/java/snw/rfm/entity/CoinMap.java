@@ -2,7 +2,6 @@ package snw.rfm.entity;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 import snw.rfm.ConfigConstant;
 
 import java.util.Collections;
@@ -21,9 +20,9 @@ public class CoinMap {
     }
 
     public void increaseAll() {
-        TeamRegistry.RUNNER.toBukkitPlayerSet()
+        TeamRegistry.RUNNER.toBukkitOfflinePlayerSet()
                 .stream()
-                .map(Player::getUniqueId)
+                .map(OfflinePlayer::getUniqueId)
                 .map(UUID::toString)
                 .forEach(i ->
                         {
