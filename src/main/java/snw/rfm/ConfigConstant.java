@@ -15,9 +15,9 @@ public class ConfigConstant {
     public static int HUNTER_RELEASE_TIME;
     public static @Nullable Location END_ROOM_LOCATION = null;
 
-    public static void init() {
-        Logger logger = Main.getInstance().getLogger();
-        FileConfiguration config = Main.getInstance().getConfig();
+    public static void init(Main main) {
+        Logger logger = main.getLogger();
+        FileConfiguration config = main.getConfig();
 
         logger.info("加载配置...");
 

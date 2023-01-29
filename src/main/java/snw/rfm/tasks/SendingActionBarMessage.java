@@ -47,7 +47,7 @@ public final class SendingActionBarMessage extends BukkitRunnable {
         }
     }
 
-    public void start() {
-        super.runTaskTimer(Main.getInstance(), 0L, 1L);
+    public void start(Main main) {
+        super.runTaskTimer(main, 0L, 1L);
     }
 }

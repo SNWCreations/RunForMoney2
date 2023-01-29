@@ -17,10 +17,12 @@ import java.util.stream.Collectors;
 import static snw.rfm.util.Util.fireEvent;
 
 public final class HunterReleaseTimer extends BukkitRunnable {
+    private final Main main;
     private final Game game;
     private int secs;
 
-    public HunterReleaseTimer(Game game, int time) {
+    public HunterReleaseTimer(Main main, Game game, int time) {
+        this.main = main;
         this.game = game;
         this.secs = time;
     }
@@ -38,7 +40,7 @@ public final class HunterReleaseTimer extends BukkitRunnable {
     private void onZero() {
         new SendingActionBarMessage(
                 new TextComponent(ChatColor.DARK_RED + "" + ChatColor.BOLD + "猎人已放出")
-        ).start();
+        ).start(main);
         fireEvent(new HunterReleasedEvent(game));
     }
 
@@ -57,7 +59,7 @@ public final class HunterReleaseTimer extends BukkitRunnable {
                             String.format("%s%s猎人将在 %s%s %s%s%s秒后放出", ChatColor.RED, ChatColor.BOLD, color, secs, ChatColor.RESET, ChatColor.RED, ChatColor.BOLD)
                     ),
                     TeamRegistry.RUNNER.toBukkitPlayerSet()
-            ).start();
+            ).start(main);
         }
     }
 
@@ -70,7 +72,7 @@ public final class HunterReleaseTimer extends BukkitRunnable {
                     10, 70, 20
             );
         }
-        runTaskTimer(Main.getInstance(), 20L, 20L);
+        runTaskTimer(main, 20L, 20L);
     }
 
 }

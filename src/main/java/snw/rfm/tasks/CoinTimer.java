@@ -7,10 +7,12 @@ import snw.rfm.entity.Game;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class CoinTimer extends BukkitRunnable {
+    protected final Main main;
     protected final Game game;
     protected final AtomicInteger time;
 
-    public CoinTimer(Game game, AtomicInteger time) {
+    public CoinTimer(Main main, Game game, AtomicInteger time) {
+        this.main = main;
         this.game = game;
         this.time = time;
     }
@@ -27,6 +29,6 @@ public class CoinTimer extends BukkitRunnable {
     }
 
     public void start() {
-        runTaskTimer(Main.getInstance(), 20L, 20L);
+        runTaskTimer(main, 20L, 20L);
     }
 }

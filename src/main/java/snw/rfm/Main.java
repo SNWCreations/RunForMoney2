@@ -11,7 +11,6 @@ import snw.rfm.entity.TeamRegistry;
 import java.util.Optional;
 
 public final class Main extends JavaPlugin {
-    private static Main INSTANCE;
     private Game game;
 
     @Override
@@ -22,11 +21,10 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-        INSTANCE = this;
         TeamRegistry.init();
-        ConfigConstant.init();
+        ConfigConstant.init(this);
         registerCommand("rfmgame", new RFMGameCommand(this));
-        registerCommand("rfmteam", new RFMTeamCommand());
+        registerCommand("rfmteam", new RFMTeamCommand(this));
     }
 
     @Override
@@ -46,10 +44,6 @@ public final class Main extends JavaPlugin {
 
     public void setGame(Game game) {
         this.game = game;
-    }
-
-    public static Main getInstance() {
-        return INSTANCE;
     }
 
     private void registerCommand(String name, TabExecutor executor) {

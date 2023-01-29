@@ -35,7 +35,7 @@ public class Util {
         sender.sendMessage(pluginMsg(ChatColor.GREEN + "操作成功。"));
     }
     
-    public static <T extends Event> void tempListener(Class<T> type, Function<T, Boolean> function) {
+    public static <T extends Event> void tempListener(Main main, Class<T> type, Function<T, Boolean> function) {
         Listener listener = new Listener() {
             @EventHandler
             public void onEvent(T event) {
@@ -45,7 +45,7 @@ public class Util {
                 }
             }
         };
-        Bukkit.getPluginManager().registerEvents(listener, Main.getInstance());
+        Bukkit.getPluginManager().registerEvents(listener, main);
     }
     
     public static void fireEvent(Event event) {

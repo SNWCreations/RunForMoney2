@@ -39,7 +39,7 @@ public class RFMGameCommand implements TabExecutor {
                             return true;
                         }
                     }
-                    Game game = new Game();
+                    Game game = new Game(main);
                     game.start();
                     main.setGame(game);
                     sendSuccess(sender);

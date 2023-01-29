@@ -20,6 +20,12 @@ import java.util.stream.Collectors;
 import static snw.rfm.util.Util.*;
 
 public class RFMTeamCommand implements TabExecutor {
+    private final Main main;
+
+    public RFMTeamCommand(Main main) {
+        this.main = main;
+    }
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 0) {
@@ -45,7 +51,7 @@ public class RFMTeamCommand implements TabExecutor {
                 break;
             case "leave":
                 if (isPlayer(sender)) {
-                    if (Main.getInstance().isGamePresent()) {
+                    if (main.isGamePresent()) {
                         sender.sendMessage(pluginMsg(ChatColor.RED + "你不可以在游戏过程中退出队伍。"));
                     } else {
                         Team team = IngamePlayer.getWrappedPlayer(((Player) sender)).getTeam();

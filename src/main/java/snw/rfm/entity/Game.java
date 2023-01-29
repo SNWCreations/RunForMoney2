@@ -21,16 +21,18 @@ import static snw.rfm.util.Util.fireEvent;
 import static snw.rfm.util.Util.tempListener;
 
 public class Game {
+    protected final Main main;
     protected final CoinMap coinMap;
     protected final AtomicInteger timeRemaining;
     protected final ListenerList listeners;
     protected final AtomicBoolean pauseStatus;
     protected CoinTimer coinTimer;
 
-    public Game() {
+    public Game(Main main) {
+        this.main = main;
         coinMap = new CoinMap();
         timeRemaining = new AtomicInteger();
-        listeners = new ListenerList();
+        listeners = new ListenerList(main);
         pauseStatus = new AtomicBoolean(false);
     }
 
@@ -38,17 +40,17 @@ public class Game {
         timeRemaining.set(ConfigConstant.GAME_TIME * 60);
         fireEvent(new GameStartEvent(this));
         registerListener(new AttackListener(this));
-        tempListener(HunterReleasedEvent.class, i -> {
+        tempListener(main, HunterReleasedEvent.class, i -> {
             if (i.getGame() != this) {
                 return false;
             }
-            coinTimer = new CoinTimer(this, timeRemaining);
+            coinTimer = new CoinTimer(main, this, timeRemaining);
             coinTimer.start();
             Bukkit.broadcastMessage(ChatColor.RED + "" + ChatColor.BOLD + "游戏开始");
             return true;
         });
         if (ConfigConstant.HUNTER_RELEASE_TIME > 0) {
-            new HunterReleaseTimer(this, ConfigConstant.HUNTER_RELEASE_TIME).start();
+            new HunterReleaseTimer(main, this, ConfigConstant.HUNTER_RELEASE_TIME).start();
         } else {
             fireEvent(new HunterReleasedEvent(this));
         }
@@ -56,7 +58,7 @@ public class Game {
 
     public void stop() {
         Bukkit.getScheduler().runTaskAsynchronously(
-                Main.getInstance(),
+                main,
                 () -> fireEvent(new GameStopEvent(this))
         );
         for (Player player : TeamRegistry.RUNNER.toBukkitPlayerSet()) {
