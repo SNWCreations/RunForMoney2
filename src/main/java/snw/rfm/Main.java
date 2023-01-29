@@ -4,6 +4,7 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
 import snw.rfm.api.item.internal.items.PauseCard;
+import snw.rfm.api.item.internal.items.RespawnCard;
 import snw.rfm.commands.RFMGameCommand;
 import snw.rfm.commands.RFMTeamCommand;
 import snw.rfm.entity.Game;
@@ -65,5 +66,6 @@ public final class Main extends JavaPlugin {
 
     private void registerInternalItems() {
         new PauseCard(this);
+        new RespawnCard(this);
     }
 }
