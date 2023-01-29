@@ -83,11 +83,4 @@ public class RFMTeamCommand implements TabExecutor {
         return Collections.emptyList();
     }
 
-    private static boolean isPlayer(CommandSender sender) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(pluginMsg(ChatColor.RED + "需要玩家执行此分支。"));
-            return false;
-        }
-        return true;
-    }
 }

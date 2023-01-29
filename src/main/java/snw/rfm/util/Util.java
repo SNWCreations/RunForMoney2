@@ -3,6 +3,7 @@ package snw.rfm.util;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
@@ -57,5 +58,15 @@ public class Util {
 
     public static boolean isInvisibleTeamName(String name) {
         return "out".equals(name);
+    }
+
+    // --- Command utilities ---
+
+    public static boolean isPlayer(CommandSender sender) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(pluginMsg(ChatColor.RED + "需要玩家执行此分支。"));
+            return false;
+        }
+        return true;
     }
 }
