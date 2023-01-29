@@ -12,3 +12,7 @@ commands:
     description: "与逃走中队伍系统相关的命令。"
     usage: "/rfmteam <join|leave>"
     permission: op
+  rfmitem:
+    description: "获取逃走中道具。"
+    usage: "/rfmitem <道具名称>"
+    permission: op

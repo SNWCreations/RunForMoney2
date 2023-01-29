@@ -3,6 +3,7 @@ package snw.rfm;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
+import snw.rfm.commands.RFMItemCommand;
 import snw.rfm.item.FreezeCard;
 import snw.rfm.item.IgnoreCard;
 import snw.rfm.item.PauseCard;
@@ -58,6 +59,7 @@ public final class Main extends JavaPlugin {
     private void registerCommands() {
         registerCommand("rfmgame", new RFMGameCommand(this));
         registerCommand("rfmteam", new RFMTeamCommand(this));
+        registerCommand("rfmitem", new RFMItemCommand());
     }
 
     private void registerCommand(String name, TabExecutor executor) {
