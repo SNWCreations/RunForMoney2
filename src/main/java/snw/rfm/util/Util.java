@@ -77,4 +77,8 @@ public class Util {
     public static List<String> filterTab(String current, Collection<String> collection) {
         return collection.stream().filter(i -> i.startsWith(current)).collect(Collectors.toList());
     }
+
+    public static List<String> getAllPlayersName() {
+        return Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
+    }
 }
