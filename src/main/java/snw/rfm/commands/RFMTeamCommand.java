@@ -76,8 +76,9 @@ public class RFMTeamCommand implements TabExecutor {
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         switch (args.length) {
             case 0:
-            case 1:
                 return Arrays.asList("join", "leave");
+            case 1:
+                return filterTab(args[0], Arrays.asList("join", "leave"));
             case 2:
                 if ("join".equals(args[0])) {
                     return TeamRegistry.getAllTeams().keySet()

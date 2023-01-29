@@ -14,8 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static snw.rfm.util.Util.pluginMsg;
-import static snw.rfm.util.Util.sendSuccess;
+import static snw.rfm.util.Util.*;
 
 public class RFMGameCommand implements TabExecutor {
     private final Main main;
@@ -93,10 +92,10 @@ public class RFMGameCommand implements TabExecutor {
         switch (args.length) {
             case 0:
             case 1:
-                return Arrays.asList("start", "stop", "pause", "resume");
+                return filterTab(args[0], Arrays.asList("start", "stop", "pause", "resume"));
             case 2:
                 if ("start".equals(args[0])) {
-                    return Arrays.asList("true", "false");
+                    return filterTab(args[0], Arrays.asList("true", "false"));
                 }
                 break;
         }

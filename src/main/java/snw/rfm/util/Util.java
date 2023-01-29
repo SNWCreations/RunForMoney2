@@ -13,7 +13,10 @@ import snw.rfm.Main;
 import snw.rfm.entity.IngamePlayer;
 import snw.rfm.entity.TeamRegistry;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Util {
     public static void broadcast(IngamePlayer player, ExitReason reason) {
@@ -68,5 +71,9 @@ public class Util {
             return false;
         }
         return true;
+    }
+
+    public static List<String> filterTab(String current, Collection<String> collection) {
+        return collection.stream().filter(i -> i.startsWith(current)).collect(Collectors.toList());
     }
 }
