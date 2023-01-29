@@ -3,6 +3,7 @@ package snw.rfm;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
+import snw.rfm.api.item.internal.items.PauseCard;
 import snw.rfm.commands.RFMGameCommand;
 import snw.rfm.commands.RFMTeamCommand;
 import snw.rfm.entity.Game;
@@ -24,6 +25,7 @@ public final class Main extends JavaPlugin {
         // Plugin startup logic
         initData();
         registerCommands();
+        registerInternalItems();
     }
 
     @Override
@@ -59,5 +61,9 @@ public final class Main extends JavaPlugin {
         PluginCommand command = Objects.requireNonNull(getCommand(name), "Command " + name + " not found!");
         command.setExecutor(executor);
         command.setTabCompleter(executor);
+    }
+
+    private void registerInternalItems() {
+        new PauseCard(this);
     }
 }
