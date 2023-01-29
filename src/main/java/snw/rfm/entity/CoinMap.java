@@ -12,8 +12,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiFunction;
 
 public class CoinMap {
-    private final Map<String, Double> map = new ConcurrentHashMap<>(); // key: player uuid, value: coin count
-    private BiFunction<String, Double, Double> calcLogic;
+    private final Map<UUID, Double> map = new ConcurrentHashMap<>();
+    private BiFunction<UUID, Double, Double> calcLogic;
     private boolean reverse;
 
     public CoinMap() {
@@ -24,7 +24,6 @@ public class CoinMap {
         TeamRegistry.RUNNER.toBukkitOfflinePlayerSet()
                 .stream()
                 .map(OfflinePlayer::getUniqueId)
-                .map(UUID::toString)
                 .forEach(i ->
                         {
                             map.computeIfAbsent(i, k -> 0.0);
@@ -37,11 +36,10 @@ public class CoinMap {
         TeamRegistry.RUNNER.toBukkitOfflinePlayerSet()
                 .stream()
                 .map(OfflinePlayer::getUniqueId)
-                .map(UUID::toString)
                 .forEach(i ->
                         {
                             int a = times * ConfigConstant.COIN_PER_SECOND;
-                            for (Map.Entry<String, Double> e : map.entrySet()) {
+                            for (Map.Entry<UUID, Double> e : map.entrySet()) {
                                 e.setValue(e.getValue() + a);
                             }
                         }
@@ -54,7 +52,7 @@ public class CoinMap {
 
     public void calc(IngamePlayer player) {
         map.computeIfPresent(
-                player.getBukkitPlayer().getUniqueId().toString(),
+                player.getBukkitPlayer().getUniqueId(),
                 (k, v) -> v * ConfigConstant.COIN_DELETION_MULTIPLIER
         );
     }
@@ -68,14 +66,14 @@ public class CoinMap {
         return reverse;
     }
 
-    public void setComputeLogic(BiFunction<String, Double, Double> logic) {
+    public void setComputeLogic(BiFunction<UUID, Double, Double> logic) {
         calcLogic = logic;
     }
 
     public Map<OfflinePlayer, Double> toView() {
         Map<OfflinePlayer, Double> result = new HashMap<>();
-        for (Map.Entry<String, Double> e : map.entrySet()) {
-            OfflinePlayer key = Bukkit.getOfflinePlayer(UUID.fromString(e.getKey()));
+        for (Map.Entry<UUID, Double> e : map.entrySet()) {
+            OfflinePlayer key = Bukkit.getOfflinePlayer(e.getKey());
             Double value = e.getValue();
             result.put(key, value);
         }
@@ -83,10 +81,10 @@ public class CoinMap {
     }
 
     public void set(OfflinePlayer player, double amount) {
-        map.put(player.getUniqueId().toString(), amount);
+        map.put(player.getUniqueId(), amount);
     }
 
     public void add(OfflinePlayer player, double amount) {
-        set(player, map.get(player.getUniqueId().toString()) + amount);
+        set(player, map.get(player.getUniqueId()) + amount);
     }
 }
