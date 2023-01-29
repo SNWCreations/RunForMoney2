@@ -31,3 +31,6 @@ hpc_time: 3
 
 # 弃权镐可以挖掉的方块。遇到无效值时，默认为钻石块。
 exiting_pickaxe_target_block: "minecraft:diamond_block"
+
+# 抗性卡的有效时间，单位: 秒，默认值: 5 秒
+ignore_time: 5

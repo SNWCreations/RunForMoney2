@@ -17,6 +17,7 @@ public class ConfigConstant {
 
     // Item Configuration Constants
     public static int HUNTER_PAUSE_TIME;
+    public static int IGNORE_TIME;
 
     public static void init(Main main, boolean log) {
         Logger logger = main.getLogger();
@@ -32,6 +33,7 @@ public class ConfigConstant {
         HUNTER_RELEASE_TIME = config.getInt("hunter_release_time", 60);
 
         HUNTER_PAUSE_TIME = config.getInt("hpc_time", 3);
+        IGNORE_TIME = config.getInt("ignore_time", 5);
 
         // region end room
         String rawERL = config.getString("end_room", "");
@@ -52,6 +54,7 @@ public class ConfigConstant {
             logger.info("每秒增加的硬币量: " + COIN_PER_SECOND);
 
             logger.info("猎人暂停卡有效时长(单位: 秒): " + HUNTER_PAUSE_TIME);
+            logger.info("抗性卡有效时长(单位: 秒): " + IGNORE_TIME);
         }
     }
 }
