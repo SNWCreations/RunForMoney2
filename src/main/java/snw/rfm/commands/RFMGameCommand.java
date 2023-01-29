@@ -181,6 +181,7 @@ public class RFMGameCommand implements TabExecutor {
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         switch (args.length) {
             case 0:
+                return Arrays.asList("start", "stop", "pause", "resume", "control");
             case 1:
                 return filterTab(args[0], Arrays.asList("start", "stop", "pause", "resume", "control"));
             case 2:
