@@ -8,6 +8,7 @@ import snw.rfm.commands.RFMTeamCommand;
 import snw.rfm.entity.Game;
 import snw.rfm.entity.TeamRegistry;
 
+import java.util.Objects;
 import java.util.Optional;
 
 public final class Main extends JavaPlugin {
@@ -55,7 +56,7 @@ public final class Main extends JavaPlugin {
     }
 
     private void registerCommand(String name, TabExecutor executor) {
-        PluginCommand command = getCommand(name);
+        PluginCommand command = Objects.requireNonNull(getCommand(name), "Command " + name + " not found!");
         command.setExecutor(executor);
         command.setTabCompleter(executor);
     }
