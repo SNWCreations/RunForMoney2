@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import snw.rfm.ConfigConstant;
 import snw.rfm.Main;
+import snw.rfm.api.item.internal.ItemClickDispatcher;
 import snw.rfm.events.GameStartEvent;
 import snw.rfm.events.GameStopEvent;
 import snw.rfm.events.HunterReleasedEvent;
@@ -40,6 +41,7 @@ public class Game {
         timeRemaining.set(ConfigConstant.GAME_TIME * 60);
         fireEvent(new GameStartEvent(this));
         registerListener(new AttackListener(this));
+        registerListener(new ItemClickDispatcher(main));
         tempListener(main, HunterReleasedEvent.class, i -> {
             if (i.getGame() != this) {
                 return false;
