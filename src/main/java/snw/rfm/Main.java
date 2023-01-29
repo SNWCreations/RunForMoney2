@@ -21,10 +21,8 @@ public final class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-        TeamRegistry.init();
-        ConfigConstant.init(this);
-        registerCommand("rfmgame", new RFMGameCommand(this));
-        registerCommand("rfmteam", new RFMTeamCommand(this));
+        initData();
+        registerCommands();
     }
 
     @Override
@@ -44,6 +42,16 @@ public final class Main extends JavaPlugin {
 
     public void setGame(Game game) {
         this.game = game;
+    }
+
+    private void initData() {
+        TeamRegistry.init();
+        ConfigConstant.init(this);
+    }
+
+    private void registerCommands() {
+        registerCommand("rfmgame", new RFMGameCommand(this));
+        registerCommand("rfmteam", new RFMTeamCommand(this));
     }
 
     private void registerCommand(String name, TabExecutor executor) {
