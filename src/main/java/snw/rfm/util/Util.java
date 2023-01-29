@@ -37,8 +37,9 @@ public class Util {
     public static void sendSuccess(CommandSender sender) {
         sender.sendMessage(pluginMsg(ChatColor.GREEN + "操作成功。"));
     }
-    
-    public static <T extends Event> void tempListener(Main main, Class<T> type, Function<T, Boolean> function) {
+
+    // the class type is ignored, it is just for providing specific methods access
+    public static <T extends Event> void tempListener(Main main, Class<T> ignoredType, Function<T, Boolean> function) {
         Listener listener = new Listener() {
             @EventHandler
             public void onEvent(T event) {
