@@ -15,21 +15,21 @@ public final class ItemRegistry {
 
 
     public static void add(String key, ItemStack value) {
-        map.put(key, value.clone());
+        map.put(key, toOneAmount(value));
     }
 
     public static void add(String key, ItemStack value, RightClickCallback callback) {
         add(key, value);
-        callbackMap.put(value.clone(), callback);
+        callbackMap.put(toOneAmount(value), callback);
     }
 
     public static ItemStack get(String key) {
         ItemStack itemStack = map.get(key);
-        return itemStack != null ? itemStack.clone() : null;
+        return itemStack != null ? toOneAmount(itemStack.clone()) : null;
     }
 
     public static RightClickCallback getCallback(ItemStack key) {
-        return callbackMap.get(key);
+        return callbackMap.get(toOneAmount(key));
     }
 
     public static Set<String> keySet() {
@@ -38,5 +38,11 @@ public final class ItemRegistry {
 
     public static Map<String, ItemStack> getView() {
         return Collections.unmodifiableMap(map);
+    }
+
+    private static ItemStack toOneAmount(ItemStack stack) {
+        ItemStack clone = stack.clone();
+        clone.setAmount(1);
+        return clone;
     }
 }
