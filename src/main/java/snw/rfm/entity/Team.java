@@ -33,6 +33,7 @@ public class Team {
         }
         team.addEntry(player.getBukkitPlayer().getName());
         playerUuids.add(player.getBukkitPlayer().getUniqueId());
+        player.setTeam(this);
     }
 
     public void add(IngamePlayer player) {
@@ -44,6 +45,9 @@ public class Team {
     }
 
     public boolean remove(IngamePlayer player) {
+        if (player.getTeam() == this) {
+            player.setTeam(null);
+        }
         playerUuids.remove(player.getBukkitPlayer().getUniqueId());
         return team.removeEntry(player.getBukkitPlayer().getName());
     }
