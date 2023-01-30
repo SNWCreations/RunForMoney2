@@ -5,8 +5,8 @@ import org.bukkit.entity.Player;
 import snw.rfm.ConfigConstant;
 import snw.rfm.Main;
 import snw.rfm.api.GameController;
-import snw.rfm.events.internal.RemoveTimeEvent;
-import snw.rfm.events.internal.RequestTimeEvent;
+import snw.rfm.api.events.internal.RemoveTimeEvent;
+import snw.rfm.api.events.internal.RequestTimeEvent;
 
 import static snw.rfm.util.Util.fireEvent;
 

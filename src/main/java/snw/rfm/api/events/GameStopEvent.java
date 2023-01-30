@@ -1,38 +1,20 @@
-package snw.rfm.events.internal;
+package snw.rfm.api.events;
 
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import snw.rfm.entity.Game;
 
-public class RemoveTimeEvent extends RFMInternalEvent {
+public class GameStopEvent extends RFMEvent {
     private static final HandlerList handlers = new HandlerList();
-
     private final Game game;
-    private int data;
-    private boolean addCoin;
 
-    public RemoveTimeEvent(Game game) {
+    public GameStopEvent(Game game) {
+        super(true);
         this.game = game;
     }
 
     public Game getGame() {
         return game;
-    }
-
-    public int getData() {
-        return data;
-    }
-
-    public void setData(int data) {
-        this.data = data;
-    }
-
-    public boolean isAddCoin() {
-        return addCoin;
-    }
-
-    public void setAddCoin(boolean addCoin) {
-        this.addCoin = addCoin;
     }
 
     @NotNull

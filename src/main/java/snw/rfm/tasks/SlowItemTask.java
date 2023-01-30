@@ -13,7 +13,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import snw.rfm.Main;
 import snw.rfm.commands.SlowItemCommand;
 import snw.rfm.entity.Game;
-import snw.rfm.events.GameStopEvent;
+import snw.rfm.api.events.GameStopEvent;
 
 public class SlowItemTask extends BukkitRunnable implements Listener {
     private static final PotionEffect SLOW = new PotionEffect(PotionEffectType.SLOW, 20, 1, false, false);

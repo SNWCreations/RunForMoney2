@@ -17,7 +17,7 @@ import snw.rfm.Main;
 import snw.rfm.api.item.ItemRegistry;
 import snw.rfm.entity.IngamePlayer;
 import snw.rfm.entity.TeamRegistry;
-import snw.rfm.events.GameStopEvent;
+import snw.rfm.api.events.GameStopEvent;
 
 import java.util.Arrays;
 

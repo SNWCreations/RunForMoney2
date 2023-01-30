@@ -9,7 +9,7 @@ import snw.rfm.Main;
 import snw.rfm.entity.Game;
 import snw.rfm.entity.IngamePlayer;
 import snw.rfm.entity.TeamRegistry;
-import snw.rfm.events.HunterReleasedEvent;
+import snw.rfm.api.events.HunterReleasedEvent;
 
 import java.util.Set;
 import java.util.stream.Collectors;

@@ -1,4 +1,4 @@
-package snw.rfm.events.internal;
+package snw.rfm.api.events.internal;
 
 import org.bukkit.event.Event;
 

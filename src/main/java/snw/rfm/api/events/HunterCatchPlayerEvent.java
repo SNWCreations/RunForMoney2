@@ -1,4 +1,4 @@
-package snw.rfm.events;
+package snw.rfm.api.events;
 
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;

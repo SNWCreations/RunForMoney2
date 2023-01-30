@@ -21,7 +21,7 @@ import snw.rfm.api.item.ItemRegistry;
 import snw.rfm.api.item.RightClickCallback;
 import snw.rfm.entity.IngamePlayer;
 import snw.rfm.entity.TeamRegistry;
-import snw.rfm.events.HunterCatchPlayerEvent;
+import snw.rfm.api.events.HunterCatchPlayerEvent;
 
 import java.util.Arrays;
 import java.util.Objects;

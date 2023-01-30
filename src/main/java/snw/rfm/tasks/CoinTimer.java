@@ -6,8 +6,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 import snw.rfm.Main;
 import snw.rfm.entity.Game;
-import snw.rfm.events.internal.RemoveTimeEvent;
-import snw.rfm.events.internal.RequestTimeEvent;
+import snw.rfm.api.events.internal.RemoveTimeEvent;
+import snw.rfm.api.events.internal.RequestTimeEvent;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

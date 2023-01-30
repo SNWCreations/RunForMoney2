@@ -11,7 +11,7 @@ import snw.rfm.util.Util;
 import snw.rfm.entity.Game;
 import snw.rfm.entity.IngamePlayer;
 import snw.rfm.entity.TeamRegistry;
-import snw.rfm.events.HunterCatchPlayerEvent;
+import snw.rfm.api.events.HunterCatchPlayerEvent;
 
 import static snw.rfm.util.Util.fireEvent;
 
