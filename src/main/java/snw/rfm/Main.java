@@ -64,6 +64,7 @@ public final class Main extends JavaPlugin {
         TeamRegistry.init();
         ConfigConstant.init(this, true);
         NickSupport.init(this);
+        SlowItemCommand.init(this);
     }
 
     private void registerCommands() {
