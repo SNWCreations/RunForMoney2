@@ -203,6 +203,7 @@ public class RFMGameCommand implements TabExecutor {
                             return filterTab(args[2], TeamRegistry.OUT.toNameSet());
                     }
                 }
+                break;
             case 4:
                 if ("control".equals(args[0])) {
                     if (args[1].equals("money")) {
@@ -213,7 +214,7 @@ public class RFMGameCommand implements TabExecutor {
                         }
                     }
                 }
-
+                break;
         }
         return Collections.emptyList();
     }
