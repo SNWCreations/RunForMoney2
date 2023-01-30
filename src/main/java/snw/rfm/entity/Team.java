@@ -20,17 +20,23 @@ public class Team {
         this.team = team;
     }
 
-    public void add(IngamePlayer player) {
-        Optional.ofNullable(player.getTeam()).ifPresent(i -> {
-            player.getBukkitPlayer().sendMessage(
-                    pluginMsg(
-                            ChatColor.YELLOW + String.format("你正在加入 %s 队伍，但你已经在 %s 队伍了，你将被从 %s 队伍移出，然后再加入 %s 队伍。", getDisplayName(), i.getDisplayName(), i.getDisplayName(), getDisplayName())
-                    )
-            );
-            i.remove(player);
-        });
+    public void add(IngamePlayer player, boolean tip) {
+        if (tip) {
+            Optional.ofNullable(player.getTeam()).ifPresent(i -> {
+                player.getBukkitPlayer().sendMessage(
+                        pluginMsg(
+                                ChatColor.YELLOW + String.format("你正在加入 %s 队伍，但你已经在 %s 队伍了，你将被从 %s 队伍移出，然后再加入 %s 队伍。", getDisplayName(), i.getDisplayName(), i.getDisplayName(), getDisplayName())
+                        )
+                );
+                i.remove(player);
+            });
+        }
         team.addEntry(player.getBukkitPlayer().getName());
         playerUuids.add(player.getBukkitPlayer().getUniqueId());
+    }
+
+    public void add(IngamePlayer player) {
+        add(player, true);
     }
 
     public boolean contains(IngamePlayer player) {
