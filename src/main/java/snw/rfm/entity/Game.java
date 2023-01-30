@@ -3,14 +3,16 @@ package snw.rfm.entity;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import snw.rfm.ConfigConstant;
 import snw.rfm.Main;
 import snw.rfm.api.GameController;
-import snw.rfm.item.internal.ItemClickDispatcher;
 import snw.rfm.api.events.GameStartEvent;
 import snw.rfm.api.events.GameStopEvent;
 import snw.rfm.api.events.HunterReleasedEvent;
+import snw.rfm.item.internal.ItemClickDispatcher;
 import snw.rfm.listeners.DamageListener;
 import snw.rfm.tasks.CoinTimer;
 import snw.rfm.tasks.HunterReleaseTimer;
@@ -21,7 +23,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static snw.rfm.util.Util.fireEvent;
-import static snw.rfm.util.Util.tempListener;
 
 public class Game {
     protected final Main main;
@@ -47,20 +48,11 @@ public class Game {
         fireEvent(new GameStartEvent(this));
         registerListener(new DamageListener(this));
         registerListener(new ItemClickDispatcher(main));
+        registerListener(new HunterReleaseListener());
 
         SlowItemTask slowItemTask = new SlowItemTask(this);
         registerListener(slowItemTask);
         slowItemTask.start(main);
-
-        tempListener(main, HunterReleasedEvent.class, i -> {
-            if (i.getGame() != this) {
-                return false;
-            }
-            coinTimer = new CoinTimer(main, this, timeRemaining);
-            coinTimer.start();
-            Bukkit.broadcastMessage(ChatColor.RED + "" + ChatColor.BOLD + "游戏开始");
-            return true;
-        });
         if (ConfigConstant.HUNTER_RELEASE_TIME > 0) {
             new HunterReleaseTimer(main, this, ConfigConstant.HUNTER_RELEASE_TIME).start();
         } else {
@@ -111,5 +103,17 @@ public class Game {
 
     public GameController getController() {
         return controller;
+    }
+
+    class HunterReleaseListener implements Listener {
+        @EventHandler
+        public void on(HunterReleasedEvent e) {
+            if (e.getGame() == Game.this) {
+                Game.this.coinTimer = new CoinTimer(main, Game.this, timeRemaining);
+                Game.this.coinTimer.start();
+                Bukkit.broadcastMessage(ChatColor.RED + "" + ChatColor.BOLD + "游戏开始");
+                HandlerList.unregisterAll(this);
+            }
+        }
     }
 }

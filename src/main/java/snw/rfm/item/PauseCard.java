@@ -4,6 +4,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -17,13 +19,11 @@ import snw.rfm.entity.IngamePlayer;
 import snw.rfm.entity.TeamRegistry;
 
 import java.util.Arrays;
-import java.util.concurrent.atomic.AtomicBoolean;
 
-import static snw.rfm.util.Util.tempListener;
-
-public class PauseCard implements RightClickCallback {
+public class PauseCard implements RightClickCallback, Listener {
     private static final ItemStack ITEM;
     private final Main main;
+    private boolean working;
 
     static {
         ItemStack stack = new ItemStack(Material.GOLD_INGOT);
@@ -47,21 +47,24 @@ public class PauseCard implements RightClickCallback {
 
     @Override
     public boolean onClick(Player player, ItemStack stack) {
-        AtomicBoolean dead = new AtomicBoolean(false);
+        working = true;
         new BukkitRunnable() {
             @Override
             public void run() {
-                dead.set(true);
+                PauseCard.this.working = false;
             }
         }.runTaskLater(main, ConfigConstant.HUNTER_PAUSE_TIME * 20L);
-        tempListener(main, PlayerMoveEvent.class, i -> {
-            if (TeamRegistry.HUNTER.contains(IngamePlayer.getWrappedPlayer(i.getPlayer()))) {
-                if (!dead.get()) {
-                    i.setCancelled(true);
+        return true;
+    }
+
+    @EventHandler
+    public void onMove(PlayerMoveEvent e) {
+        if (main.isGamePresent()) {
+            if (TeamRegistry.HUNTER.contains(IngamePlayer.getWrappedPlayer(e.getPlayer()))) {
+                if (working) {
+                    e.setCancelled(true);
                 }
             }
-            return dead.get();
-        });
-        return true;
+        }
     }
 }

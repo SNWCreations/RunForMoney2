@@ -5,17 +5,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
 import snw.rfm.ExitReason;
-import snw.rfm.Main;
 import snw.rfm.entity.IngamePlayer;
 import snw.rfm.entity.TeamRegistry;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Util {
@@ -36,20 +31,6 @@ public class Util {
     
     public static void sendSuccess(CommandSender sender) {
         sender.sendMessage(pluginMsg(ChatColor.GREEN + "操作成功。"));
-    }
-
-    // the class type is ignored, it is just for providing specific methods access
-    public static <T extends Event> void tempListener(Main main, Class<T> ignoredType, Function<T, Boolean> function) {
-        Listener listener = new Listener() {
-            @EventHandler
-            public void onEvent(T event) {
-                Boolean apply = function.apply(event);
-                if (Boolean.TRUE.equals(apply)) {
-                    HandlerList.unregisterAll(this);
-                }
-            }
-        };
-        Bukkit.getPluginManager().registerEvents(listener, main);
     }
     
     public static void fireEvent(Event event) {
