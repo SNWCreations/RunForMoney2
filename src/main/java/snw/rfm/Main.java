@@ -11,10 +11,7 @@ import snw.rfm.commands.RFMTeamCommand;
 import snw.rfm.commands.SlowItemCommand;
 import snw.rfm.entity.Game;
 import snw.rfm.entity.TeamRegistry;
-import snw.rfm.item.FreezeCard;
-import snw.rfm.item.IgnoreCard;
-import snw.rfm.item.PauseCard;
-import snw.rfm.item.RespawnCard;
+import snw.rfm.item.*;
 import snw.rfm.listeners.PlayerJoinListener;
 import snw.rfm.util.NickSupport;
 
@@ -87,5 +84,6 @@ public final class Main extends JavaPlugin {
         new RespawnCard(this);
         new IgnoreCard(this);
         new FreezeCard(this);
+        new ExitPickaxe(this);
     }
 }
