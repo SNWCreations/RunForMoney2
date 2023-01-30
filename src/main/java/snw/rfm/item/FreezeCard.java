@@ -19,6 +19,8 @@ import snw.rfm.ConfigConstant;
 import snw.rfm.Main;
 import snw.rfm.api.item.ItemRegistry;
 import snw.rfm.api.item.RightClickCallback;
+import snw.rfm.entity.IngamePlayer;
+import snw.rfm.entity.TeamRegistry;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -59,6 +61,7 @@ public class FreezeCard implements Listener, RightClickCallback {
                 .stream()
                 .filter(IT -> IT.getType() == EntityType.PLAYER)
                 .filter(IT -> IT != player)
+                .filter(IT -> TeamRegistry.HUNTER.contains(IngamePlayer.getWrappedPlayer(((Player) IT))))
                 .forEach(i -> new PlayerSlow(((Player) i)).start(main));
         return true;
     }
