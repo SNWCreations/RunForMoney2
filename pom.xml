@@ -9,7 +9,7 @@
     <version>2.0.0</version>
     <packaging>jar</packaging>
 
-    <name>Run For Money v2</name>
+    <name>RunForMoney2</name>
 
     <properties>
         <java.version>1.8</java.version>
