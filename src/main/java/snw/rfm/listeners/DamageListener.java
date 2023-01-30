@@ -7,12 +7,12 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import snw.rfm.ConfigConstant;
 import snw.rfm.ExitReason;
-import snw.rfm.util.Util;
+import snw.rfm.api.events.HunterCatchPlayerEvent;
 import snw.rfm.entity.Game;
 import snw.rfm.entity.IngamePlayer;
 import snw.rfm.entity.TeamRegistry;
-import snw.rfm.api.events.HunterCatchPlayerEvent;
 
+import static snw.rfm.util.Util.broadcast;
 import static snw.rfm.util.Util.fireEvent;
 
 public class DamageListener implements Listener {
@@ -40,7 +40,7 @@ public class DamageListener implements Listener {
                         attacked.getBukkitPlayer().teleport(ConfigConstant.END_ROOM_LOCATION);
                     }
                     game.getCoinMap().calc(attacked);
-                    Util.broadcast(attacked, ExitReason.BE_CAUGHT);
+                    broadcast(attacked, ExitReason.BE_CAUGHT);
                 }
             }
         }
