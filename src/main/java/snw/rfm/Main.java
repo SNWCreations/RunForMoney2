@@ -2,6 +2,7 @@ package snw.rfm;
 
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabExecutor;
+import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import snw.rfm.commands.RFMItemCommand;
 import snw.rfm.item.FreezeCard;
@@ -39,6 +40,8 @@ public final class Main extends JavaPlugin {
         // Plugin shutdown logic
         Optional.ofNullable(game).ifPresent(Game::stop);
         TeamRegistry.cleanup();
+        getServer().getScheduler().cancelTasks(this);
+        HandlerList.unregisterAll(this);
     }
 
     public Game getGame() {
