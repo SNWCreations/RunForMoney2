@@ -1,6 +1,5 @@
 package snw.rfm.events;
 
-import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 import snw.rfm.entity.Game;

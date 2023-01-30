@@ -33,7 +33,7 @@ public class SlowItemTask extends BukkitRunnable implements Listener {
                 if (stack == null) {
                     continue;
                 }
-                if (stack.hasItemMeta() && stack.getItemMeta().getPersistentDataContainer().has(SlowItemCommand.SLOW_KEY, PersistentDataType.BYTE)) {
+                if (stack.getItemMeta() != null && stack.getItemMeta().getPersistentDataContainer().has(SlowItemCommand.SLOW_KEY, PersistentDataType.BYTE)) {
                     player.addPotionEffect(SLOW);
                     break; // do not apply for many times
                 }

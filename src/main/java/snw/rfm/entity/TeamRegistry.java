@@ -46,7 +46,7 @@ public class TeamRegistry {
 
     private static org.bukkit.scoreboard.Team refreshTeam(String name) {
         Optional.ofNullable(
-                Bukkit.getScoreboardManager().getMainScoreboard().getTeam(name)
+                Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard().getTeam(name) // impossible to fail
         ).ifPresent(org.bukkit.scoreboard.Team::unregister);
         return Bukkit.getScoreboardManager().getMainScoreboard().registerNewTeam(name);
     }

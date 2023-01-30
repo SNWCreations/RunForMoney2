@@ -32,40 +32,44 @@ public class SlowItemCommand implements CommandExecutor {
             ItemStack item = ((Player) sender).getInventory().getItemInMainHand();
             if (item.getType().isItem()) {
                 ItemMeta itemMeta = item.getItemMeta();
-                boolean prevHas = itemMeta.getPersistentDataContainer().has(SLOW_KEY, PersistentDataType.BYTE);
-                if (prevHas) {
-                    itemMeta.getPersistentDataContainer().remove(SLOW_KEY);
-                    // cleanup lore
-                    if (itemMeta.hasLore()) {
-                        @SuppressWarnings("DataFlowIssue") // NotNull at this time!
-                        List<String> lore = new ArrayList<>(itemMeta.getLore());
-                        if (lore.size() > 1) {
-                            if (lore.get(0).equals(LORE)) {
-                                lore.remove(0);
-                            }
-                            if (lore.size() > 1) { // if still > 1
-                                if (lore.get(0).equals("")) {
+                if (itemMeta == null) {
+                    sender.sendMessage(pluginMsg(ChatColor.RED + "操作失败。这不是一个有效的物品。"));
+                } else {
+                    boolean prevHas = itemMeta.getPersistentDataContainer().has(SLOW_KEY, PersistentDataType.BYTE);
+                    if (prevHas) {
+                        itemMeta.getPersistentDataContainer().remove(SLOW_KEY);
+                        // cleanup lore
+                        if (itemMeta.hasLore()) {
+                            @SuppressWarnings("DataFlowIssue") // NotNull at this time!
+                            List<String> lore = new ArrayList<>(itemMeta.getLore());
+                            if (lore.size() > 1) {
+                                if (lore.get(0).equals(LORE)) {
                                     lore.remove(0);
                                 }
+                                if (lore.size() > 1) { // if still > 1
+                                    if (lore.get(0).equals("")) {
+                                        lore.remove(0);
+                                    }
+                                }
                             }
+                            itemMeta.setLore(lore);
+                        }
+                    } else {
+                        itemMeta.getPersistentDataContainer().set(SLOW_KEY, PersistentDataType.BYTE, (byte) 1);
+                        // add lore
+                        List<String> lore = new ArrayList<>();
+                        lore.add(LORE);
+                        if (itemMeta.hasLore()) {
+                            lore.add("");
+                            // noinspection DataFlowIssue // NotNull at this time!
+                            lore.addAll(itemMeta.getLore());
                         }
                         itemMeta.setLore(lore);
                     }
-                } else {
-                    itemMeta.getPersistentDataContainer().set(SLOW_KEY, PersistentDataType.BYTE, (byte) 1);
-                    // add lore
-                    List<String> lore = new ArrayList<>();
-                    lore.add(LORE);
-                    if (itemMeta.hasLore()) {
-                        lore.add("");
-                        // noinspection DataFlowIssue // NotNull at this time!
-                        lore.addAll(itemMeta.getLore());
-                    }
-                    itemMeta.setLore(lore);
+                    item.setItemMeta(itemMeta); // return back
+                    sendSuccess(sender);
+                    sender.sendMessage(pluginMsg("已" + ((prevHas) ? ChatColor.RED + "移除" : ChatColor.GREEN + "添加") + ChatColor.RESET + "标签。"));
                 }
-                item.setItemMeta(itemMeta); // return back
-                sendSuccess(sender);
-                sender.sendMessage(pluginMsg("已" + ((prevHas) ? ChatColor.RED + "移除" : ChatColor.GREEN + "添加") + ChatColor.RESET + "标签。"));
             } else {
                 sender.sendMessage(pluginMsg(ChatColor.RED + "操作失败。这不是一个有效的物品。"));
             }

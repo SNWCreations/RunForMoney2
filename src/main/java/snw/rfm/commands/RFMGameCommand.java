@@ -205,13 +205,12 @@ public class RFMGameCommand implements TabExecutor {
                 }
             case 4:
                 if ("control".equals(args[0])) {
-                    switch (args[1]) {
-                        case "money":
-                            switch (args[2]) {
-                                case "add":
-                                case "set":
-                                    return filterTab(args[3], getAllPlayersName());
-                            }
+                    if (args[1].equals("money")) {
+                        switch (args[2]) {
+                            case "add":
+                            case "set":
+                                return filterTab(args[3], getAllPlayersName());
+                        }
                     }
                 }
 
