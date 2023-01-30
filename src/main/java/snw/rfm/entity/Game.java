@@ -14,6 +14,7 @@ import snw.rfm.events.HunterReleasedEvent;
 import snw.rfm.listeners.DamageListener;
 import snw.rfm.tasks.CoinTimer;
 import snw.rfm.tasks.HunterReleaseTimer;
+import snw.rfm.tasks.SlowItemTask;
 import snw.rfm.util.ListenerList;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -46,6 +47,11 @@ public class Game {
         fireEvent(new GameStartEvent(this));
         registerListener(new DamageListener(this));
         registerListener(new ItemClickDispatcher(main));
+
+        SlowItemTask slowItemTask = new SlowItemTask(this);
+        registerListener(slowItemTask);
+        slowItemTask.start(main);
+
         tempListener(main, HunterReleasedEvent.class, i -> {
             if (i.getGame() != this) {
                 return false;

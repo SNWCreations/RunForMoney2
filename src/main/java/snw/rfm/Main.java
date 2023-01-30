@@ -1,18 +1,20 @@
 package snw.rfm;
 
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
-import org.bukkit.command.TabExecutor;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
+import snw.rfm.commands.RFMGameCommand;
 import snw.rfm.commands.RFMItemCommand;
+import snw.rfm.commands.RFMTeamCommand;
+import snw.rfm.commands.SlowItemCommand;
+import snw.rfm.entity.Game;
+import snw.rfm.entity.TeamRegistry;
 import snw.rfm.item.FreezeCard;
 import snw.rfm.item.IgnoreCard;
 import snw.rfm.item.PauseCard;
 import snw.rfm.item.RespawnCard;
-import snw.rfm.commands.RFMGameCommand;
-import snw.rfm.commands.RFMTeamCommand;
-import snw.rfm.entity.Game;
-import snw.rfm.entity.TeamRegistry;
 import snw.rfm.util.NickSupport;
 
 import java.util.Objects;
@@ -66,12 +68,15 @@ public final class Main extends JavaPlugin {
         registerCommand("rfmgame", new RFMGameCommand(this));
         registerCommand("rfmteam", new RFMTeamCommand(this));
         registerCommand("rfmitem", new RFMItemCommand());
+        registerCommand("slowitem", new SlowItemCommand());
     }
 
-    private void registerCommand(String name, TabExecutor executor) {
+    private void registerCommand(String name, CommandExecutor executor) {
         PluginCommand command = Objects.requireNonNull(getCommand(name), "Command " + name + " not found!");
         command.setExecutor(executor);
-        command.setTabCompleter(executor);
+        if (executor instanceof TabCompleter) {
+            command.setTabCompleter(((TabCompleter) executor));
+        }
     }
 
     private void registerInternalItems() {
