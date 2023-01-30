@@ -15,6 +15,7 @@ import snw.rfm.item.FreezeCard;
 import snw.rfm.item.IgnoreCard;
 import snw.rfm.item.PauseCard;
 import snw.rfm.item.RespawnCard;
+import snw.rfm.listeners.PlayerJoinListener;
 import snw.rfm.util.NickSupport;
 
 import java.util.Objects;
@@ -35,6 +36,7 @@ public final class Main extends JavaPlugin {
         initData();
         registerCommands();
         registerInternalItems();
+        new PlayerJoinListener(this);
     }
 
     @Override
