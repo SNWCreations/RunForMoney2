@@ -12,6 +12,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import snw.rfm.ConfigConstant;
 import snw.rfm.Main;
+import snw.rfm.api.events.GameStopEvent;
 import snw.rfm.api.item.ItemRegistry;
 import snw.rfm.api.item.RightClickCallback;
 import snw.rfm.api.events.HunterCatchPlayerEvent;
@@ -69,6 +70,13 @@ public class IgnoreCard implements Listener, RightClickCallback {
             if (activeSet.contains(e.getPlayer().getBukkitPlayer().getUniqueId().toString())) {
                 e.setCancelled(true);
             }
+        }
+    }
+
+    @EventHandler
+    public void onStop(GameStopEvent e) {
+        synchronized (activeSet) {
+            activeSet.clear();
         }
     }
 }
