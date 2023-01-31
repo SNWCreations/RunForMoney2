@@ -96,7 +96,7 @@ public final class GameControllerImpl implements GameController {
 
     @Override
     public double getMoney(OfflinePlayer player) {
-        return game.getCoinMap().toView().get(player);
+        return game.getCoinMap().toView().getOrDefault(player, 0.0);
     }
 
     @Override
