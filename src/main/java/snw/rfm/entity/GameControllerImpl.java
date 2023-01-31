@@ -75,10 +75,10 @@ public final class GameControllerImpl implements GameController {
 
     @Override
     public void forceOut(Player player) throws IllegalStateException {
-        if (TeamRegistry.RUNNER.contains(IngamePlayer.getWrappedPlayer(player))) {
+        if (TeamRegistry.OUT.contains(IngamePlayer.getWrappedPlayer(player))) {
             throw new IllegalStateException("Already out");
         }
-        TeamRegistry.RUNNER.remove(IngamePlayer.getWrappedPlayer(player));
+        TeamRegistry.OUT.add(IngamePlayer.getWrappedPlayer(player), false);
     }
 
     @Override
