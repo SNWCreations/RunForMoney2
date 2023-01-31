@@ -9,6 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 import snw.rfm.ConfigConstant;
 import snw.rfm.Main;
 import snw.rfm.api.item.ItemRegistry;
@@ -21,6 +22,7 @@ import java.util.Set;
 
 public class IgnoreCard implements Listener, RightClickCallback {
     private static final ItemStack ITEM;
+    private final Main main;
     private final Set<String> activeSet = new HashSet<>();
 
     static {
@@ -40,6 +42,7 @@ public class IgnoreCard implements Listener, RightClickCallback {
     }
 
     public IgnoreCard(Main main) {
+        this.main = main;
         ItemRegistry.add("ignore_card", ITEM, this);
         main.getServer().getPluginManager().registerEvents(this, main);
     }
@@ -49,6 +52,14 @@ public class IgnoreCard implements Listener, RightClickCallback {
         synchronized (activeSet) { // keep sync
             activeSet.add(player.getUniqueId().toString());
         }
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                synchronized (activeSet) {
+                    activeSet.remove(player.getUniqueId().toString());
+                }
+            }
+        }.runTaskLater(main, ConfigConstant.IGNORE_TIME * 20L);
         return true;
     }
 
