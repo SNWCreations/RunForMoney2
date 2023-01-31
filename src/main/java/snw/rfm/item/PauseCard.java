@@ -1,5 +1,6 @@
 package snw.rfm.item;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -19,6 +20,9 @@ import snw.rfm.entity.IngamePlayer;
 import snw.rfm.entity.TeamRegistry;
 
 import java.util.Arrays;
+
+import static snw.rfm.util.Util.buildPlayerName;
+import static snw.rfm.util.Util.pluginMsg;
 
 public class PauseCard implements RightClickCallback, Listener {
     private static final ItemStack ITEM;
@@ -48,6 +52,9 @@ public class PauseCard implements RightClickCallback, Listener {
     @Override
     public boolean onClick(Player player, ItemStack stack) {
         working = true;
+        Bukkit.broadcastMessage(pluginMsg(
+                String.format("%s%s 使用了猎人暂停卡。全体猎人暂停 %s 秒。", ChatColor.GREEN, buildPlayerName(IngamePlayer.getWrappedPlayer(player)), ConfigConstant.HUNTER_PAUSE_TIME)
+        ));
         new BukkitRunnable() {
             @Override
             public void run() {
