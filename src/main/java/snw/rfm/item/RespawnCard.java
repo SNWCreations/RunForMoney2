@@ -6,7 +6,6 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -17,7 +16,6 @@ import snw.rfm.Main;
 import snw.rfm.api.item.ItemRegistry;
 import snw.rfm.entity.IngamePlayer;
 import snw.rfm.entity.TeamRegistry;
-import snw.rfm.api.events.GameStopEvent;
 
 import java.util.Arrays;
 
@@ -67,8 +65,4 @@ public class RespawnCard implements Listener {
         }
     }
 
-    @EventHandler
-    public void onStop(GameStopEvent e) {
-        HandlerList.unregisterAll(this);
-    }
 }
