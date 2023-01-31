@@ -69,7 +69,7 @@ public final class GameControllerImpl implements GameController {
         if (TeamRegistry.RUNNER.contains(IngamePlayer.getWrappedPlayer(player))) {
             return false;
         }
-        TeamRegistry.RUNNER.add(IngamePlayer.getWrappedPlayer(player));
+        TeamRegistry.RUNNER.add(IngamePlayer.getWrappedPlayer(player), false);
         return true;
     }
 
