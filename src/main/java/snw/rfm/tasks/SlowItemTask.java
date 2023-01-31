@@ -28,7 +28,7 @@ public class SlowItemTask extends BukkitRunnable implements Listener {
     public void run() {
         for (Player player : Bukkit.getOnlinePlayers()) {
             PlayerInventory inventory = player.getInventory();
-            ItemStack[] storageContents = inventory.getStorageContents();
+            ItemStack[] storageContents = inventory.getContents();
             for (ItemStack stack : storageContents) {
                 if (stack == null) {
                     continue;
