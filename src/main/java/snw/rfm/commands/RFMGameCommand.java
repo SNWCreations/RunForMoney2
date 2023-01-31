@@ -88,7 +88,7 @@ public class RFMGameCommand implements TabExecutor {
                             case "money":
                                 switch (args[2]) {
                                     case "reset":
-                                        main.getGame().getCoinMap().reset();
+                                        main.getGame().getController().clearCoin();
                                         sendSuccess(sender);
                                         break;
                                     case "add":
