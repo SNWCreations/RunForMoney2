@@ -53,7 +53,7 @@ public class PauseCard implements RightClickCallback, Listener {
     public boolean onClick(Player player, ItemStack stack) {
         working = true;
         Bukkit.broadcastMessage(pluginMsg(
-                String.format("%s%s 使用了猎人暂停卡。全体猎人暂停 %s 秒。", ChatColor.GREEN, buildPlayerName(IngamePlayer.getWrappedPlayer(player)), ConfigConstant.HUNTER_PAUSE_TIME)
+                String.format("%s%s 使用了猎人暂停卡。全体猎人暂停 %s 秒。", ChatColor.GREEN, buildPlayerName(player), ConfigConstant.HUNTER_PAUSE_TIME)
         ));
         new BukkitRunnable() {
             @Override

@@ -21,8 +21,16 @@ public class Util {
         Bukkit.broadcastMessage(String.format("%s%s剩余 %s 人。", ChatColor.RED, ChatColor.BOLD, TeamRegistry.RUNNER.size()));
     }
 
+    public static String buildPlayerName(String name) {
+        return NickSupport.getNickName(name);
+    }
+
+    public static String buildPlayerName(Player player) {
+        return buildPlayerName(player.getName());
+    }
+
     public static String buildPlayerName(IngamePlayer player) {
-        return NickSupport.getNickName(player.getBukkitPlayer().getName());
+        return buildPlayerName(player.getBukkitPlayer().getName());
     }
 
     public static String pluginMsg(String msg) {

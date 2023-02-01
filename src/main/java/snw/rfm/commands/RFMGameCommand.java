@@ -2,6 +2,7 @@ package snw.rfm.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -15,6 +16,7 @@ import snw.rfm.entity.TeamRegistry;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import static snw.rfm.util.Util.*;
 
@@ -92,12 +94,12 @@ public class RFMGameCommand implements TabExecutor {
                                         sendSuccess(sender);
                                         break;
                                     case "add":
-                                        if (args.length >= 4) {
+                                        if (args.length == 5) {
                                             Player player = Bukkit.getPlayer(args[3]);
                                             if (player == null) {
                                                 sender.sendMessage(pluginMsg(ChatColor.RED + "玩家不在线。"));
                                             } else {
-                                                int a = Integer.parseInt(args[3]);
+                                                int a = Integer.parseInt(args[4]);
                                                 main.getGame().getController().addMoney(player, a);
                                             }
                                         } else {
@@ -106,17 +108,35 @@ public class RFMGameCommand implements TabExecutor {
                                         }
                                         break;
                                     case "set":
-                                        if (args.length == 4) {
+                                        if (args.length == 5) {
                                             Player player = Bukkit.getPlayer(args[3]);
                                             if (player == null) {
                                                 sender.sendMessage(pluginMsg(ChatColor.RED + "玩家不在线。"));
                                             } else {
-                                                int b = Integer.parseInt(args[3]);
+                                                int b = Integer.parseInt(args[4]);
                                                 main.getGame().getController().setMoney(player, b);
                                             }
                                         } else {
                                             sender.sendMessage(pluginMsg(ChatColor.RED + "参数数量错误。"));
                                             return false;
+                                        }
+                                        break;
+                                    case "get":
+                                        if (args.length == 4) {
+                                            Player player = Bukkit.getPlayer(args[3]);
+                                            if (player == null) {
+                                                sender.sendMessage(pluginMsg(ChatColor.RED + "玩家不在线。"));
+                                            } else {
+                                                sender.sendMessage(pluginMsg(ChatColor.GREEN + buildPlayerName(args[3]) + " 现有 " + main.getGame().getController().getMoney(player) + " 硬币"));
+                                            }
+                                        } else {
+                                            Map<OfflinePlayer, Double> view = main.getGame().getCoinMap().toView();
+                                            sender.sendMessage(pluginMsg(ChatColor.BOLD + "=== 硬币榜 ==="));
+                                            for (Map.Entry<OfflinePlayer, Double> entry : view.entrySet()) {
+                                                sender.sendMessage(pluginMsg(
+                                                        buildPlayerName(entry.getKey().getName()) + " - " + entry.getValue()
+                                                ));
+                                            }
                                         }
                                         break;
                                 }
