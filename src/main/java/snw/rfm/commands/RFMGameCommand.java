@@ -220,7 +220,7 @@ public class RFMGameCommand implements TabExecutor {
                 if ("control".equals(args[0])) {
                     switch (args[1]) {
                         case "money":
-                            return filterTab(args[2], Arrays.asList("add", "set", "reset"));
+                            return filterTab(args[2], Arrays.asList("add", "set", "reset", "get"));
                         case "forceout":
                             return filterTab(args[2], TeamRegistry.RUNNER.toNameSet());
                         case "respawn":
