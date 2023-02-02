@@ -74,10 +74,10 @@ public class RFMGameCommand implements TabExecutor {
             case "resume":
                 if (main.isGamePresent()) {
                     if (main.getGame().isPaused()) {
-                        sender.sendMessage(pluginMsg(ChatColor.RED + "游戏未暂停。"));
-                    } else {
                         main.getGame().resume();
                         sendSuccess(sender);
+                    } else {
+                        sender.sendMessage(pluginMsg(ChatColor.RED + "游戏未暂停。"));
                     }
                 } else {
                     sender.sendMessage(pluginMsg(ChatColor.RED + "游戏未运行。"));
