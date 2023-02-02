@@ -42,7 +42,7 @@ public class SlowItemCommand implements CommandExecutor {
                         if (itemMeta.hasLore()) {
                             @SuppressWarnings("DataFlowIssue") // NotNull at this time!
                             List<String> lore = new ArrayList<>(itemMeta.getLore());
-                            if (lore.size() > 1) {
+                            if (lore.size() >= 1) {
                                 if (lore.get(0).equals(LORE)) {
                                     lore.remove(0);
                                 }
