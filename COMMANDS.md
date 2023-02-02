@@ -15,6 +15,7 @@
      |    +--- add (为某人增加硬币)
      |         set (设置某人的硬币数量)
      |         reset (重置所有人的硬币数量)
+     |         get (获取所有人的硬币数量)
      |
      +--- reverse (使游戏时间倒流)
      +--- forceout (强制淘汰指定玩家)
@@ -41,6 +42,14 @@
 
 `add` 和 `set` 选项需要两个参数: 玩家名 和 数量。
 
-## /rfmgame forceout & /rfmgame respawn
+`get` 选项有一个可选参数: 玩家名。若提供了，则仅查询对应玩家的硬币。
 
-这两个命令都只需要一个 玩家名 作为参数。
+## /rfmgame control forceout & /rfmgame control respawn
+
+允许指定一些玩家以批量操作。
+
+## /rfmteam join
+
+命令格式: `/rfmteam join <队伍名> [玩家...]`
+
+玩家可以是多个，以批量操作。
