@@ -59,6 +59,8 @@ public class ConfigConstant {
             logger.info("终止间位置: " + END_ROOM_LOCATION);
             logger.info("当逃走队员被捕时，当时拥有的硬币将乘以: " + COIN_DELETION_MULTIPLIER);
             logger.info("每秒增加的硬币量: " + COIN_PER_SECOND);
+            logger.info("游戏时长(单位: 分钟): " + GAME_TIME);
+            logger.info("猎人放出前的时间(单位: 秒): " + HUNTER_RELEASE_TIME);
 
             logger.info("猎人暂停卡有效时长(单位: 秒): " + HUNTER_PAUSE_TIME);
             logger.info("抗性卡有效时长(单位: 秒): " + IGNORE_TIME);
