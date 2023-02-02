@@ -62,8 +62,8 @@ public class ConfigConstant {
 
             logger.info("猎人暂停卡有效时长(单位: 秒): " + HUNTER_PAUSE_TIME);
             logger.info("抗性卡有效时长(单位: 秒): " + IGNORE_TIME);
-            logger.info("抗性卡有效时长(单位: 秒): " + FREEZE_TIME);
-            logger.info("抗性卡有效半径(单位: 格): " + FREEZE_RADIUS);
+            logger.info("冷冻卡有效时长(单位: 秒): " + FREEZE_TIME);
+            logger.info("冷冻卡有效半径(单位: 格): " + FREEZE_RADIUS);
             logger.info("当没有逃走队员时，插件是否结束游戏: " + (STOP_GAME_ON_NO_PLAYER ? "是" : "否"));
         }
     }
