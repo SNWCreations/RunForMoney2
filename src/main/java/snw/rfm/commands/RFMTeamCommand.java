@@ -1,6 +1,5 @@
 package snw.rfm.commands;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -16,7 +15,6 @@ import snw.rfm.entity.TeamRegistry;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import static snw.rfm.util.Util.*;
@@ -106,19 +104,6 @@ public class RFMTeamCommand implements TabExecutor {
             }
         }
         return Collections.emptyList();
-    }
-
-    private static void batch(CommandSender sender, String[] args, int start, Consumer<Player> action) {
-        for (int i = start; i < args.length; i++) {
-            String name = args[start];
-            Player player = Bukkit.getPlayerExact(name);
-            if (player != null) {
-                action.accept(player);
-                sender.sendMessage(pluginMsg(ChatColor.GREEN + "成功处理了 " + name));
-            } else {
-                sender.sendMessage(pluginMsg(ChatColor.RED + "处理 " + name + " 时失败: 找不到玩家。"));
-            }
-        }
     }
 
 }

@@ -11,6 +11,7 @@ import snw.rfm.entity.TeamRegistry;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class Util {
@@ -71,5 +72,18 @@ public class Util {
 
     public static List<String> getAllPlayersName() {
         return Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList());
+    }
+
+    public static void batch(CommandSender sender, String[] args, int start, Consumer<Player> action) {
+        for (int i = start; i < args.length; i++) {
+            String name = args[start];
+            Player player = Bukkit.getPlayerExact(name);
+            if (player != null) {
+                action.accept(player);
+                sender.sendMessage(pluginMsg(ChatColor.GREEN + "成功处理了 " + name));
+            } else {
+                sender.sendMessage(pluginMsg(ChatColor.RED + "处理 " + name + " 时失败: 找不到玩家。"));
+            }
+        }
     }
 }
