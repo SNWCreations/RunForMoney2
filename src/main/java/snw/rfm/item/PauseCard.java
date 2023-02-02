@@ -46,6 +46,7 @@ public class PauseCard implements RightClickCallback, Listener {
 
     public PauseCard(Main main) {
         this.main = main;
+        main.getServer().getPluginManager().registerEvents(this, main);
         ItemRegistry.add("pause_card", ITEM, this);
     }
 
