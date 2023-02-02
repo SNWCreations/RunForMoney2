@@ -76,7 +76,7 @@ public class Util {
 
     public static void batch(CommandSender sender, String[] args, int start, Consumer<Player> action) {
         for (int i = start; i < args.length; i++) {
-            String name = args[start];
+            String name = args[i];
             Player player = Bukkit.getPlayerExact(name);
             if (player != null) {
                 action.accept(player);
