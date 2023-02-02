@@ -88,6 +88,10 @@ public class RFMGameCommand implements TabExecutor {
                     if (args.length >= 2) {
                         switch (args[1]) {
                             case "money":
+                                if (args.length < 3) {
+                                    sender.sendMessage(pluginMsg(ChatColor.RED + "参数数量错误。"));
+                                    return false;
+                                }
                                 switch (args[2]) {
                                     case "reset":
                                         main.getGame().getController().clearCoin();
