@@ -70,7 +70,9 @@ public class Game {
         for (Player player : TeamRegistry.RUNNER.toBukkitPlayerSet()) {
             player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "游戏结束");
         }
-        coinTimer.cancel();
+        if (coinTimer != null) { // if you terminated the game before it starts?
+            coinTimer.cancel();
+        }
         listeners.clear();
         TeamRegistry.HUNTER.clear();
         TeamRegistry.RUNNER.clear();
