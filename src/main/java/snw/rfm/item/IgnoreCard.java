@@ -1,5 +1,6 @@
 package snw.rfm.item;
 
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -13,11 +14,13 @@ import org.bukkit.scheduler.BukkitRunnable;
 import snw.rfm.ConfigConstant;
 import snw.rfm.Main;
 import snw.rfm.api.events.GameStopEvent;
+import snw.rfm.api.events.HunterCatchPlayerEvent;
 import snw.rfm.api.item.ItemRegistry;
 import snw.rfm.api.item.RightClickCallback;
-import snw.rfm.api.events.HunterCatchPlayerEvent;
+import snw.rfm.tasks.SendingActionBarMessage;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -54,13 +57,22 @@ public class IgnoreCard implements Listener, RightClickCallback {
             activeSet.add(player.getUniqueId().toString());
         }
         new BukkitRunnable() {
+            private int ticks = ConfigConstant.IGNORE_TIME * 20;
             @Override
             public void run() {
-                synchronized (activeSet) {
-                    activeSet.remove(player.getUniqueId().toString());
+                if (ticks-- < 0) {
+                    synchronized (activeSet) {
+                        activeSet.remove(player.getUniqueId().toString());
+                    }
+                    cancel();
+                    return;
                 }
+                new SendingActionBarMessage(
+                        new TextComponent(ChatColor.RED + "抗性卡还有 " + (ticks / 20) + " 秒失效"),
+                        Collections.singleton(player)
+                ).start(main);
             }
-        }.runTaskLater(main, ConfigConstant.IGNORE_TIME * 20L);
+        }.runTaskTimer(main, 0L, 1L);
         return true;
     }
 
