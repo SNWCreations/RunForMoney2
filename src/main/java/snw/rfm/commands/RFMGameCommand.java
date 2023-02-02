@@ -230,6 +230,7 @@ public class RFMGameCommand implements TabExecutor {
                         switch (args[2]) {
                             case "add":
                             case "set":
+                            case "get":
                                 return filterTab(args[3], getAllPlayersName());
                         }
                     }
