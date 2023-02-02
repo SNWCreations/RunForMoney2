@@ -19,21 +19,25 @@ public class Util {
 
     public static void broadcast(IngamePlayer player, ExitReason reason) {
         Bukkit.broadcastMessage(
-                String.format("%s%s%s%s%s%s %s", ChatColor.RED, ChatColor.BOLD, buildPlayerName(player), ChatColor.RESET, ChatColor.RED, ChatColor.BOLD, reason.MESSAGE)
+                String.format("%s %s", buildPlayerName(player, ChatColor.RED, ChatColor.BOLD), reason.MESSAGE)
         );
         Bukkit.broadcastMessage(String.format("%s%s剩余 %s 人", ChatColor.RED, ChatColor.BOLD, TeamRegistry.RUNNER.size()));
     }
 
-    public static String buildPlayerName(String name) {
-        return NickSupport.getNickName(name);
+    public static String buildPlayerName(String name, ChatColor... colors) {
+        StringBuilder s = new StringBuilder();
+        for (ChatColor color : colors) {
+            s.append(color);
+        }
+        return ChatColor.RESET + "" + s + NickSupport.getNickName(name) + ChatColor.RESET + s;
     }
 
-    public static String buildPlayerName(Player player) {
-        return buildPlayerName(player.getName());
+    public static String buildPlayerName(Player player, ChatColor... colors) {
+        return buildPlayerName(player.getName(), colors);
     }
 
-    public static String buildPlayerName(IngamePlayer player) {
-        return buildPlayerName(player.getBukkitPlayer().getName());
+    public static String buildPlayerName(IngamePlayer player, ChatColor... colors) {
+        return buildPlayerName(player.getBukkitPlayer().getName(), colors);
     }
 
     public static String pluginMsg(String msg) {

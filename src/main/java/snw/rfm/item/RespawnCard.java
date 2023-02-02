@@ -54,9 +54,7 @@ public class RespawnCard implements Listener {
                         Player rightClicked = (Player) e.getRightClicked();
                         if (TeamRegistry.OUT.contains(rightClicked)) {
                             TeamRegistry.RUNNER.add(rightClicked, false);
-                            String s = ChatColor.GREEN + "" + ChatColor.BOLD + "" +
-                                    buildPlayerName(e.getPlayer().getName())
-                                    + ChatColor.RESET + "" + ChatColor.GREEN + "" + ChatColor.BOLD +
+                            String s = buildPlayerName(e.getPlayer().getName(), ChatColor.GREEN, ChatColor.BOLD) +
                                     " 复活了 " +
                                     buildPlayerName(rightClicked.getName());
                             for (Player player : TeamRegistry.RUNNER.toBukkitPlayerSet()) {
