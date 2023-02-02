@@ -53,7 +53,7 @@ public class RespawnCard implements Listener {
                     ItemStack item = e.getPlayer().getInventory().getItemInMainHand();
                     if (ITEM.isSimilar(item)) {
                         Player rightClicked = (Player) e.getRightClicked();
-                        if (!TeamRegistry.RUNNER.contains(rightClicked)) {
+                        if (TeamRegistry.OUT.contains(rightClicked)) {
                             TeamRegistry.RUNNER.add(rightClicked, false);
                             Bukkit.broadcastMessage(pluginMsg(ChatColor.GREEN + "" + e.getPlayer().getName() + " 复活了 " + rightClicked.getName() + " ！"));
                         }
