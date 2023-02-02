@@ -5,10 +5,7 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
-import snw.rfm.commands.RFMGameCommand;
-import snw.rfm.commands.RFMItemCommand;
-import snw.rfm.commands.RFMTeamCommand;
-import snw.rfm.commands.SlowItemCommand;
+import snw.rfm.commands.*;
 import snw.rfm.entity.Game;
 import snw.rfm.entity.TeamRegistry;
 import snw.rfm.item.*;
@@ -68,6 +65,7 @@ public final class Main extends JavaPlugin {
         registerCommand("rfmgame", new RFMGameCommand(this));
         registerCommand("rfmteam", new RFMTeamCommand(this));
         registerCommand("rfmitem", new RFMItemCommand());
+        registerCommand("rfmtimer", new RFMTimerCommand());
         registerCommand("slowitem", new SlowItemCommand());
     }
 

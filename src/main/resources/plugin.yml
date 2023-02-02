@@ -15,6 +15,10 @@ commands:
     description: "获取逃走中道具。"
     usage: "/rfmitem <道具名称>"
     permission: op
+  rfmtimer:
+    description: "在游戏时显示剩余时间。需要管理员。"
+    usage: "/rfmtimer"
+    permission: op
   slowitem:
     description: "执行此命令使你手上的物品被标记为有缓慢效果。"
     usage: "/slowitem"
