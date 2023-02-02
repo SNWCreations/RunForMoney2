@@ -253,6 +253,16 @@ public class RFMGameCommand implements TabExecutor {
                 }
                 break;
         }
+        if (args.length > 3) {
+            if ("control".equals(args[0])) {
+                switch (args[1]) {
+                    case "forceout":
+                        return filterTab(args[args.length - 1], TeamRegistry.RUNNER.toNameSet());
+                    case "respawn":
+                        return filterTab(args[args.length - 1], TeamRegistry.OUT.toNameSet());
+                }
+            }
+        }
         return Collections.emptyList();
     }
 }
