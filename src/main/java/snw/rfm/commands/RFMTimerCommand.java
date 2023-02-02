@@ -21,7 +21,11 @@ public class RFMTimerCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender instanceof Player) {
-            ACTIVE.add(((Player) sender).getUniqueId());
+            if (!ACTIVE.contains(((Player) sender).getUniqueId())){
+                ACTIVE.add(((Player) sender).getUniqueId());
+            } else {
+                ACTIVE.remove(((Player) sender).getUniqueId());
+            }
             sendSuccess(sender);
         } else {
             sender.sendMessage(pluginMsg(ChatColor.RED + "需要玩家执行此分支。"));
