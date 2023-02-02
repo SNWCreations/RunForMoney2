@@ -182,6 +182,12 @@ public class RFMGameCommand implements TabExecutor {
                                             sender.sendMessage(ChatColor.YELLOW + "没有发生变化。此玩家现在仍在游戏中。");
                                         }
                                     }
+                                } else if (args.length > 3) {
+                                    if (sender.isOp()) {
+                                        batch(sender, args, 2, p -> main.getGame().getController().respawn(p));
+                                    } else {
+                                        sender.sendMessage(pluginMsg(ChatColor.RED + "无权操作。"));
+                                    }
                                 } else {
                                     sender.sendMessage(pluginMsg(ChatColor.RED + "参数数量错误。"));
                                     return false;
