@@ -98,6 +98,13 @@ public class RFMTeamCommand implements TabExecutor {
                             .collect(Collectors.toList());
                 }
         }
+        if (args.length > 2) {
+            if (sender.isOp()) {
+                if ("join".equals(args[0])) {
+                    return filterTab(args[args.length - 1], getAllPlayersName());
+                }
+            }
+        }
         return Collections.emptyList();
     }
 
