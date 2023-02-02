@@ -18,7 +18,7 @@ public class PickupListener implements Listener {
                 if (stack.hasItemMeta()) {
                     if (stack.getItemMeta()
                             .getPersistentDataContainer()
-                            .has(SlowItemCommand.SLOW_KEY, PersistentDataType.BYTE)
+                            .has(SlowItemCommand.SLOW_KEY, PersistentDataType.INTEGER)
                     ) {
                         e.setCancelled(true);
                     }
