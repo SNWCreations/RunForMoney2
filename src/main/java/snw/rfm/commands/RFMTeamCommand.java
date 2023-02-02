@@ -34,22 +34,24 @@ public class RFMTeamCommand implements TabExecutor {
         }
         switch (args[0]) {
             case "join":
-                if (isPlayer(sender)) {
-                    if (args.length == 1) {
-                        sender.sendMessage(pluginMsg(ChatColor.RED + "参数不足。"));
-                        return false;
+                if (args.length == 1) {
+                    sender.sendMessage(pluginMsg(ChatColor.RED + "参数不足。"));
+                    return false;
+                } else {
+                    String teamName = args[1];
+                    Team team = TeamRegistry.getTeamByName(teamName);
+                    if (isInvisibleTeamName(teamName) || team == null) { // you can't join invisible team
+                        sender.sendMessage(pluginMsg(ChatColor.RED + "队伍不存在。"));
                     } else {
-                        String teamName = args[1];
-                        Team team = TeamRegistry.getTeamByName(teamName);
-                        if (isInvisibleTeamName(teamName) || team == null) { // you can't join invisible team
-                            sender.sendMessage(pluginMsg(ChatColor.RED + "队伍不存在。"));
-                        } else {
-                            if (args.length > 2) {
-                                if (sender.isOp()) {
-                                    batch(sender, args, 1, team::add);
-                                } else {
-                                    sender.sendMessage(pluginMsg(ChatColor.RED + "无权操作。"));
-                                }
+                        if (args.length > 2) {
+                            if (sender.isOp()) {
+                                batch(sender, args, 1, team::add);
+                            } else {
+                                sender.sendMessage(pluginMsg(ChatColor.RED + "无权操作。"));
+                            }
+                        } else if (isPlayer(sender)) {
+                            if (main.isGamePresent()) {
+                                sender.sendMessage(pluginMsg(ChatColor.RED + "你不可以在游戏过程中加入队伍。"));
                             } else {
                                 team.add((Player) sender);
                                 sendSuccess(sender);
