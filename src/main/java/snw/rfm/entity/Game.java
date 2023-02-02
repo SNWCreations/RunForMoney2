@@ -61,10 +61,12 @@ public class Game {
     }
 
     public void stop() {
-        Bukkit.getScheduler().runTaskAsynchronously(
-                main,
-                () -> fireEvent(new GameStopEvent(this))
-        );
+        if (main.isEnabled()) { // prevent call event on disable
+            Bukkit.getScheduler().runTaskAsynchronously(
+                    main,
+                    () -> fireEvent(new GameStopEvent(this))
+            );
+        }
         for (Player player : TeamRegistry.RUNNER.toBukkitPlayerSet()) {
             player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "游戏结束");
         }
