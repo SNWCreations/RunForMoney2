@@ -6,6 +6,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import snw.rfm.ConfigConstant;
 import snw.rfm.Main;
 import snw.rfm.api.GameController;
@@ -26,6 +28,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static snw.rfm.util.Util.fireEvent;
 
 public class Game {
+    private static final PotionEffect SPEED = new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1, false, false);
+
     protected final Main main;
     protected final CoinMap coinMap;
     protected final AtomicInteger timeRemaining;
@@ -52,6 +56,10 @@ public class Game {
         registerListener(new PickupListener());
         registerListener(new HunterReleaseListener());
 
+        for (Player player : TeamRegistry.HUNTER.toBukkitPlayerSet()) {
+            player.addPotionEffect(SPEED);
+        }
+
         SlowItemTask slowItemTask = new SlowItemTask(this);
         registerListener(slowItemTask);
         slowItemTask.start(main);
@@ -71,6 +79,9 @@ public class Game {
         }
         for (Player player : TeamRegistry.RUNNER.toBukkitPlayerSet()) {
             player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "游戏结束");
+        }
+        for (Player hunter : TeamRegistry.HUNTER.toBukkitPlayerSet()) {
+            hunter.removePotionEffect(PotionEffectType.SPEED); // remove speed
         }
         if (coinTimer != null) { // if you terminated the game before it starts?
             coinTimer.cancel();
