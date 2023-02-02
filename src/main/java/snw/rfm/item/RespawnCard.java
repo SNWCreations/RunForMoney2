@@ -1,6 +1,5 @@
 package snw.rfm.item;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -18,7 +17,7 @@ import snw.rfm.entity.TeamRegistry;
 
 import java.util.Arrays;
 
-import static snw.rfm.util.Util.pluginMsg;
+import static snw.rfm.util.Util.buildPlayerName;
 
 public class RespawnCard implements Listener {
     private static final ItemStack ITEM;
@@ -55,7 +54,13 @@ public class RespawnCard implements Listener {
                         Player rightClicked = (Player) e.getRightClicked();
                         if (TeamRegistry.OUT.contains(rightClicked)) {
                             TeamRegistry.RUNNER.add(rightClicked, false);
-                            Bukkit.broadcastMessage(pluginMsg(ChatColor.GREEN + "" + e.getPlayer().getName() + " 复活了 " + rightClicked.getName() + " ！"));
+                            String s = ChatColor.GREEN + "" + ChatColor.BOLD + "" +
+                                    buildPlayerName(e.getPlayer().getName())
+                                    + " 复活了 " +
+                                    buildPlayerName(rightClicked.getName());
+                            for (Player player : TeamRegistry.RUNNER.toBukkitPlayerSet()) {
+                                player.sendMessage(s);
+                            }
                         }
                         item.setAmount(item.getAmount() - 1);
                     }
