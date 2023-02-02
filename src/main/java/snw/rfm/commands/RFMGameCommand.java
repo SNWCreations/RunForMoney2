@@ -146,8 +146,8 @@ public class RFMGameCommand implements TabExecutor {
                                 sendSuccess(sender);
                                 break;
                             case "forceout":
-                                if (args.length == 2) {
-                                    Player player = Bukkit.getPlayer(args[1]);
+                                if (args.length == 3) {
+                                    Player player = Bukkit.getPlayer(args[2]);
                                     if (player == null) {
                                         sender.sendMessage(pluginMsg(ChatColor.RED + "玩家不在线。"));
                                     } else {
@@ -160,8 +160,8 @@ public class RFMGameCommand implements TabExecutor {
                                 }
                                 break;
                             case "respawn":
-                                if (args.length == 2) {
-                                    Player player = Bukkit.getPlayer(args[1]);
+                                if (args.length == 3) {
+                                    Player player = Bukkit.getPlayer(args[2]);
                                     if (player == null) {
                                         sender.sendMessage(pluginMsg(ChatColor.RED + "玩家不在线。"));
                                     } else {
