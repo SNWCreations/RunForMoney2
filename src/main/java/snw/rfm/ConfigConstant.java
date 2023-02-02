@@ -56,6 +56,7 @@ public class ConfigConstant {
         }
 
         if (log) {
+            logger.info("终止间位置: " + END_ROOM_LOCATION);
             logger.info("当逃走队员被捕时，当时拥有的硬币将乘以: " + COIN_DELETION_MULTIPLIER);
             logger.info("每秒增加的硬币量: " + COIN_PER_SECOND);
 
