@@ -3,11 +3,13 @@ package snw.rfm.entity;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import snw.rfm.ConfigConstant;
+import snw.rfm.ExitReason;
 import snw.rfm.Main;
 import snw.rfm.api.GameController;
 import snw.rfm.api.events.internal.RemoveTimeEvent;
 import snw.rfm.api.events.internal.RequestTimeEvent;
 
+import static snw.rfm.util.Util.broadcast;
 import static snw.rfm.util.Util.fireEvent;
 
 public final class GameControllerImpl implements GameController {
@@ -78,6 +80,7 @@ public final class GameControllerImpl implements GameController {
         if (TeamRegistry.OUT.contains(player)) {
             throw new IllegalStateException("Already out");
         }
+        broadcast(IngamePlayer.getWrappedPlayer(player), ExitReason.FORCEOUT);
         TeamRegistry.OUT.add(player, false);
     }
 
