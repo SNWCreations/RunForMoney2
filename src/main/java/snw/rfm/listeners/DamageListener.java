@@ -36,7 +36,7 @@ public class DamageListener implements Listener {
                     if (hcp.isCancelled()) {
                         return;
                     }
-                    TeamRegistry.RUNNER.remove(attacked);
+                    TeamRegistry.OUT.add(attacked, false);
                     if (ConfigConstant.END_ROOM_LOCATION != null) {
                         attacked.getBukkitPlayer().teleport(ConfigConstant.END_ROOM_LOCATION);
                     }
