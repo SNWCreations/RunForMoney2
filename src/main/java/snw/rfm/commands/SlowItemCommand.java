@@ -20,7 +20,7 @@ import static snw.rfm.util.Util.sendSuccess;
 
 public class SlowItemCommand implements CommandExecutor {
     public static NamespacedKey SLOW_KEY;
-    private static final String LORE = ChatColor.RED + "缓慢 II";
+    private static final String LORE = ChatColor.RED + "缓慢 ";
 
     public static void init(Main main) {
         SLOW_KEY = new NamespacedKey(main, "slow_item");
@@ -35,7 +35,7 @@ public class SlowItemCommand implements CommandExecutor {
                 if (itemMeta == null) {
                     sender.sendMessage(pluginMsg(ChatColor.RED + "操作失败。这不是一个有效的物品。"));
                 } else {
-                    boolean prevHas = itemMeta.getPersistentDataContainer().has(SLOW_KEY, PersistentDataType.BYTE);
+                    boolean prevHas = itemMeta.getPersistentDataContainer().has(SLOW_KEY, PersistentDataType.INTEGER);
                     if (prevHas) {
                         itemMeta.getPersistentDataContainer().remove(SLOW_KEY);
                         // cleanup lore
@@ -43,7 +43,7 @@ public class SlowItemCommand implements CommandExecutor {
                             @SuppressWarnings("DataFlowIssue") // NotNull at this time!
                             List<String> lore = new ArrayList<>(itemMeta.getLore());
                             if (lore.size() >= 1) {
-                                if (lore.get(0).equals(LORE)) {
+                                if (lore.get(0).startsWith(LORE)) {
                                     lore.remove(0);
                                 }
                                 if (lore.size() > 1) { // if still > 1
@@ -55,10 +55,19 @@ public class SlowItemCommand implements CommandExecutor {
                             itemMeta.setLore(lore);
                         }
                     } else {
-                        itemMeta.getPersistentDataContainer().set(SLOW_KEY, PersistentDataType.BYTE, (byte) 1);
+                        int level = 2;
+                        if (args.length == 1) {
+                            try {
+                                level = Integer.parseInt(args[0]);
+                            } catch (NumberFormatException e) {
+                                sender.sendMessage(pluginMsg(ChatColor.RED + "操作失败。无效等级数字。"));
+                                return false;
+                            }
+                        }
+                        itemMeta.getPersistentDataContainer().set(SLOW_KEY, PersistentDataType.INTEGER, level);
                         // add lore
                         List<String> lore = new ArrayList<>();
-                        lore.add(LORE);
+                        lore.add(LORE + level);
                         if (itemMeta.hasLore()) {
                             lore.add("");
                             // noinspection DataFlowIssue // NotNull at this time!
