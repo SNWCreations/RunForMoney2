@@ -23,6 +23,8 @@ end_room: ""
 coin_per_second: 100
 # 当逃走队员被捕时，当时拥有的B币该乘以几？默认值为 0.1 (即 1/10) 。
 coin_multiplier_on_be_caught: 0.1
+# 当没有逃走队员时，是否结束游戏？
+stop_game_on_no_player: true
 
 ####### ------------ 物品配置 ------------ #######
 

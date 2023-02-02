@@ -20,6 +20,7 @@ public class ConfigConstant {
     public static int IGNORE_TIME;
     public static int FREEZE_TIME;
     public static int FREEZE_RADIUS;
+    public static boolean STOP_GAME_ON_NO_PLAYER;
 
     public static void init(Main main, boolean log) {
         Logger logger = main.getLogger();
@@ -38,6 +39,7 @@ public class ConfigConstant {
         IGNORE_TIME = config.getInt("ignore_time", 5);
         FREEZE_TIME = config.getInt("freeze_time", 15);
         FREEZE_RADIUS = config.getInt("freeze_radius", 10);
+        STOP_GAME_ON_NO_PLAYER = config.getBoolean("stop_game_on_no_player", true);
 
         // region end room
         String rawERL = config.getString("end_room", "");
@@ -61,6 +63,7 @@ public class ConfigConstant {
             logger.info("抗性卡有效时长(单位: 秒): " + IGNORE_TIME);
             logger.info("抗性卡有效时长(单位: 秒): " + FREEZE_TIME);
             logger.info("抗性卡有效半径(单位: 格): " + FREEZE_RADIUS);
+            logger.info("当没有逃走队员时，插件是否结束游戏: " + (STOP_GAME_ON_NO_PLAYER ? "是" : "否"));
         }
     }
 }

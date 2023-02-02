@@ -42,6 +42,13 @@ public class DamageListener implements Listener {
                     }
                     game.getCoinMap().calc(attacked);
                     broadcast(attacked, ExitReason.BE_CAUGHT);
+
+                    // stop game if there is no more player
+                    if (ConfigConstant.STOP_GAME_ON_NO_PLAYER) {
+                        if (TeamRegistry.RUNNER.size() == 0) {
+                            game.stop();
+                        }
+                    }
                 }
             }
         }
