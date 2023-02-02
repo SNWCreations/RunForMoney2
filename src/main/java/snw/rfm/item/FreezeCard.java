@@ -87,7 +87,7 @@ class PlayerSlow extends BukkitRunnable implements Listener {
 
     @EventHandler
     public void onCaught(HunterCatchPlayerEvent e) {
-        if (e.getPlayer().getBukkitPlayer() == player) {
+        if (e.getHunter().getBukkitPlayer() == player) {
             e.setCancelled(true);
         }
     }
