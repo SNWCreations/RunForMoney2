@@ -29,16 +29,16 @@ public class Team {
     }
 
     public void add(IngamePlayer player, boolean tip) {
-        if (tip) {
-            Optional.ofNullable(player.getTeam()).ifPresent(i -> {
+        Optional.ofNullable(player.getTeam()).ifPresent(i -> {
+            if (tip) {
                 player.getBukkitPlayer().sendMessage(
                         pluginMsg(
                                 ChatColor.YELLOW + String.format("你正在加入 %s 队伍，但你已经在 %s 队伍了，你将被从 %s 队伍移出，然后再加入 %s 队伍。", getDisplayName(), i.getDisplayName(), i.getDisplayName(), getDisplayName())
                         )
                 );
-                i.remove(player);
-            });
-        }
+            }
+            i.remove(player);
+        });
         team.addEntry(player.getBukkitPlayer().getName());
         playerUuids.add(player.getBukkitPlayer().getUniqueId());
         player.setTeam(this);
