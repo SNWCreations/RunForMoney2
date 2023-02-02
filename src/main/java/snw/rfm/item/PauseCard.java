@@ -14,6 +14,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import snw.rfm.ConfigConstant;
 import snw.rfm.Main;
+import snw.rfm.api.events.HunterCatchPlayerEvent;
 import snw.rfm.api.item.ItemRegistry;
 import snw.rfm.api.item.RightClickCallback;
 import snw.rfm.entity.IngamePlayer;
@@ -73,6 +74,13 @@ public class PauseCard implements RightClickCallback, Listener {
                     e.setCancelled(true);
                 }
             }
+        }
+    }
+
+    @EventHandler
+    public void onCatch(HunterCatchPlayerEvent e) {
+        if (working) {
+            e.setCancelled(true);
         }
     }
 }
