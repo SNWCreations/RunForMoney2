@@ -14,6 +14,7 @@ import snw.rfm.api.events.GameStopEvent;
 import snw.rfm.api.events.HunterReleasedEvent;
 import snw.rfm.item.internal.ItemClickDispatcher;
 import snw.rfm.listeners.DamageListener;
+import snw.rfm.listeners.PickupListener;
 import snw.rfm.tasks.CoinTimer;
 import snw.rfm.tasks.HunterReleaseTimer;
 import snw.rfm.tasks.SlowItemTask;
@@ -48,6 +49,7 @@ public class Game {
         fireEvent(new GameStartEvent(this));
         registerListener(new DamageListener(this));
         registerListener(new ItemClickDispatcher(main));
+        registerListener(new PickupListener());
         registerListener(new HunterReleaseListener());
 
         SlowItemTask slowItemTask = new SlowItemTask(this);
