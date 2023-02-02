@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Util {
+    private Util() {} // can't call constructor
+
     public static void broadcast(IngamePlayer player, ExitReason reason) {
         Bukkit.broadcastMessage(
                 String.format("%s%s%s %s", ChatColor.RED, ChatColor.BOLD, buildPlayerName(player), reason.MESSAGE)

@@ -20,6 +20,14 @@ public class Team {
         this.team = team;
     }
 
+    public void add(Player player) {
+        add(IngamePlayer.getWrappedPlayer(player), true);
+    }
+
+    public void add(Player player, boolean tip) {
+        add(IngamePlayer.getWrappedPlayer(player), tip);
+    }
+
     public void add(IngamePlayer player, boolean tip) {
         if (tip) {
             Optional.ofNullable(player.getTeam()).ifPresent(i -> {
@@ -38,6 +46,10 @@ public class Team {
 
     public void add(IngamePlayer player) {
         add(player, true);
+    }
+
+    public boolean contains(Player player) {
+        return team.hasEntry(player.getName());
     }
 
     public boolean contains(IngamePlayer player) {

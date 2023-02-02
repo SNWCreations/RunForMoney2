@@ -14,7 +14,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import snw.rfm.Main;
 import snw.rfm.api.item.ItemRegistry;
-import snw.rfm.entity.IngamePlayer;
 import snw.rfm.entity.TeamRegistry;
 
 import java.util.Arrays;
@@ -54,8 +53,8 @@ public class RespawnCard implements Listener {
                     ItemStack item = e.getPlayer().getInventory().getItemInMainHand();
                     if (ITEM.isSimilar(item)) {
                         Player rightClicked = (Player) e.getRightClicked();
-                        if (!TeamRegistry.RUNNER.contains(IngamePlayer.getWrappedPlayer(rightClicked))) {
-                            TeamRegistry.RUNNER.add(IngamePlayer.getWrappedPlayer(rightClicked), false);
+                        if (!TeamRegistry.RUNNER.contains(rightClicked)) {
+                            TeamRegistry.RUNNER.add(rightClicked, false);
                             Bukkit.broadcastMessage(pluginMsg(ChatColor.GREEN + "" + e.getPlayer().getName() + " 复活了 " + rightClicked.getName() + " ！"));
                         }
                         item.setAmount(item.getAmount() - 1);

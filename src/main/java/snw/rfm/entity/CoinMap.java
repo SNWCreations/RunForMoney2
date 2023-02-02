@@ -80,6 +80,10 @@ public class CoinMap {
         return Collections.unmodifiableMap(result);
     }
 
+    public double get(OfflinePlayer player) {
+        return map.get(player.getUniqueId());
+    }
+
     public void set(OfflinePlayer player, double amount) {
         map.put(player.getUniqueId(), amount);
     }

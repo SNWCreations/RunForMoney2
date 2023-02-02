@@ -66,7 +66,7 @@ public final class GameControllerImpl implements GameController {
 
     @Override
     public boolean respawn(Player player) {
-        if (TeamRegistry.RUNNER.contains(IngamePlayer.getWrappedPlayer(player))) {
+        if (TeamRegistry.RUNNER.contains(player)) {
             return false;
         }
         TeamRegistry.RUNNER.add(IngamePlayer.getWrappedPlayer(player), false);
@@ -75,10 +75,10 @@ public final class GameControllerImpl implements GameController {
 
     @Override
     public void forceOut(Player player) throws IllegalStateException {
-        if (TeamRegistry.OUT.contains(IngamePlayer.getWrappedPlayer(player))) {
+        if (TeamRegistry.OUT.contains(player)) {
             throw new IllegalStateException("Already out");
         }
-        TeamRegistry.OUT.add(IngamePlayer.getWrappedPlayer(player), false);
+        TeamRegistry.OUT.add(player, false);
     }
 
     @Override
@@ -96,7 +96,7 @@ public final class GameControllerImpl implements GameController {
 
     @Override
     public double getMoney(OfflinePlayer player) {
-        return game.getCoinMap().toView().getOrDefault(player, 0.0);
+        return game.getCoinMap().get(player);
     }
 
     @Override
