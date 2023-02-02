@@ -131,7 +131,7 @@ public class RFMGameCommand implements TabExecutor {
                                             if (player == null) {
                                                 sender.sendMessage(pluginMsg(ChatColor.RED + "玩家不在线。"));
                                             } else {
-                                                sender.sendMessage(pluginMsg(ChatColor.GREEN + buildPlayerName(args[3]) + " 现有 " + main.getGame().getController().getMoney(player) + " 硬币"));
+                                                sender.sendMessage(pluginMsg(ChatColor.GREEN + buildPlayerName(args[3]) + ChatColor.RESET + ChatColor.GREEN + " 现有 " + main.getGame().getController().getMoney(player) + " 硬币"));
                                             }
                                         } else {
                                             Map<OfflinePlayer, Double> view = main.getGame().getCoinMap().toView();

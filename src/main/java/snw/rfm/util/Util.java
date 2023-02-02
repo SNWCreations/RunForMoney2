@@ -19,7 +19,7 @@ public class Util {
 
     public static void broadcast(IngamePlayer player, ExitReason reason) {
         Bukkit.broadcastMessage(
-                String.format("%s%s%s %s", ChatColor.RED, ChatColor.BOLD, buildPlayerName(player), reason.MESSAGE)
+                String.format("%s%s%s%s%s%s %s", ChatColor.RED, ChatColor.BOLD, buildPlayerName(player), ChatColor.RESET, ChatColor.RED, ChatColor.BOLD, reason.MESSAGE)
         );
         Bukkit.broadcastMessage(String.format("%s%s剩余 %s 人", ChatColor.RED, ChatColor.BOLD, TeamRegistry.RUNNER.size()));
     }
