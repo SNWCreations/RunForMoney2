@@ -20,7 +20,7 @@ public class Util {
         Bukkit.broadcastMessage(
                 String.format("%s%s%s %s", ChatColor.RED, ChatColor.BOLD, buildPlayerName(player), reason.MESSAGE)
         );
-        Bukkit.broadcastMessage(String.format("%s%s剩余 %s 人。", ChatColor.RED, ChatColor.BOLD, TeamRegistry.RUNNER.size()));
+        Bukkit.broadcastMessage(String.format("%s%s剩余 %s 人", ChatColor.RED, ChatColor.BOLD, TeamRegistry.RUNNER.size()));
     }
 
     public static String buildPlayerName(String name) {
