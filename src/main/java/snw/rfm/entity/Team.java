@@ -20,19 +20,19 @@ public class Team {
         this.team = team;
     }
 
-    public void add(Player player) {
-        add(IngamePlayer.getWrappedPlayer(player), true);
+    public boolean add(Player player) {
+        return add(IngamePlayer.getWrappedPlayer(player), true);
     }
 
-    public void add(Player player, boolean tip) {
-        add(IngamePlayer.getWrappedPlayer(player), tip);
+    public boolean add(Player player, boolean tip) {
+        return add(IngamePlayer.getWrappedPlayer(player), tip);
     }
 
-    public void add(IngamePlayer player, boolean tip) {
+    public boolean add(IngamePlayer player, boolean tip) {
         Team i = player.getTeam();
         if (i != null) {
             if (i == this) {
-                return; // already in this team?
+                return false; // already in this team?
             }
             if (tip) {
                 player.getBukkitPlayer().sendMessage(
@@ -46,6 +46,7 @@ public class Team {
         team.addEntry(player.getBukkitPlayer().getName());
         playerUuids.add(player.getBukkitPlayer().getUniqueId());
         player.setTeam(this);
+        return true;
     }
 
     public void add(IngamePlayer player) {
