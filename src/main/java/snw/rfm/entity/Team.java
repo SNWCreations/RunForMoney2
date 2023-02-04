@@ -29,7 +29,11 @@ public class Team {
     }
 
     public void add(IngamePlayer player, boolean tip) {
-        Optional.ofNullable(player.getTeam()).ifPresent(i -> {
+        Team i = player.getTeam();
+        if (i != null) {
+            if (i == this) {
+                return; // already in this team?
+            }
             if (tip) {
                 player.getBukkitPlayer().sendMessage(
                         pluginMsg(
@@ -38,7 +42,7 @@ public class Team {
                 );
             }
             i.remove(player);
-        });
+        }
         team.addEntry(player.getBukkitPlayer().getName());
         playerUuids.add(player.getBukkitPlayer().getUniqueId());
         player.setTeam(this);
