@@ -16,8 +16,6 @@ import snw.rfm.entity.Game;
 import snw.rfm.api.events.GameStopEvent;
 
 public class SlowItemTask extends BukkitRunnable implements Listener {
-    private static final PotionEffect SLOW = new PotionEffect(PotionEffectType.SLOW, 20, 1, false, false);
-
     private final Game game;
 
     public SlowItemTask(Game game) {
