@@ -23,7 +23,7 @@ public class DamageListener implements Listener {
         this.game = game;
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onAttack(EntityDamageByEntityEvent event) {
         if (event.getEntity() instanceof Player && event.getEntity() instanceof Player) {
             IngamePlayer attacker = IngamePlayer.getWrappedPlayer((Player) event.getDamager());
