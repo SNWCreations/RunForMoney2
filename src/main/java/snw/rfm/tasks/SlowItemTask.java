@@ -11,9 +11,9 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import snw.rfm.Main;
+import snw.rfm.api.events.GameStopEvent;
 import snw.rfm.commands.SlowItemCommand;
 import snw.rfm.entity.Game;
-import snw.rfm.api.events.GameStopEvent;
 
 public class SlowItemTask extends BukkitRunnable implements Listener {
     private final Game game;
@@ -27,17 +27,22 @@ public class SlowItemTask extends BukkitRunnable implements Listener {
         for (Player player : Bukkit.getOnlinePlayers()) {
             PlayerInventory inventory = player.getInventory();
             ItemStack[] storageContents = inventory.getContents();
+            Integer level = null;
             for (ItemStack stack : storageContents) {
                 if (stack == null) {
                     continue;
                 }
                 if (stack.getItemMeta() != null) {
-                    Integer level = stack.getItemMeta().getPersistentDataContainer().get(SlowItemCommand.SLOW_KEY, PersistentDataType.INTEGER);
-                    if (level != null) {
-                        player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20, level - 1, false, false));
+                    Integer t = stack.getItemMeta().getPersistentDataContainer().get(SlowItemCommand.SLOW_KEY, PersistentDataType.INTEGER);
+                    if (t != null) {
+                        if (level == null || t > level) {
+                            level = t;
+                        }
                     }
-                    break; // do not apply for many times
                 }
+            }
+            if (level != null) { // found a level
+                player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20, level - 1, false, false));
             }
         }
     }
