@@ -1,5 +1,6 @@
 package snw.rfm.entity;
 
+import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 
 import java.util.*;
@@ -37,6 +38,7 @@ public class TeamRegistry {
     }
 
     public static void registerTeam(String name, Team teamObj) {
+        Validate.isTrue(!allTeams.containsKey(name), "The team named " + name + " has already registered");
         allTeams.put(name, teamObj);
     }
 
