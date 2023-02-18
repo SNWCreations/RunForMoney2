@@ -7,7 +7,8 @@ public interface GameController {
 
     // --- Time Controlling ---
 
-    void setTimeReversed(boolean isGameReversed);
+    // use isTimeReversed before calling this method!
+    void timeReverse();
 
     boolean isTimeReversed();
 

@@ -146,7 +146,7 @@ public class RFMGameCommand implements TabExecutor {
                                 }
                                 break;
                             case "reverse":
-                                main.getGame().getController().setTimeReversed(!main.getGame().getController().isTimeReversed());
+                                main.getGame().getController().timeReverse();
                                 sendSuccess(sender);
                                 break;
                             case "forceout":

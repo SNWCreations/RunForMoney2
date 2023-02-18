@@ -22,7 +22,7 @@ public final class GameControllerImpl implements GameController {
     }
 
     @Override
-    public void setTimeReversed(boolean isGameReversed) {
+    public void timeReverse() {
         game.getCoinMap().reverse();
     }
 
