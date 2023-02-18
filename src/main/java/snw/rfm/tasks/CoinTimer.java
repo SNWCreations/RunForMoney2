@@ -11,6 +11,7 @@ import snw.rfm.Main;
 import snw.rfm.api.events.internal.RemoveTimeEvent;
 import snw.rfm.api.events.internal.RequestTimeEvent;
 import snw.rfm.commands.RFMTimerCommand;
+import snw.rfm.entity.CoinMap;
 import snw.rfm.entity.Game;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -30,8 +31,12 @@ public class CoinTimer extends BukkitRunnable implements Listener {
     @Override
     public void run() {
         if (game.isPaused()) return; // do nothing if paused
+        CoinMap map = game.getCoinMap();
+        if (map.isReversed()) { // 1 + 2 - 1 = 2
+            time.addAndGet(2); // reverse
+        }
         if (time.getAndDecrement() > 0) {
-            game.getCoinMap().increaseAll();
+            map.increaseAll();
 
             String sec = String.valueOf(time.get() % 60);
             // noinspection DataFlowIssue
