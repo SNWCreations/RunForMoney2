@@ -2,6 +2,7 @@ package snw.rfm.entity;
 
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 
 import java.util.*;
 
@@ -14,14 +15,17 @@ public class TeamRegistry {
     public static void init() {
         org.bukkit.scoreboard.Team hunterTeam = refreshTeam("rfm_hunter");
         hunterTeam.setAllowFriendlyFire(false);
+        hunterTeam.setColor(ChatColor.RED);
         HUNTER = new Team("猎人队伍", hunterTeam);
 
         org.bukkit.scoreboard.Team runnerTeam = refreshTeam("rfm_runner");
         runnerTeam.setAllowFriendlyFire(false);
+        runnerTeam.setColor(ChatColor.BLUE);
         RUNNER = new Team("逃走队员", runnerTeam);
 
         org.bukkit.scoreboard.Team outTeam = refreshTeam("rfm_out");
         runnerTeam.setAllowFriendlyFire(false);
+        outTeam.setColor(ChatColor.GRAY);
         OUT = new Team("已淘汰", outTeam);
 
         registerTeam("hunter", HUNTER);
