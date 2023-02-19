@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.potion.PotionEffect;
@@ -123,7 +124,7 @@ public class Game {
     }
 
     class HunterReleaseListener implements Listener {
-        @EventHandler
+        @EventHandler(priority = EventPriority.LOWEST)
         public void on(HunterReleasedEvent e) {
             if (e.getGame() == Game.this) {
                 Game.this.coinTimer = new CoinTimer(main, Game.this, timeRemaining);
