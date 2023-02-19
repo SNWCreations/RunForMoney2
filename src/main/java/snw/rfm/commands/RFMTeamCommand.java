@@ -45,7 +45,7 @@ public class RFMTeamCommand implements TabExecutor {
                     } else {
                         if (args.length > 2) {
                             if (sender.isOp()) {
-                                batch(sender, args, 1, team::add);
+                                batch(sender, args, 2, team::add);
                             } else {
                                 sender.sendMessage(pluginMsg(ChatColor.RED + "无权操作。"));
                             }
