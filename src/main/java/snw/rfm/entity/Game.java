@@ -78,9 +78,7 @@ public class Game {
                     () -> fireEvent(new GameStopEvent(this))
             );
         }
-        for (Player player : TeamRegistry.RUNNER.toBukkitPlayerSet()) {
-            player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "游戏结束");
-        }
+        Bukkit.broadcastMessage(ChatColor.RED + "" + ChatColor.BOLD + "游戏结束");
         for (Player hunter : TeamRegistry.HUNTER.toBukkitPlayerSet()) {
             hunter.removePotionEffect(PotionEffectType.SPEED); // remove speed
         }
