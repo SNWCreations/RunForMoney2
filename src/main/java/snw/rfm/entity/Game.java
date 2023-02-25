@@ -49,7 +49,6 @@ public class Game {
     }
 
     public void start() {
-        ConfigConstant.init(main, false);
         timeRemaining.set(ConfigConstant.GAME_TIME * 60);
         fireEvent(new GameStartEvent(this));
         registerListener(new DamageListener(this));
