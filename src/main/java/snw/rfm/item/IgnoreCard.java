@@ -21,13 +21,14 @@ import snw.rfm.tasks.SendingActionBarMessage;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class IgnoreCard implements Listener, RightClickCallback {
     private static final ItemStack ITEM;
     private final Main main;
-    private final Set<String> activeSet = new HashSet<>();
+    private final Map<String, AtomicInteger> timeMap = new ConcurrentHashMap<>();
 
     static {
         ItemStack stack = new ItemStack(Material.IRON_INGOT);
@@ -53,42 +54,37 @@ public class IgnoreCard implements Listener, RightClickCallback {
 
     @Override
     public boolean onClick(Player player, ItemStack stack) {
-        synchronized (activeSet) { // keep sync
-            activeSet.add(player.getUniqueId().toString());
-        }
-        new BukkitRunnable() {
-            private int ticks = ConfigConstant.IGNORE_TIME * 20;
-            @Override
-            public void run() {
-                if (ticks-- < 0) {
-                    synchronized (activeSet) {
-                        activeSet.remove(player.getUniqueId().toString());
+        if (timeMap.containsKey(player.getUniqueId().toString())) {
+            timeMap.get(player.getUniqueId().toString()).addAndGet(ConfigConstant.IGNORE_TIME);
+        } else {
+            timeMap.put(player.getUniqueId().toString(), new AtomicInteger(ConfigConstant.IGNORE_TIME));
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    int remaining = timeMap.get(player.getUniqueId().toString()).getAndDecrement();
+                    new SendingActionBarMessage(
+                            new TextComponent(ChatColor.RED + "抗性卡还有 " + remaining + " 秒失效"),
+                            Collections.singleton(player)
+                    ).start(main);
+                    if (remaining <= 0) {
+                        timeMap.remove(player.getUniqueId().toString());
+                        cancel();
                     }
-                    cancel();
-                    return;
                 }
-                new SendingActionBarMessage(
-                        new TextComponent(ChatColor.RED + "抗性卡还有 " + (ticks / 20) + " 秒失效"),
-                        Collections.singleton(player)
-                ).start(main);
-            }
-        }.runTaskTimer(main, 0L, 1L);
+            }.runTaskTimer(main, 0L, 1L);
+        }
         return true;
     }
 
     @EventHandler
     public void onCaught(HunterCatchPlayerEvent e) {
-        synchronized (activeSet) {
-            if (activeSet.contains(e.getPlayer().getBukkitPlayer().getUniqueId().toString())) {
-                e.setCancelled(true);
-            }
+        if (timeMap.containsKey(e.getPlayer().getBukkitPlayer().getUniqueId().toString())) {
+            e.setCancelled(true);
         }
     }
 
     @EventHandler
     public void onStop(GameStopEvent e) {
-        synchronized (activeSet) {
-            activeSet.clear();
-        }
+        timeMap.clear();
     }
 }
