@@ -101,19 +101,22 @@ public class RFMGameCommand implements TabExecutor {
                 }
                 break;
             case "control":
+                if (args.length == 2) {
+                    if ("endroom".equals(args[1])) {
+                        if (isPlayer(sender)) {
+                            if (sender.isOp()) {
+                                ConfigConstant.END_ROOM_LOCATION = ((Player) sender).getLocation();
+                                sendSuccess(sender);
+                            } else {
+                                sender.sendMessage(pluginMsg(ChatColor.RED + "无权操作。"));
+                            }
+                        }
+                        return true;
+                    }
+                }
                 if (main.isGamePresent()) {
                     if (args.length >= 2) {
                         switch (args[1]) {
-                            case "endroom":
-                                if (isPlayer(sender)) {
-                                    if (sender.isOp()) {
-                                        ConfigConstant.END_ROOM_LOCATION = ((Player) sender).getLocation();
-                                        sendSuccess(sender);
-                                    } else {
-                                        sender.sendMessage(pluginMsg(ChatColor.RED + "无权操作。"));
-                                    }
-                                }
-                                return true;
                             case "money":
                                 if (args.length < 3) {
                                     sender.sendMessage(pluginMsg(ChatColor.RED + "参数数量错误。"));

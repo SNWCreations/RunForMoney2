@@ -35,7 +35,7 @@
 除了 `/rfmteam` 命令，其他命令都需要管理员才可以执行。
 * `/rfmteam join` 在批量操作时也需要管理员！
 
-**/rfmgame 中除了 start 与 stop 以外的子命令都需要逃走中游戏运行时才可以使用。**
+**/rfmgame 中除了 start 、 stop 、 "control endroom" 以外的子命令都需要逃走中游戏运行时才可以使用。**
 
 命令的作用已在上文列出。
 
