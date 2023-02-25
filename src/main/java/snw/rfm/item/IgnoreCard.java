@@ -7,6 +7,8 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -26,6 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class IgnoreCard implements Listener, RightClickCallback {
+    private static final ItemStack SIGN_HELMET;
     private static final ItemStack ITEM;
     private final Main main;
     private final Map<String, AtomicInteger> timeMap = new ConcurrentHashMap<>();
@@ -44,6 +47,12 @@ public class IgnoreCard implements Listener, RightClickCallback {
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         stack.setItemMeta(meta);
         ITEM = stack;
+
+        SIGN_HELMET = new ItemStack(Material.GOLDEN_HELMET);
+        ItemMeta helmetMeta = SIGN_HELMET.getItemMeta();
+        assert helmetMeta != null;
+        helmetMeta.setUnbreakable(true);
+        SIGN_HELMET.setItemMeta(helmetMeta);
     }
 
     public IgnoreCard(Main main) {
@@ -68,10 +77,12 @@ public class IgnoreCard implements Listener, RightClickCallback {
                     ).start(main);
                     if (remaining <= 0) {
                         timeMap.remove(player.getUniqueId().toString());
+                        player.getInventory().setHelmet(null);
                         cancel();
                     }
                 }
             }.runTaskTimer(main, 0L, 1L);
+            player.getInventory().setHelmet(SIGN_HELMET);
         }
         return true;
     }
@@ -86,5 +97,16 @@ public class IgnoreCard implements Listener, RightClickCallback {
     @EventHandler
     public void onStop(GameStopEvent e) {
         timeMap.clear();
+    }
+
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent e) {
+        if (timeMap.containsKey(e.getWhoClicked().getUniqueId().toString())) {
+            if (e.getSlotType() == InventoryType.SlotType.ARMOR) {
+                if (SIGN_HELMET.isSimilar(e.getCursor())) {
+                    e.setCancelled(true);
+                }
+            }
+        }
     }
 }
