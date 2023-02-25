@@ -42,6 +42,14 @@
 
 下文提及的参数是有序的。
 
+## /rfmgame start
+
+完整语法: `/rfmgame start [true|false] [releaseTime: int]`
+
+第一个可选参数为是否强制启动游戏。
+
+第二个为游戏开始倒计时的时间，若无则使用配置文件提供的值。
+
 ## /rfmgame control money
 
 `add` 和 `set` 选项需要两个参数: 玩家名 和 数量。

@@ -9,6 +9,7 @@ import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import snw.rfm.ConfigConstant;
 import snw.rfm.Main;
 import snw.rfm.entity.Game;
 import snw.rfm.entity.TeamRegistry;
@@ -42,8 +43,24 @@ public class RFMGameCommand implements TabExecutor {
                             return true;
                         }
                     }
-                    Game game = new Game(main);
-                    game.start();
+                    Game game;
+                    if (args.length == 3) {
+                        int realReleaseTime;
+                        try {
+                            realReleaseTime = Integer.parseInt(args[2]);
+                        } catch (NumberFormatException e) {
+                            sender.sendMessage(pluginMsg(ChatColor.RED + "无效参数。期望一个数字。"));
+                            return false;
+                        }
+                        int bak = ConfigConstant.HUNTER_RELEASE_TIME;
+                        ConfigConstant.HUNTER_RELEASE_TIME = realReleaseTime;
+                        game = new Game(main);
+                        game.start();
+                        ConfigConstant.HUNTER_RELEASE_TIME = bak; // switch back
+                    } else {
+                        game = new Game(main);
+                        game.start();
+                    }
                     main.setGame(game);
                     sendSuccess(sender);
                 } else {
