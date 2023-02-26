@@ -52,13 +52,11 @@ public class RFMGameCommand implements TabExecutor {
                             sender.sendMessage(pluginMsg(ChatColor.RED + "无效参数。期望一个数字。"));
                             return false;
                         }
-                        ConfigConstant.init(main, false);
                         int bak = ConfigConstant.HUNTER_RELEASE_TIME;
                         ConfigConstant.HUNTER_RELEASE_TIME = realReleaseTime;
                         game.start();
                         ConfigConstant.HUNTER_RELEASE_TIME = bak; // switch back
                     } else {
-                        ConfigConstant.init(main, false);
                         game.start();
                     }
                     main.setGame(game);
