@@ -6,6 +6,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
+import org.bukkit.permissions.ServerOperator;
 import org.bukkit.scheduler.BukkitRunnable;
 import snw.rfm.Main;
 import snw.rfm.api.events.internal.RemoveTimeEvent;
@@ -46,6 +47,7 @@ public class CoinTimer extends BukkitRunnable implements Listener {
                     ),
                     Bukkit.getOperators().stream()
                             .filter(OfflinePlayer::isOnline)
+                            .filter(ServerOperator::isOp)
                             .map(OfflinePlayer::getPlayer)
                             .filter(IT -> RFMTimerCommand.ACTIVE.contains(IT.getUniqueId()))
                             .collect(Collectors.toList()),

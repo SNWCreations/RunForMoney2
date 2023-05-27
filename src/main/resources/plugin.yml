@@ -16,7 +16,7 @@ commands:
     usage: "/rfmitem <道具名称>"
     permission: op
   rfmtimer:
-    description: "在游戏时显示剩余时间。需要管理员。"
+    description: "在游戏时显示剩余时间。需要管理员以让时间一直显示，否则只显示 2 秒。"
     usage: "/rfmtimer"
     permission: op
   slowitem:

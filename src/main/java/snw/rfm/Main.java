@@ -65,7 +65,7 @@ public final class Main extends JavaPlugin {
         registerCommand("rfmgame", new RFMGameCommand(this));
         registerCommand("rfmteam", new RFMTeamCommand(this));
         registerCommand("rfmitem", new RFMItemCommand());
-        registerCommand("rfmtimer", new RFMTimerCommand());
+        registerCommand("rfmtimer", new RFMTimerCommand(this));
         registerCommand("slowitem", new SlowItemCommand());
     }
 
