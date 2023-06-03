@@ -28,6 +28,10 @@ public final class HunterReleaseTimer extends BukkitRunnable {
 
     @Override
     public void run() {
+        if (main.getGame() != this.game) {
+            cancel();
+            return;
+        }
         if (secs-- > 0) {
             onNewSecond();
         } else {
