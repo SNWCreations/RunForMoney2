@@ -20,7 +20,7 @@ public class TeamRegistry {
 
         org.bukkit.scoreboard.Team runnerTeam = refreshTeam("rfm_runner");
         runnerTeam.setAllowFriendlyFire(false);
-        runnerTeam.setColor(ChatColor.BLUE);
+        runnerTeam.setColor(ChatColor.AQUA);
         RUNNER = new Team("逃走队员", runnerTeam);
 
         org.bukkit.scoreboard.Team outTeam = refreshTeam("rfm_out");
