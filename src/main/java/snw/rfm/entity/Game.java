@@ -51,7 +51,7 @@ public class Game {
     public void start(int hunterReleaseTime) {
         timeRemaining.set(ConfigConstant.GAME_TIME * 60);
         fireEvent(new GameStartEvent(this));
-        registerListener(new DamageListener(this));
+        registerListener(new DamageListener(main, this));
         registerListener(new ItemClickDispatcher(main));
         registerListener(new PickupListener());
         registerListener(new HunterReleaseListener());

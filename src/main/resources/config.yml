@@ -25,6 +25,8 @@ coin_per_second: 100
 coin_multiplier_on_be_caught: 0.1
 # 当没有逃走队员时，是否结束游戏？
 stop_game_on_no_player: true
+# 在被捕后过几秒才传送到终止间？默认为 0 。小于等于 0 的数将视为立刻传送。
+teleport_after_caught: 0
 
 ####### ------------ 物品配置 ------------ #######
 

@@ -6,8 +6,10 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 import snw.rfm.ConfigConstant;
 import snw.rfm.ExitReason;
+import snw.rfm.Main;
 import snw.rfm.api.events.HunterCatchPlayerEvent;
 import snw.rfm.entity.Game;
 import snw.rfm.entity.IngamePlayer;
@@ -17,9 +19,11 @@ import static snw.rfm.util.Util.broadcast;
 import static snw.rfm.util.Util.fireEvent;
 
 public class DamageListener implements Listener {
+    protected final Main main;
     protected final Game game;
 
-    public DamageListener(Game game) {
+    public DamageListener(Main main, Game game) {
+        this.main = main;
         this.game = game;
     }
 
@@ -38,7 +42,16 @@ public class DamageListener implements Listener {
                     }
                     TeamRegistry.OUT.add(attacked, false);
                     if (ConfigConstant.END_ROOM_LOCATION != null) {
-                        attacked.getBukkitPlayer().teleport(ConfigConstant.END_ROOM_LOCATION);
+                        if (ConfigConstant.TELEPORT_AFTER_CAUGHT <= 0) {
+                            attacked.getBukkitPlayer().teleport(ConfigConstant.END_ROOM_LOCATION);
+                        } else {
+                            new BukkitRunnable() {
+                                @Override
+                                public void run() {
+                                    attacked.getBukkitPlayer().teleport(ConfigConstant.END_ROOM_LOCATION);
+                                }
+                            }.runTaskLater(main, 20L * ConfigConstant.TELEPORT_AFTER_CAUGHT);
+                        }
                     }
                     game.getCoinMap().calc(attacked);
                     broadcast(attacked, ExitReason.BE_CAUGHT);

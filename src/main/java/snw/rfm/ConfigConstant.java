@@ -13,6 +13,7 @@ public class ConfigConstant {
     public static double COIN_DELETION_MULTIPLIER;
     public static int COIN_PER_SECOND;
     public static int HUNTER_RELEASE_TIME;
+    public static int TELEPORT_AFTER_CAUGHT;
     public static @Nullable Location END_ROOM_LOCATION = null;
 
     // Item Configuration Constants
@@ -34,6 +35,7 @@ public class ConfigConstant {
         COIN_PER_SECOND = config.getInt("coin_per_second", 100);
         GAME_TIME = config.getInt("game_time", 30);
         HUNTER_RELEASE_TIME = config.getInt("hunter_release_time", 60);
+        TELEPORT_AFTER_CAUGHT = config.getInt("teleport_after_caught", 0);
 
         HUNTER_PAUSE_TIME = config.getInt("hpc_time", 3);
         IGNORE_TIME = config.getInt("ignore_time", 5);
