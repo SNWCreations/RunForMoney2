@@ -18,7 +18,6 @@ commands:
   rfmtimer:
     description: "在游戏时显示剩余时间。需要管理员以让时间一直显示，否则只显示 2 秒。"
     usage: "/rfmtimer"
-    permission: op
   slowitem:
     description: "执行此命令使你手上的物品被标记为有缓慢效果。"
     usage: "/slowitem"
