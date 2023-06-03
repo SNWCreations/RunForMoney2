@@ -65,12 +65,18 @@ public class ConfigConstant {
             logger.info("每秒增加的硬币量: " + COIN_PER_SECOND);
             logger.info("游戏时长(单位: 分钟): " + GAME_TIME);
             logger.info("猎人放出前的时间(单位: 秒): " + HUNTER_RELEASE_TIME);
+            logger.info("在被捕后传送到终止间之前的时间(单位: 秒): " + TELEPORT_AFTER_CAUGHT);
+            logger.info("在被捕后是否掉落拥有的物品: " + cnBool(DROP_ITEM_AFTER_CAUGHT));
 
             logger.info("猎人暂停卡有效时长(单位: 秒): " + HUNTER_PAUSE_TIME);
             logger.info("抗性卡有效时长(单位: 秒): " + IGNORE_TIME);
             logger.info("冷冻卡有效时长(单位: 秒): " + FREEZE_TIME);
             logger.info("冷冻卡有效半径(单位: 格): " + FREEZE_RADIUS);
-            logger.info("当没有逃走队员时，插件是否结束游戏: " + (STOP_GAME_ON_NO_PLAYER ? "是" : "否"));
+            logger.info("当没有逃走队员时，插件是否结束游戏: " + cnBool(STOP_GAME_ON_NO_PLAYER));
         }
+    }
+
+    private static String cnBool(boolean bool) {
+        return bool ? "是" : "否";
     }
 }
