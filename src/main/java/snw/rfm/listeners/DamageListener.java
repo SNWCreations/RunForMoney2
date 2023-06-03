@@ -1,11 +1,14 @@
 package snw.rfm.listeners;
 
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.scheduler.BukkitRunnable;
 import snw.rfm.ConfigConstant;
 import snw.rfm.ExitReason;
@@ -14,6 +17,8 @@ import snw.rfm.api.events.HunterCatchPlayerEvent;
 import snw.rfm.entity.Game;
 import snw.rfm.entity.IngamePlayer;
 import snw.rfm.entity.TeamRegistry;
+
+import java.util.Objects;
 
 import static snw.rfm.util.Util.broadcast;
 import static snw.rfm.util.Util.fireEvent;
@@ -41,6 +46,19 @@ public class DamageListener implements Listener {
                         return;
                     }
                     TeamRegistry.OUT.add(attacked, false);
+
+                    if (ConfigConstant.DROP_ITEM_AFTER_CAUGHT) {
+                        Location loc = attacked.getBukkitPlayer().getLocation();
+                        final PlayerInventory inv = attacked.getBukkitPlayer().getInventory();
+                        for (ItemStack stack : inv.getContents()) {
+                            if (stack == null) {
+                                continue;
+                            }
+                            Objects.requireNonNull(loc.getWorld()).dropItem(loc, stack);
+                        }
+                        inv.clear();
+                    }
+
                     if (ConfigConstant.END_ROOM_LOCATION != null) {
                         if (ConfigConstant.TELEPORT_AFTER_CAUGHT <= 0) {
                             attacked.getBukkitPlayer().teleport(ConfigConstant.END_ROOM_LOCATION);
