@@ -48,7 +48,7 @@ public class Game {
         controller = new GameControllerImpl(main, this);
     }
 
-    public void start() {
+    public void start(int hunterReleaseTime) {
         timeRemaining.set(ConfigConstant.GAME_TIME * 60);
         fireEvent(new GameStartEvent(this));
         registerListener(new DamageListener(this));
@@ -63,8 +63,8 @@ public class Game {
         SlowItemTask slowItemTask = new SlowItemTask(this);
         registerListener(slowItemTask);
         slowItemTask.start(main);
-        if (ConfigConstant.HUNTER_RELEASE_TIME > 0) {
-            new HunterReleaseTimer(main, this, ConfigConstant.HUNTER_RELEASE_TIME).start();
+        if (hunterReleaseTime > 0) {
+            new HunterReleaseTimer(main, this, hunterReleaseTime).start();
         } else {
             fireEvent(new HunterReleasedEvent(this));
         }
