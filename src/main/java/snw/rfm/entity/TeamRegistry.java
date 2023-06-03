@@ -14,17 +14,14 @@ public class TeamRegistry {
 
     public static void init() {
         org.bukkit.scoreboard.Team hunterTeam = refreshTeam("rfm_hunter");
-        hunterTeam.setAllowFriendlyFire(false);
         hunterTeam.setColor(ChatColor.RED);
         HUNTER = new Team("猎人", hunterTeam);
 
         org.bukkit.scoreboard.Team runnerTeam = refreshTeam("rfm_runner");
-        runnerTeam.setAllowFriendlyFire(false);
         runnerTeam.setColor(ChatColor.AQUA);
         RUNNER = new Team("逃走队员", runnerTeam);
 
         org.bukkit.scoreboard.Team outTeam = refreshTeam("rfm_out");
-        runnerTeam.setAllowFriendlyFire(false);
         outTeam.setColor(ChatColor.GRAY);
         OUT = new Team("已淘汰", outTeam);
 
@@ -54,7 +51,10 @@ public class TeamRegistry {
         Optional.ofNullable(
                 Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard().getTeam(name) // impossible to fail
         ).ifPresent(org.bukkit.scoreboard.Team::unregister);
-        return Bukkit.getScoreboardManager().getMainScoreboard().registerNewTeam(name);
+        final org.bukkit.scoreboard.Team newTeam = Bukkit.getScoreboardManager().getMainScoreboard().registerNewTeam(name);
+        newTeam.setAllowFriendlyFire(false);
+        newTeam.setOption(org.bukkit.scoreboard.Team.Option.NAME_TAG_VISIBILITY, org.bukkit.scoreboard.Team.OptionStatus.NEVER);
+        return newTeam;
     }
 
     public static void cleanup() {
