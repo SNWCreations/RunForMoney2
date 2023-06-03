@@ -16,7 +16,7 @@ public class TeamRegistry {
         org.bukkit.scoreboard.Team hunterTeam = refreshTeam("rfm_hunter");
         hunterTeam.setAllowFriendlyFire(false);
         hunterTeam.setColor(ChatColor.RED);
-        HUNTER = new Team("猎人队伍", hunterTeam);
+        HUNTER = new Team("猎人", hunterTeam);
 
         org.bukkit.scoreboard.Team runnerTeam = refreshTeam("rfm_runner");
         runnerTeam.setAllowFriendlyFire(false);
