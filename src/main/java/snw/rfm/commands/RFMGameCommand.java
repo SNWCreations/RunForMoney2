@@ -35,19 +35,19 @@ public class RFMGameCommand implements TabExecutor {
             return false;
         }
         switch (args[0]) {
-            case "start":
+            case "start": // e.g. /rfmgame start 0 [true] ("true" is optional)
                 if (!main.isGamePresent()) {
-                    if (args.length == 1 || !Boolean.parseBoolean(args[1])) { // if we need to check players
+                    if (args.length == 1 || (args.length == 3 && !Boolean.parseBoolean(args[2]))) { // if we need to check players
                         if (TeamRegistry.RUNNER.size() == 0 && TeamRegistry.HUNTER.size() == 0) {
                             sender.sendMessage(pluginMsg(ChatColor.RED + "玩家不足。"));
                             return true;
                         }
                     }
                     Game game = new Game(main);
-                    if (args.length == 3) {
+                    if (args.length >= 2) {
                         int realReleaseTime;
                         try {
-                            realReleaseTime = Integer.parseInt(args[2]);
+                            realReleaseTime = Integer.parseInt(args[1]);
                         } catch (NumberFormatException e) {
                             sender.sendMessage(pluginMsg(ChatColor.RED + "无效参数。期望一个数字。"));
                             return false;
@@ -246,14 +246,14 @@ public class RFMGameCommand implements TabExecutor {
             case 1:
                 return filterTab(args[0], Arrays.asList("start", "stop", "pause", "resume", "control"));
             case 2:
-                switch (args[0]) {
-                    case "start":
-                        return filterTab(args[1], Arrays.asList("true", "false"));
-                    case "control":
-                        return filterTab(args[1], Arrays.asList("money", "reverse", "forceout", "respawn", "endroom"));
+                if (args[0].equals("control")) {
+                    return filterTab(args[1], Arrays.asList("money", "reverse", "forceout", "respawn", "endroom"));
                 }
                 break;
             case 3:
+                if (args[0].equals("start")) {
+                    return filterTab(args[2], Arrays.asList("true", "false"));
+                }
                 if ("control".equals(args[0])) {
                     switch (args[1]) {
                         case "money":

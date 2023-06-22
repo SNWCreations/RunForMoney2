@@ -45,11 +45,11 @@
 
 ## /rfmgame start
 
-完整语法: `/rfmgame start [true|false] [releaseTime: int]`
+完整语法: `/rfmgame start [releaseTime: int] [true|false]`
 
-第一个可选参数为是否强制启动游戏。
+第一个为游戏开始倒计时的时间，若无则使用配置文件提供的值。
 
-第二个为游戏开始倒计时的时间，若无则使用配置文件提供的值。
+第二个参数为是否强制启动游戏。
 
 ## /rfmgame control money
 
