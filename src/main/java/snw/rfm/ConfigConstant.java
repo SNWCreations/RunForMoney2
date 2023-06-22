@@ -23,6 +23,7 @@ public class ConfigConstant {
     public static int FREEZE_TIME;
     public static int FREEZE_RADIUS;
     public static boolean STOP_GAME_ON_NO_PLAYER;
+    public static boolean NO_TIMER;
 
     public static void init(Main main, boolean log) {
         Logger logger = main.getLogger();
@@ -44,6 +45,7 @@ public class ConfigConstant {
         FREEZE_TIME = config.getInt("freeze_time", 15);
         FREEZE_RADIUS = config.getInt("freeze_radius", 10);
         STOP_GAME_ON_NO_PLAYER = config.getBoolean("stop_game_on_no_player", true);
+        NO_TIMER = config.getBoolean("no_timer", false);
 
         // region end room
         String rawERL = config.getString("end_room", "");
@@ -73,6 +75,7 @@ public class ConfigConstant {
             logger.info("冷冻卡有效时长(单位: 秒): " + FREEZE_TIME);
             logger.info("冷冻卡有效半径(单位: 格): " + FREEZE_RADIUS);
             logger.info("当没有逃走队员时，插件是否结束游戏: " + cnBool(STOP_GAME_ON_NO_PLAYER));
+            logger.info("是否禁用计时器: " + cnBool(NO_TIMER));
         }
     }
 

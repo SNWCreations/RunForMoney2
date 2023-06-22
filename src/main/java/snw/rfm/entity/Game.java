@@ -124,8 +124,10 @@ public class Game {
         @EventHandler(priority = EventPriority.LOWEST)
         public void on(HunterReleasedEvent e) {
             if (e.getGame() == Game.this) {
-                Game.this.coinTimer = new CoinTimer(main, Game.this, timeRemaining);
-                Game.this.coinTimer.start();
+                if (!ConfigConstant.NO_TIMER) {
+                    Game.this.coinTimer = new CoinTimer(main, Game.this, timeRemaining);
+                    Game.this.coinTimer.start();
+                }
                 Bukkit.broadcastMessage(ChatColor.RED + "" + ChatColor.BOLD + "游戏开始");
                 HandlerList.unregisterAll(this);
             }

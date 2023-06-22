@@ -1,11 +1,14 @@
 package snw.rfm.commands;
 
+import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import snw.rfm.ConfigConstant;
 import snw.rfm.Main;
 import snw.rfm.tasks.SendingActionBarMessage;
 
@@ -27,6 +30,12 @@ public class RFMTimerCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (isPlayer(sender)) {
+            if (ConfigConstant.NO_TIMER) {
+                ((Player) sender).spigot()
+                        .sendMessage(ChatMessageType.ACTION_BAR,
+                                new TextComponent(ChatColor.RED.asBungee() + "计时器不可用"));
+                return true;
+            }
             if (!sender.isOp()) {
                 final int remainingTimeSec = main.getGame().getController().getRemainingTime();
                 String sec = String.valueOf(remainingTimeSec % 60);

@@ -29,6 +29,8 @@ stop_game_on_no_player: true
 teleport_after_caught: 0
 # 玩家被捕时掉落身上所有物品？默认为禁用 (false)，反之为 true 。
 drop_item_after_caught: false
+# 是否禁用计时器？如果为 true ，用户将需要手动终止游戏。
+no_timer: false
 
 ####### ------------ 物品配置 ------------ #######
 
