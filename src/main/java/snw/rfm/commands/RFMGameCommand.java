@@ -64,8 +64,7 @@ public class RFMGameCommand implements TabExecutor {
                 break;
             case "stop":
                 if (main.isGamePresent()) {
-                    main.getGame().stop();
-                    main.setGame(null);
+                    main.terminateGame();
                     sendSuccess(sender);
                 } else {
                     sender.sendMessage(pluginMsg(ChatColor.RED + "游戏未运行。"));

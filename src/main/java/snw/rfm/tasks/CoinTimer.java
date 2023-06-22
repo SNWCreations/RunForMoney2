@@ -54,7 +54,7 @@ public class CoinTimer extends BukkitRunnable implements Listener {
                     20
             ).start(main);
         } else {
-            game.stop(); // It's time to stop!
+            main.terminateGame();
             cancel();
             HandlerList.unregisterAll(this);
         }

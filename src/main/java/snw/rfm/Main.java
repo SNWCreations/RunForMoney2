@@ -13,7 +13,6 @@ import snw.rfm.listeners.PlayerJoinListener;
 import snw.rfm.util.NickSupport;
 
 import java.util.Objects;
-import java.util.Optional;
 
 public final class Main extends JavaPlugin {
     private Game game;
@@ -36,7 +35,7 @@ public final class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        Optional.ofNullable(game).ifPresent(Game::stop);
+        terminateGame();
         TeamRegistry.cleanup();
         getServer().getScheduler().cancelTasks(this);
         HandlerList.unregisterAll(this);
@@ -52,6 +51,13 @@ public final class Main extends JavaPlugin {
 
     public void setGame(Game game) {
         this.game = game;
+    }
+
+    public void terminateGame() {
+        if (game != null) {
+            game.stop();
+            setGame(null);
+        }
     }
 
     private void initData() {
