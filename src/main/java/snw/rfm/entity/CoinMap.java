@@ -81,7 +81,7 @@ public class CoinMap {
     }
 
     public double get(OfflinePlayer player) {
-        return map.get(player.getUniqueId());
+        return map.computeIfAbsent(player.getUniqueId(), i -> 0D);
     }
 
     public void set(OfflinePlayer player, double amount) {
