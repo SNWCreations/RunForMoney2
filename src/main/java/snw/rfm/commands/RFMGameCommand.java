@@ -150,6 +150,10 @@ public class RFMGameCommand implements TabExecutor {
                                         }
                                         break;
                                     case "get":
+                                        if (ConfigConstant.NO_TIMER) {
+                                            sender.sendMessage(pluginMsg(ChatColor.RED + "计时器不可用，无法计算硬币数。"));
+                                            return true;
+                                        }
                                         if (args.length == 4) {
                                             Player player = Bukkit.getPlayer(args[3]);
                                             if (player == null) {
