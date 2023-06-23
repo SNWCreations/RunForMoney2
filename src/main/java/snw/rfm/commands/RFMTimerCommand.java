@@ -30,13 +30,14 @@ public class RFMTimerCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (isPlayer(sender)) {
-            if (!main.isGamePresent()) {
-                sender.sendMessage(pluginMsg(ChatColor.RED + "游戏未运行。"));
-            }
             if (ConfigConstant.NO_TIMER) {
                 ((Player) sender).spigot()
                         .sendMessage(ChatMessageType.ACTION_BAR,
                                 new TextComponent(ChatColor.RED.asBungee() + "计时器不可用"));
+                return true;
+            }
+            if (!main.isGamePresent()) {
+                sender.sendMessage(pluginMsg(ChatColor.RED + "游戏未运行。"));
                 return true;
             }
             if (!sender.isOp()) {
