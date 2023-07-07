@@ -54,19 +54,19 @@ public class Team {
     }
 
     public boolean contains(Player player) {
-        return team.hasEntry(player.getName());
+        return playerUuids.contains(player.getUniqueId());
     }
 
     public boolean contains(IngamePlayer player) {
-        return team.hasEntry(player.getBukkitPlayer().getName());
+        return playerUuids.contains(player.getBukkitPlayer().getUniqueId());
     }
 
     public boolean remove(IngamePlayer player) {
         if (player.getTeam() == this) {
             player.setTeam(null);
         }
-        playerUuids.remove(player.getBukkitPlayer().getUniqueId());
-        return team.removeEntry(player.getBukkitPlayer().getName());
+        team.removeEntry(player.getBukkitPlayer().getName());
+        return playerUuids.remove(player.getBukkitPlayer().getUniqueId());
     }
 
     public int size() {
