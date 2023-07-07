@@ -59,7 +59,9 @@
 
 ## /rfmgame control forceout & /rfmgame control respawn
 
-允许指定一些玩家以批量操作。
+前者是强制淘汰指定玩家，后者是复活玩家(都有全服通报)
+
+后接玩家名称即可，可以批量操作。
 
 ## /rfmteam join
 
