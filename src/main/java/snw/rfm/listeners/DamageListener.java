@@ -9,7 +9,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.scheduler.BukkitRunnable;
 import snw.rfm.ConfigConstant;
 import snw.rfm.ExitReason;
 import snw.rfm.Main;
@@ -60,16 +59,15 @@ public class DamageListener implements Listener {
                     }
 
                     if (ConfigConstant.END_ROOM_LOCATION != null) {
+                        long ticks;
                         if (ConfigConstant.TELEPORT_AFTER_CAUGHT <= 0) {
-                            attacked.getBukkitPlayer().teleport(ConfigConstant.END_ROOM_LOCATION);
+                            ticks = 1;
                         } else {
-                            new BukkitRunnable() {
-                                @Override
-                                public void run() {
-                                    attacked.getBukkitPlayer().teleport(ConfigConstant.END_ROOM_LOCATION);
-                                }
-                            }.runTaskLater(main, 20L * ConfigConstant.TELEPORT_AFTER_CAUGHT);
+                            ticks = ConfigConstant.TELEPORT_AFTER_CAUGHT * 20L;
                         }
+                        main.getServer().getScheduler().runTaskLater(main,
+                                () -> attacked.getBukkitPlayer().teleport(ConfigConstant.END_ROOM_LOCATION),
+                                ticks);
                     }
                     game.getCoinMap().calc(attacked);
                     broadcast(attacked, ExitReason.BE_CAUGHT);
