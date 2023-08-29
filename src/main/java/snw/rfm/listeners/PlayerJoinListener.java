@@ -21,7 +21,7 @@ public class PlayerJoinListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
-        if (player.getGameMode() == GameMode.SURVIVAL) {
+        if (player.getGameMode() == GameMode.SURVIVAL && !player.isOp()) {
             player.setGameMode(GameMode.ADVENTURE); // No Survival Mode in game!
         }
         player.sendMessage(pluginMsg(ChatColor.GREEN + "欢迎！"));
