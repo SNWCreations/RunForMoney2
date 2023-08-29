@@ -28,7 +28,7 @@ import java.util.Objects;
 
 public class FreezeCard implements Listener, RightClickCallback {
     private static final ItemStack ITEM;
-    static BlockData ICE;
+    private final BlockData iceData;
     private final Main main;
 
     static {
@@ -50,7 +50,7 @@ public class FreezeCard implements Listener, RightClickCallback {
 
     public FreezeCard(Main main) {
         this.main = main;
-        ICE = main.getServer().createBlockData(Material.ICE);
+        this.iceData = main.getServer().createBlockData(Material.ICE);
         ItemRegistry.add("freeze_card", ITEM, this);
     }
 
@@ -63,7 +63,7 @@ public class FreezeCard implements Listener, RightClickCallback {
                 .filter(IT -> IT.getType() == EntityType.PLAYER)
                 .filter(IT -> IT != player)
                 .filter(IT -> TeamRegistry.HUNTER.contains(IngamePlayer.getWrappedPlayer(((Player) IT))))
-                .forEach(i -> new PlayerSlow(((Player) i)).start(main));
+                .forEach(i -> new PlayerSlow(((Player) i), iceData).start(main));
         return true;
     }
 
@@ -71,10 +71,12 @@ public class FreezeCard implements Listener, RightClickCallback {
 
 class PlayerSlow extends BukkitRunnable implements Listener {
     private final Player player;
+    private final BlockData blockData;
     private int ticks;
 
-    public PlayerSlow(Player player) {
+    public PlayerSlow(Player player, BlockData blockData) {
         this.player = player;
+        this.blockData = blockData;
         this.ticks = ConfigConstant.FREEZE_TIME * 20;
     }
 
@@ -96,7 +98,7 @@ class PlayerSlow extends BukkitRunnable implements Listener {
     public void run() {
         if (ticks-- > 0) {
             Objects.requireNonNull(player.getLocation().getWorld())
-                    .spawnParticle(Particle.BLOCK_DUST, player.getLocation(), 5, FreezeCard.ICE);
+                    .spawnParticle(Particle.BLOCK_DUST, player.getLocation(), 5, blockData);
         } else {
             cleanup();
         }
