@@ -1,18 +1,17 @@
 package snw.rfm.tasks;
 
 import net.md_5.bungee.api.chat.TextComponent;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import snw.rfm.ConfigConstant;
 import snw.rfm.Main;
+import snw.rfm.api.events.HunterReleasedEvent;
 import snw.rfm.entity.Game;
 import snw.rfm.entity.TeamRegistry;
-import snw.rfm.api.events.HunterReleasedEvent;
 
 import java.util.Collection;
+
 import static snw.rfm.util.Util.fireEvent;
 
 public final class HunterReleaseTimer extends BukkitRunnable {
@@ -71,7 +70,7 @@ public final class HunterReleaseTimer extends BukkitRunnable {
         for (Player player : players) {
             player.sendTitle(
                     ChatColor.DARK_RED + "" + ChatColor.BOLD + "全员逃走中",
-                    String.format("%s猎人将在 %s 秒之后放出", ChatColor.RED, ConfigConstant.HUNTER_RELEASE_TIME),
+                    String.format("%s猎人将在 %s 秒之后放出", ChatColor.RED, secs),
                     10, 70, 20
             );
         }
