@@ -87,8 +87,7 @@ public class Game {
         }
         listeners.forEach(HandlerList::unregisterAll);
         listeners.clear();
-        TeamRegistry.HUNTER.clear();
-        TeamRegistry.RUNNER.clear();
+        TeamRegistry.getAllTeams().values().forEach(Team::clear);
         IngamePlayer.getAllKnownWrappers().clear();
     }
 
