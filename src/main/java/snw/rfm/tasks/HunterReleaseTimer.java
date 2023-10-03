@@ -32,7 +32,7 @@ public final class HunterReleaseTimer extends BukkitRunnable {
             cancel();
             return;
         }
-        if (secs-- > 0) {
+        if (--secs > 0) {
             onNewSecond();
         } else {
             onZero();
