@@ -38,12 +38,12 @@ public class DamageListener implements Listener {
             IngamePlayer attacked = IngamePlayer.getWrappedPlayer(((Player) event.getEntity()));
             if (TeamRegistry.HUNTER.contains(attacker)) {
                 if (TeamRegistry.RUNNER.contains(attacked)) {
-                    event.setDamage(0);
                     HunterCatchPlayerEvent hcp = new HunterCatchPlayerEvent(attacker, attacked);
                     fireEvent(hcp);
                     if (hcp.isCancelled()) {
                         return;
                     }
+                    event.setDamage(0);
                     TeamRegistry.OUT.add(attacked, false);
 
                     if (ConfigConstant.DROP_ITEM_AFTER_CAUGHT) {
