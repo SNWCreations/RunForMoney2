@@ -21,8 +21,9 @@ import snw.rfm.listeners.PickupListener;
 import snw.rfm.tasks.CoinTimer;
 import snw.rfm.tasks.HunterReleaseTimer;
 import snw.rfm.tasks.SlowItemTask;
-import snw.rfm.util.ListenerList;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -34,7 +35,7 @@ public class Game {
     protected final Main main;
     protected final CoinMap coinMap;
     protected final AtomicInteger timeRemaining;
-    protected final ListenerList listeners;
+    protected final List<Listener> listeners;
     protected final AtomicBoolean pauseStatus;
     protected final GameController controller;
     protected CoinTimer coinTimer;
@@ -43,7 +44,7 @@ public class Game {
         this.main = main;
         coinMap = new CoinMap();
         timeRemaining = new AtomicInteger();
-        listeners = new ListenerList(main);
+        listeners = new LinkedList<>();
         pauseStatus = new AtomicBoolean(false);
         controller = new GameControllerImpl(main, this);
     }
@@ -84,6 +85,7 @@ public class Game {
         if (coinTimer != null) { // if you terminated the game before it starts?
             coinTimer.cancel();
         }
+        listeners.forEach(HandlerList::unregisterAll);
         listeners.clear();
         TeamRegistry.HUNTER.clear();
         TeamRegistry.RUNNER.clear();
@@ -113,6 +115,7 @@ public class Game {
     }
 
     public void registerListener(Listener listener) {
+        main.getServer().getPluginManager().registerEvents(listener, main);
         listeners.add(listener);
     }
 
